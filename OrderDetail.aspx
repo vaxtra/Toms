@@ -86,16 +86,6 @@
             </table>
         </div>
         <div class="row">
-            <div class="col-md-6">
-                <a class="btn btn-block btn-gray btn-upgrade" href="#">UPGRADE</a>
-            </div>
-            <div class="col-md-6">
-                <a class="btn btn-block btn-gray btn-renew" href="#">RENEW</a>
-                
-            </div>
-        </div>
-        <br /><br /><br /><br />
-        <div class="row">
             <div class="col-md-4">
             </div>
             <div class="col-md-4">

@@ -65,7 +65,6 @@
         routes.MapPageRoute("About", "About", "~/About.aspx", true);
         routes.MapPageRoute("Our Store List", "Store", "~/OurStore.aspx", true);
         routes.MapPageRoute("Career", "Career", "~/Career.aspx", true);
-        routes.MapPageRoute("Package", "Package", "~/Package.aspx", true);
     }
 
 </script>

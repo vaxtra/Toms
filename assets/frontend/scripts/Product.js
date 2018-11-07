@@ -299,56 +299,12 @@ function LoadProduct(data) {
             }
         });
         for (var i = 0; i < data.length; i++) {
-            if (data[i].Quantity != 0) {
-                item += '<div class="col-md-3 col-sm-6 col-xs-6">';
-                item += '<div class="single_feature text-center">';
-                item += '<div class="feature-img">';
-                item += '<a href="/ProductDetail/' + data[i].Name.toLowerCase().split('"').join("").split(" ").join("-").split(".").join("") + '">';
-                item += '<img src="/assets/images/product/' + data[i].Photo + '" alt="' + data[i].Name + '" />';
-                item += '</a>';
-                item += '<span class="img-hover">';
-                item += '<a href="/ProductDetail/' + data[i].Name.toLowerCase().split('"').join("").split(" ").join("-").split(".").join("") + '">';
-                item += '<img src="/assets/images/product/' + data[i].Photo + '" alt="' + data[i].Name + '" />';
-                item += '</a>';
-                item += '</span>';
-                item += '</div>';
-                item += '<div class="feature_text">';
-                item += '<a href="/ProductDetail/' + data[i].Name.toLowerCase().split('"').join("").split(" ").join("-").split(".").join("") + '"><h4>' + data[i].Name + '</h4></a>';
-                if (data[i].PriceBeforeDiscount > data[i].Price) {
-                    item += '<span class="format-money">' + data[i].Price + '</span>&nbsp;&nbsp;<del class="format-money" style="color:#ff0000;">' + data[i].PriceBeforeDiscount + '</del>';
-                }
-                else {
-                    item += '<span class="format-money">' + data[i].Price + '</span>';
-                }
-                item += '</div>';
-                item += '</div>';
-                item += '</div>';
-            }
-            else {
-                item += '<div class="col-md-3 col-sm-6 col-xs-6">';
-                item += '<div class="single_feature text-center">';
-                item += '<div class="feature-img">';
-                item += '<a href="/ProductDetail/' + data[i].Name.toLowerCase().split('"').join("").split(" ").join("-").split(".").join("") + '">';
-                item += '<img src="/assets/images/product/' + data[i].Photo + '" alt="' + data[i].Name + '" />';
-                item += '</a>';
-                item += '<span class="img-hover">';
-                item += '<a href="/ProductDetail/' + data[i].Name.toLowerCase().split('"').join("").split(" ").join("-").split(".").join("") + '">';
-                item += '<img src="/assets/images/product/' + data[i].Photo + '" alt="' + data[i].Name + '" />';
-                item += '</a>';
-                item += '</span>';
-                item += '</div>';
-                item += '<div class="feature_text">';
-                item += '<a href="/ProductDetail/' + data[i].Name.toLowerCase().split('"').join("").split(" ").join("-").split(".").join("") + '"><h4>' + data[i].Name + '</h4></a>';
-                if (data[i].PriceBeforeDiscount > data[i].Price) {
-                    item += '<span class="format-money">' + data[i].Price + '</span>&nbsp;&nbsp;<del class="format-money" style="color:#ff0000;">' + data[i].PriceBeforeDiscount + '</del>/<span style="color:#ff0000;">SOLD OUT</span>';
-                }
-                else {
-                    item += '<span class="format-money">' + data[i].Price + '</span>/<span style="color:#ff0000;">SOLD OUT</span>';
-                }
-                item += '</div>';
-                item += '</div>';
-                item += '</div>';
-            }
+            item += '<div class="pricing--item">';
+            item += '<h3 class="pricing--title">' + data[i].Name + '</h3>';
+            item += '<div class="pricing--price format-money">' + data[i].Price + '</div>';
+            item += '<div class="description">' + data[i].Description + '</div>';
+            item += '<button class="pricing--action" data-idproduct="' + data[i].IDProduct + '" data-idcombination="' + data[i].IDCombination + '" data-qty="1" data-combinationname="' + data[i].CombinationName + '" data-price="' + data[i].CombinationPrice + '">Choose plan</button>';
+            item += '</div>';
 
         }
     }
@@ -356,6 +312,10 @@ function LoadProduct(data) {
         item += '<h5 style="text-align:center;">No Product in this Category</h5>';
     }
     $("#ProductList").html(item);
+
+    $(".pricing--action").click(function () {
+        AddToCart(+$(this).data("idproduct"), +$(this).data("idcombination"), +$(this).data("qty"), $(this).data("price"), $(this).data("combinationname"));
+    });
 
     console.log(format);
     $(".format-money").formatCurrency({
@@ -569,4 +529,27 @@ function LoadProductByFilterSize(idValue, take, currentPage, minprice, maxprice)
             }
         });
     }
+}
+function AddToCart(idProduct, idCombination, qty, price, combinationName) {
+    REST.onSuccess = function (result) {
+        if (result.d.success) {
+            toastr.success(result.d.message);
+            window.location = "/Address";
+        }
+        else
+            bootbox.alert(result.d.message);
+    };
+    REST.sendRequest({
+        'c': 'feorder',
+        'm': 'addcart',
+        'data': {
+            'IDProduct': idProduct,
+            'IDCombination': idCombination,
+            'Quantity': qty,
+            'Price': price,
+            'CombinationName': combinationName,
+            'ProductName': $(".ProductName").text(),
+            'OrderType': 'new'
+        }
+    });
 }

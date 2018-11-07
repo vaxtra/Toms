@@ -90,6 +90,6 @@
     <hr class="margin-hr" style="margin: 0 auto; padding-bottom: 32px;" />
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolderJS" runat="Server">
-    <script src="assets/frontend/scripts/authentication.js"></script>
+    <script src="/assets/frontend/scripts/authentication.js"></script>
 </asp:Content>
 

@@ -106,7 +106,7 @@ public class FinnetHanlder : IHttpHandler
                                 //if (!resultSaveOrder.success)
                                 //    result.Error(resultSaveOrder.message, resultSaveOrder.data);
 
-                                TBOrder detailOrder = order.GetDetail_ByIDOrder(1);
+                                TBOrder detailOrder = order.GetDetail_ByIDOrder(8);
 
                                 var httpWebRequest = (HttpWebRequest)WebRequest.Create(@"https://sandbox.finpay.co.id/servicescode/api/apiFinpay.php");
                                 httpWebRequest.ContentType = "application/json";

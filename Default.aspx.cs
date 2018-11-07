@@ -21,25 +21,25 @@ public partial class _Default : System.Web.UI.Page
 
     protected void LoadData()
     {
-        var slide = Post.FE_SinglePost_MultiplePhoto_SingleCategory(1012, 1005);
+        //var slide = Post.FE_SinglePost_MultiplePhoto_SingleCategory(1012, 1005);
 
-        lvSlideshow.DataSource = slide.OrderByDescending(x => x.IDPostMedia);
-        lvSlideshow.DataBind();
+        //lvSlideshow.DataSource = slide.OrderByDescending(x => x.IDPostMedia);
+        //lvSlideshow.DataBind();
 
-        var homeblock = Post.FE_SinglePostOnly_SingleCategory(1013, 1005);
+        //var homeblock = Post.FE_SinglePostOnly_SingleCategory(1013, 1005);
 
-        lblTitleHomeBlock.Text = homeblock.Post_Title;
-        lblShortDescHomeBlock.Text = homeblock.Post_ShortContent;
-        lblDescHomeBlock.Text = homeblock.Post_Content;
-        imgHomeBlock.ImageUrl = "/assets/images/post/" + homeblock.TBPostMedias.FirstOrDefault().MediaUrl;
+        //lblTitleHomeBlock.Text = homeblock.Post_Title;
+        //lblShortDescHomeBlock.Text = homeblock.Post_ShortContent;
+        //lblDescHomeBlock.Text = homeblock.Post_Content;
+        //imgHomeBlock.ImageUrl = "/assets/images/post/" + homeblock.TBPostMedias.FirstOrDefault().MediaUrl;
 
-        var videoblock = Post.FE_MultiplePost_SinglePhoto_SingleCategory(1014, 1005);
+        //var videoblock = Post.FE_MultiplePost_SinglePhoto_SingleCategory(1014, 1005);
 
-        lvVideoBlock.DataSource = videoblock;
-        lvVideoBlock.DataBind();
+        //lvVideoBlock.DataSource = videoblock;
+        //lvVideoBlock.DataBind();
 
-        lvCategoryVideo.DataSource = videoblock;
-        lvCategoryVideo.DataBind();
+        //lvCategoryVideo.DataSource = videoblock;
+        //lvCategoryVideo.DataBind();
     }
 
     //protected void LoadBLog()
@@ -51,12 +51,12 @@ public partial class _Default : System.Web.UI.Page
     //}
     protected void LoadLookbook()
     {
-        DataClassesDataContext db = new DataClassesDataContext();
-        var lookbook = db.TBPageCategory_Posts.Where(x => !x.TBPost.Deflag && x.TBPost.IDPage == 1007).OrderByDescending(x => x.TBPost.IDPost).FirstOrDefault();
+        //DataClassesDataContext db = new DataClassesDataContext();
+        //var lookbook = db.TBPageCategory_Posts.Where(x => !x.TBPost.Deflag && x.TBPost.IDPage == 1007).OrderByDescending(x => x.TBPost.IDPost).FirstOrDefault();
 
-        lblLookbook.Text = lookbook.TBPost.Post_Title;
-        imgLookbook.ImageUrl = "/assets/images/post/" + lookbook.TBPost.TBPostMedias.FirstOrDefault().MediaUrl;
-        linkLookbook.Attributes.Add("href", "/LookbookDetail/" + lookbook.TBPost.Post_Title.ToString().Trim().Replace(" ", "-").Replace("\"", "").Replace(".", "").ToLower());
-        linkLookbook2.Attributes.Add("href", "/LookbookDetail/" + lookbook.TBPost.Post_Title.ToString().Trim().Replace(" ", "-").Replace("\"", "").Replace(".", "").ToLower());
+        //lblLookbook.Text = lookbook.TBPost.Post_Title;
+        //imgLookbook.ImageUrl = "/assets/images/post/" + lookbook.TBPost.TBPostMedias.FirstOrDefault().MediaUrl;
+        //linkLookbook.Attributes.Add("href", "/LookbookDetail/" + lookbook.TBPost.Post_Title.ToString().Trim().Replace(" ", "-").Replace("\"", "").Replace(".", "").ToLower());
+        //linkLookbook2.Attributes.Add("href", "/LookbookDetail/" + lookbook.TBPost.Post_Title.ToString().Trim().Replace(" ", "-").Replace("\"", "").Replace(".", "").ToLower());
     }
 }

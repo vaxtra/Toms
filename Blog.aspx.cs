@@ -19,13 +19,13 @@ public partial class Blog : System.Web.UI.Page
 
     protected void LoadData()
     {
-        var blog = Post.FE_MultiplePost_SinglePhoto_MultipleCategory(1006);
+        //var blog = Post.FE_MultiplePost_SinglePhoto_MultipleCategory(1006);
 
-        lvLatestBlog.DataSource = blog.Take(1);
-        lvLatestBlog.DataBind();
+        //lvLatestBlog.DataSource = blog.Take(1);
+        //lvLatestBlog.DataBind();
 
-        lvBlog.DataSource = blog.Skip(1);
-        lvBlog.DataBind();
+        //lvBlog.DataSource = blog.Skip(1);
+        //lvBlog.DataBind();
 
     }
 }

@@ -139,6 +139,14 @@
                                             </tr>
 
                                             <tr>
+                                                <td colspan="4" class="pertotalan little-table">Ongkos Kirim :</td>
+                                                <td class="little-table align-right">
+                                                    <span class="format-money ShippingPrice">0</span>
+                                                </td>
+
+                                            </tr>
+
+                                            <tr>
                                                 <td colspan="4" class="pertotalan little-table">Total (tax Incl.) :</td>
                                                 <td class="little-table align-right">
                                                     <span class="Subtotal format-money">0</span>
@@ -155,7 +163,9 @@
                             <div class="col-md-4">
                             </div>
                             <div class="col-md-4 mt-30">
+                                <a class="btn btn-block btn-black btn-renew hidden" href="#">RENEW</a>
                                 <a class="btn btn-block btn-black placeorderdet" href="#">CONFIRM ORDER</a>
+                                <a class="btn btn-block btn-black btn-upgrade hidden" href="#">UPGRADE</a>
                             </div>
                             <div class="col-md-4">
                             </div>

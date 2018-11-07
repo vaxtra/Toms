@@ -18,20 +18,20 @@ public partial class About : System.Web.UI.Page
 
     protected void LoadData()
     {
-        var About = db.TBPageCategory_Posts.Where(x => x.TBPost.TBPage.IDPage == 5 && !x.TBPost.Deflag && x.IDPageCategory == 9).Select(x => new
-        {
-            IDPost = x.IDPost,
-            Photo = x.TBPost.TBPostMedias.FirstOrDefault().MediaUrl,
-            Title = x.TBPost.Post_Title,
-            PageTitle = x.TBPost.TBPage.Page_Title,
-            Description = x.TBPost.Post_Content,
-            ShortDescription = x.TBPost.Post_ShortContent,
-            Category = x.TBPageCategory.Name,
-            Date = x.TBPost.DateInsert,
-        }).OrderByDescending(x => x.IDPost).FirstOrDefault();
+        //var About = db.TBPageCategory_Posts.Where(x => x.TBPost.TBPage.IDPage == 5 && !x.TBPost.Deflag && x.IDPageCategory == 9).Select(x => new
+        //{
+        //    IDPost = x.IDPost,
+        //    Photo = x.TBPost.TBPostMedias.FirstOrDefault().MediaUrl,
+        //    Title = x.TBPost.Post_Title,
+        //    PageTitle = x.TBPost.TBPage.Page_Title,
+        //    Description = x.TBPost.Post_Content,
+        //    ShortDescription = x.TBPost.Post_ShortContent,
+        //    Category = x.TBPageCategory.Name,
+        //    Date = x.TBPost.DateInsert,
+        //}).OrderByDescending(x => x.IDPost).FirstOrDefault();
 
-        imgAbout.ImageUrl = "assets/images/post/"+ About.Photo;
-        lblTitle.Text = About.Title;
-        lblContent.Text = About.Description;
+        //imgAbout.ImageUrl = "assets/images/post/"+ About.Photo;
+        //lblTitle.Text = About.Title;
+        //lblContent.Text = About.Description;
     }
 }

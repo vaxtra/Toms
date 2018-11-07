@@ -836,18 +836,6 @@ public partial class DataClassesDataContext : System.Data.Linq.DataContext
 		return this.CreateMethodCallQuery<FUNC_Product_Combination_Photo_GetData_ByIDProduct_CombinationResult>(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), iDProduct_Combination);
 	}
 	
-	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.FUNC_Product_GetAll", IsComposable=true)]
-	public IQueryable<FUNC_Product_GetAllResult> FUNC_Product_GetAll()
-	{
-		return this.CreateMethodCallQuery<FUNC_Product_GetAllResult>(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
-	}
-	
-	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.FUNC_Product_GetAll_ByIDCategory", IsComposable=true)]
-	public IQueryable<FUNC_Product_GetAll_ByIDCategoryResult> FUNC_Product_GetAll_ByIDCategory([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDCategory", DbType="Int")] System.Nullable<int> iDCategory)
-	{
-		return this.CreateMethodCallQuery<FUNC_Product_GetAll_ByIDCategoryResult>(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), iDCategory);
-	}
-	
 	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.FUNC_Product_GetAll_ByIDCategory_And_PriceRange", IsComposable=true)]
 	public IQueryable<FUNC_Product_GetAll_ByIDCategory_And_PriceRangeResult> FUNC_Product_GetAll_ByIDCategory_And_PriceRange([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDCategory", DbType="Int")] System.Nullable<int> iDCategory, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="MinPrice", DbType="Decimal(18,0)")] System.Nullable<decimal> minPrice, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="MaxPrice", DbType="Decimal(18,0)")] System.Nullable<decimal> maxPrice)
 	{
@@ -948,6 +936,18 @@ public partial class DataClassesDataContext : System.Data.Linq.DataContext
 	public IQueryable<FUNC_Value_GetData_ByIDAttributeResult> FUNC_Value_GetData_ByIDAttribute([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDAttribute", DbType="Int")] System.Nullable<int> iDAttribute)
 	{
 		return this.CreateMethodCallQuery<FUNC_Value_GetData_ByIDAttributeResult>(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), iDAttribute);
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.FUNC_Product_GetAll", IsComposable=true)]
+	public IQueryable<FUNC_Product_GetAllResult> FUNC_Product_GetAll()
+	{
+		return this.CreateMethodCallQuery<FUNC_Product_GetAllResult>(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.FUNC_Product_GetAll_ByIDCategory", IsComposable=true)]
+	public IQueryable<FUNC_Product_GetAll_ByIDCategoryResult> FUNC_Product_GetAll_ByIDCategory([global::System.Data.Linq.Mapping.ParameterAttribute(Name="IDCategory", DbType="Int")] System.Nullable<int> iDCategory)
+	{
+		return this.CreateMethodCallQuery<FUNC_Product_GetAll_ByIDCategoryResult>(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), iDCategory);
 	}
 }
 
@@ -21662,850 +21662,6 @@ public partial class FUNC_Product_Combination_Photo_GetData_ByIDProduct_Combinat
 	}
 }
 
-public partial class FUNC_Product_GetAllResult
-{
-	
-	private int _IDProduct;
-	
-	private string _Name;
-	
-	private string _ReferenceCode;
-	
-	private decimal _PriceBeforeDiscount;
-	
-	private decimal _Price;
-	
-	private System.Nullable<int> _Quantity;
-	
-	private bool _Active;
-	
-	private int _IDManufacturer;
-	
-	private int _SequenceNumber;
-	
-	private decimal _TotalDiscount;
-	
-	private bool _TypeDiscountPercent;
-	
-	private decimal _Discount;
-	
-	private decimal _Weight;
-	
-	private string _ShortDescription;
-	
-	private string _Description;
-	
-	private string _Note;
-	
-	private string _Meta;
-	
-	private string _MetaDescription;
-	
-	private string _MetaKeyword;
-	
-	private string _Photo;
-	
-	private string _Category;
-	
-	private string _Manufacturer;
-	
-	public FUNC_Product_GetAllResult()
-	{
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDProduct", DbType="Int NOT NULL")]
-	public int IDProduct
-	{
-		get
-		{
-			return this._IDProduct;
-		}
-		set
-		{
-			if ((this._IDProduct != value))
-			{
-				this._IDProduct = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-	public string Name
-	{
-		get
-		{
-			return this._Name;
-		}
-		set
-		{
-			if ((this._Name != value))
-			{
-				this._Name = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReferenceCode", DbType="NVarChar(20)")]
-	public string ReferenceCode
-	{
-		get
-		{
-			return this._ReferenceCode;
-		}
-		set
-		{
-			if ((this._ReferenceCode != value))
-			{
-				this._ReferenceCode = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PriceBeforeDiscount", DbType="Money NOT NULL")]
-	public decimal PriceBeforeDiscount
-	{
-		get
-		{
-			return this._PriceBeforeDiscount;
-		}
-		set
-		{
-			if ((this._PriceBeforeDiscount != value))
-			{
-				this._PriceBeforeDiscount = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Money NOT NULL")]
-	public decimal Price
-	{
-		get
-		{
-			return this._Price;
-		}
-		set
-		{
-			if ((this._Price != value))
-			{
-				this._Price = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Quantity", DbType="Int")]
-	public System.Nullable<int> Quantity
-	{
-		get
-		{
-			return this._Quantity;
-		}
-		set
-		{
-			if ((this._Quantity != value))
-			{
-				this._Quantity = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Active", DbType="Bit NOT NULL")]
-	public bool Active
-	{
-		get
-		{
-			return this._Active;
-		}
-		set
-		{
-			if ((this._Active != value))
-			{
-				this._Active = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDManufacturer", DbType="Int NOT NULL")]
-	public int IDManufacturer
-	{
-		get
-		{
-			return this._IDManufacturer;
-		}
-		set
-		{
-			if ((this._IDManufacturer != value))
-			{
-				this._IDManufacturer = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SequenceNumber", DbType="Int NOT NULL")]
-	public int SequenceNumber
-	{
-		get
-		{
-			return this._SequenceNumber;
-		}
-		set
-		{
-			if ((this._SequenceNumber != value))
-			{
-				this._SequenceNumber = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalDiscount", DbType="Money NOT NULL")]
-	public decimal TotalDiscount
-	{
-		get
-		{
-			return this._TotalDiscount;
-		}
-		set
-		{
-			if ((this._TotalDiscount != value))
-			{
-				this._TotalDiscount = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TypeDiscountPercent", DbType="Bit NOT NULL")]
-	public bool TypeDiscountPercent
-	{
-		get
-		{
-			return this._TypeDiscountPercent;
-		}
-		set
-		{
-			if ((this._TypeDiscountPercent != value))
-			{
-				this._TypeDiscountPercent = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Discount", DbType="Money NOT NULL")]
-	public decimal Discount
-	{
-		get
-		{
-			return this._Discount;
-		}
-		set
-		{
-			if ((this._Discount != value))
-			{
-				this._Discount = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Weight", DbType="Decimal(18,2) NOT NULL")]
-	public decimal Weight
-	{
-		get
-		{
-			return this._Weight;
-		}
-		set
-		{
-			if ((this._Weight != value))
-			{
-				this._Weight = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShortDescription", DbType="NText", UpdateCheck=UpdateCheck.Never)]
-	public string ShortDescription
-	{
-		get
-		{
-			return this._ShortDescription;
-		}
-		set
-		{
-			if ((this._ShortDescription != value))
-			{
-				this._ShortDescription = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NText", UpdateCheck=UpdateCheck.Never)]
-	public string Description
-	{
-		get
-		{
-			return this._Description;
-		}
-		set
-		{
-			if ((this._Description != value))
-			{
-				this._Description = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Note", DbType="NText", UpdateCheck=UpdateCheck.Never)]
-	public string Note
-	{
-		get
-		{
-			return this._Note;
-		}
-		set
-		{
-			if ((this._Note != value))
-			{
-				this._Note = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Meta", DbType="NText", UpdateCheck=UpdateCheck.Never)]
-	public string Meta
-	{
-		get
-		{
-			return this._Meta;
-		}
-		set
-		{
-			if ((this._Meta != value))
-			{
-				this._Meta = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MetaDescription", DbType="NText", UpdateCheck=UpdateCheck.Never)]
-	public string MetaDescription
-	{
-		get
-		{
-			return this._MetaDescription;
-		}
-		set
-		{
-			if ((this._MetaDescription != value))
-			{
-				this._MetaDescription = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MetaKeyword", DbType="NText", UpdateCheck=UpdateCheck.Never)]
-	public string MetaKeyword
-	{
-		get
-		{
-			return this._MetaKeyword;
-		}
-		set
-		{
-			if ((this._MetaKeyword != value))
-			{
-				this._MetaKeyword = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Photo", DbType="NVarChar(70)")]
-	public string Photo
-	{
-		get
-		{
-			return this._Photo;
-		}
-		set
-		{
-			if ((this._Photo != value))
-			{
-				this._Photo = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Category", DbType="NVarChar(50)")]
-	public string Category
-	{
-		get
-		{
-			return this._Category;
-		}
-		set
-		{
-			if ((this._Category != value))
-			{
-				this._Category = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Manufacturer", DbType="NVarChar(25) NOT NULL", CanBeNull=false)]
-	public string Manufacturer
-	{
-		get
-		{
-			return this._Manufacturer;
-		}
-		set
-		{
-			if ((this._Manufacturer != value))
-			{
-				this._Manufacturer = value;
-			}
-		}
-	}
-}
-
-public partial class FUNC_Product_GetAll_ByIDCategoryResult
-{
-	
-	private int _IDProduct;
-	
-	private string _Name;
-	
-	private string _ReferenceCode;
-	
-	private decimal _PriceBeforeDiscount;
-	
-	private decimal _Price;
-	
-	private System.Nullable<int> _Quantity;
-	
-	private bool _Active;
-	
-	private int _IDManufacturer;
-	
-	private int _SequenceNumber;
-	
-	private decimal _TotalDiscount;
-	
-	private bool _TypeDiscountPercent;
-	
-	private decimal _Discount;
-	
-	private decimal _Weight;
-	
-	private string _ShortDescription;
-	
-	private string _Description;
-	
-	private string _Note;
-	
-	private string _Meta;
-	
-	private string _MetaDescription;
-	
-	private string _MetaKeyword;
-	
-	private int _IDCategory;
-	
-	private bool _IsDefault;
-	
-	private string _Photo;
-	
-	private string _Category;
-	
-	private string _Manufacturer;
-	
-	public FUNC_Product_GetAll_ByIDCategoryResult()
-	{
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDProduct", DbType="Int NOT NULL")]
-	public int IDProduct
-	{
-		get
-		{
-			return this._IDProduct;
-		}
-		set
-		{
-			if ((this._IDProduct != value))
-			{
-				this._IDProduct = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-	public string Name
-	{
-		get
-		{
-			return this._Name;
-		}
-		set
-		{
-			if ((this._Name != value))
-			{
-				this._Name = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReferenceCode", DbType="NVarChar(20)")]
-	public string ReferenceCode
-	{
-		get
-		{
-			return this._ReferenceCode;
-		}
-		set
-		{
-			if ((this._ReferenceCode != value))
-			{
-				this._ReferenceCode = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PriceBeforeDiscount", DbType="Money NOT NULL")]
-	public decimal PriceBeforeDiscount
-	{
-		get
-		{
-			return this._PriceBeforeDiscount;
-		}
-		set
-		{
-			if ((this._PriceBeforeDiscount != value))
-			{
-				this._PriceBeforeDiscount = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Money NOT NULL")]
-	public decimal Price
-	{
-		get
-		{
-			return this._Price;
-		}
-		set
-		{
-			if ((this._Price != value))
-			{
-				this._Price = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Quantity", DbType="Int")]
-	public System.Nullable<int> Quantity
-	{
-		get
-		{
-			return this._Quantity;
-		}
-		set
-		{
-			if ((this._Quantity != value))
-			{
-				this._Quantity = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Active", DbType="Bit NOT NULL")]
-	public bool Active
-	{
-		get
-		{
-			return this._Active;
-		}
-		set
-		{
-			if ((this._Active != value))
-			{
-				this._Active = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDManufacturer", DbType="Int NOT NULL")]
-	public int IDManufacturer
-	{
-		get
-		{
-			return this._IDManufacturer;
-		}
-		set
-		{
-			if ((this._IDManufacturer != value))
-			{
-				this._IDManufacturer = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SequenceNumber", DbType="Int NOT NULL")]
-	public int SequenceNumber
-	{
-		get
-		{
-			return this._SequenceNumber;
-		}
-		set
-		{
-			if ((this._SequenceNumber != value))
-			{
-				this._SequenceNumber = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalDiscount", DbType="Money NOT NULL")]
-	public decimal TotalDiscount
-	{
-		get
-		{
-			return this._TotalDiscount;
-		}
-		set
-		{
-			if ((this._TotalDiscount != value))
-			{
-				this._TotalDiscount = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TypeDiscountPercent", DbType="Bit NOT NULL")]
-	public bool TypeDiscountPercent
-	{
-		get
-		{
-			return this._TypeDiscountPercent;
-		}
-		set
-		{
-			if ((this._TypeDiscountPercent != value))
-			{
-				this._TypeDiscountPercent = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Discount", DbType="Money NOT NULL")]
-	public decimal Discount
-	{
-		get
-		{
-			return this._Discount;
-		}
-		set
-		{
-			if ((this._Discount != value))
-			{
-				this._Discount = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Weight", DbType="Decimal(18,2) NOT NULL")]
-	public decimal Weight
-	{
-		get
-		{
-			return this._Weight;
-		}
-		set
-		{
-			if ((this._Weight != value))
-			{
-				this._Weight = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShortDescription", DbType="NText", UpdateCheck=UpdateCheck.Never)]
-	public string ShortDescription
-	{
-		get
-		{
-			return this._ShortDescription;
-		}
-		set
-		{
-			if ((this._ShortDescription != value))
-			{
-				this._ShortDescription = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NText", UpdateCheck=UpdateCheck.Never)]
-	public string Description
-	{
-		get
-		{
-			return this._Description;
-		}
-		set
-		{
-			if ((this._Description != value))
-			{
-				this._Description = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Note", DbType="NText", UpdateCheck=UpdateCheck.Never)]
-	public string Note
-	{
-		get
-		{
-			return this._Note;
-		}
-		set
-		{
-			if ((this._Note != value))
-			{
-				this._Note = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Meta", DbType="NText", UpdateCheck=UpdateCheck.Never)]
-	public string Meta
-	{
-		get
-		{
-			return this._Meta;
-		}
-		set
-		{
-			if ((this._Meta != value))
-			{
-				this._Meta = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MetaDescription", DbType="NText", UpdateCheck=UpdateCheck.Never)]
-	public string MetaDescription
-	{
-		get
-		{
-			return this._MetaDescription;
-		}
-		set
-		{
-			if ((this._MetaDescription != value))
-			{
-				this._MetaDescription = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MetaKeyword", DbType="NText", UpdateCheck=UpdateCheck.Never)]
-	public string MetaKeyword
-	{
-		get
-		{
-			return this._MetaKeyword;
-		}
-		set
-		{
-			if ((this._MetaKeyword != value))
-			{
-				this._MetaKeyword = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDCategory", DbType="Int NOT NULL")]
-	public int IDCategory
-	{
-		get
-		{
-			return this._IDCategory;
-		}
-		set
-		{
-			if ((this._IDCategory != value))
-			{
-				this._IDCategory = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsDefault", DbType="Bit NOT NULL")]
-	public bool IsDefault
-	{
-		get
-		{
-			return this._IsDefault;
-		}
-		set
-		{
-			if ((this._IsDefault != value))
-			{
-				this._IsDefault = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Photo", DbType="NVarChar(70)")]
-	public string Photo
-	{
-		get
-		{
-			return this._Photo;
-		}
-		set
-		{
-			if ((this._Photo != value))
-			{
-				this._Photo = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Category", DbType="NVarChar(50)")]
-	public string Category
-	{
-		get
-		{
-			return this._Category;
-		}
-		set
-		{
-			if ((this._Category != value))
-			{
-				this._Category = value;
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Manufacturer", DbType="NVarChar(25) NOT NULL", CanBeNull=false)]
-	public string Manufacturer
-	{
-		get
-		{
-			return this._Manufacturer;
-		}
-		set
-		{
-			if ((this._Manufacturer != value))
-			{
-				this._Manufacturer = value;
-			}
-		}
-	}
-}
-
 public partial class FUNC_Product_GetAll_ByIDCategory_And_PriceRangeResult
 {
 	
@@ -26813,6 +25969,958 @@ public partial class FUNC_Value_GetData_ByIDAttributeResult
 			if ((this._RGBColor != value))
 			{
 				this._RGBColor = value;
+			}
+		}
+	}
+}
+
+public partial class FUNC_Product_GetAllResult
+{
+	
+	private int _IDProduct;
+	
+	private string _Name;
+	
+	private string _ReferenceCode;
+	
+	private decimal _PriceBeforeDiscount;
+	
+	private decimal _Price;
+	
+	private System.Nullable<int> _Quantity;
+	
+	private bool _Active;
+	
+	private int _IDManufacturer;
+	
+	private int _SequenceNumber;
+	
+	private decimal _TotalDiscount;
+	
+	private bool _TypeDiscountPercent;
+	
+	private decimal _Discount;
+	
+	private decimal _Weight;
+	
+	private string _ShortDescription;
+	
+	private string _Description;
+	
+	private string _Note;
+	
+	private string _Meta;
+	
+	private string _MetaDescription;
+	
+	private string _MetaKeyword;
+	
+	private string _Photo;
+	
+	private System.Nullable<int> _IDCombination;
+	
+	private string _CombinationName;
+	
+	private System.Nullable<decimal> _CombinationPrice;
+	
+	private string _Category;
+	
+	private string _Manufacturer;
+	
+	public FUNC_Product_GetAllResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDProduct", DbType="Int NOT NULL")]
+	public int IDProduct
+	{
+		get
+		{
+			return this._IDProduct;
+		}
+		set
+		{
+			if ((this._IDProduct != value))
+			{
+				this._IDProduct = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+	public string Name
+	{
+		get
+		{
+			return this._Name;
+		}
+		set
+		{
+			if ((this._Name != value))
+			{
+				this._Name = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReferenceCode", DbType="NVarChar(20)")]
+	public string ReferenceCode
+	{
+		get
+		{
+			return this._ReferenceCode;
+		}
+		set
+		{
+			if ((this._ReferenceCode != value))
+			{
+				this._ReferenceCode = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PriceBeforeDiscount", DbType="Money NOT NULL")]
+	public decimal PriceBeforeDiscount
+	{
+		get
+		{
+			return this._PriceBeforeDiscount;
+		}
+		set
+		{
+			if ((this._PriceBeforeDiscount != value))
+			{
+				this._PriceBeforeDiscount = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Money NOT NULL")]
+	public decimal Price
+	{
+		get
+		{
+			return this._Price;
+		}
+		set
+		{
+			if ((this._Price != value))
+			{
+				this._Price = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Quantity", DbType="Int")]
+	public System.Nullable<int> Quantity
+	{
+		get
+		{
+			return this._Quantity;
+		}
+		set
+		{
+			if ((this._Quantity != value))
+			{
+				this._Quantity = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Active", DbType="Bit NOT NULL")]
+	public bool Active
+	{
+		get
+		{
+			return this._Active;
+		}
+		set
+		{
+			if ((this._Active != value))
+			{
+				this._Active = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDManufacturer", DbType="Int NOT NULL")]
+	public int IDManufacturer
+	{
+		get
+		{
+			return this._IDManufacturer;
+		}
+		set
+		{
+			if ((this._IDManufacturer != value))
+			{
+				this._IDManufacturer = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SequenceNumber", DbType="Int NOT NULL")]
+	public int SequenceNumber
+	{
+		get
+		{
+			return this._SequenceNumber;
+		}
+		set
+		{
+			if ((this._SequenceNumber != value))
+			{
+				this._SequenceNumber = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalDiscount", DbType="Money NOT NULL")]
+	public decimal TotalDiscount
+	{
+		get
+		{
+			return this._TotalDiscount;
+		}
+		set
+		{
+			if ((this._TotalDiscount != value))
+			{
+				this._TotalDiscount = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TypeDiscountPercent", DbType="Bit NOT NULL")]
+	public bool TypeDiscountPercent
+	{
+		get
+		{
+			return this._TypeDiscountPercent;
+		}
+		set
+		{
+			if ((this._TypeDiscountPercent != value))
+			{
+				this._TypeDiscountPercent = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Discount", DbType="Money NOT NULL")]
+	public decimal Discount
+	{
+		get
+		{
+			return this._Discount;
+		}
+		set
+		{
+			if ((this._Discount != value))
+			{
+				this._Discount = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Weight", DbType="Decimal(18,2) NOT NULL")]
+	public decimal Weight
+	{
+		get
+		{
+			return this._Weight;
+		}
+		set
+		{
+			if ((this._Weight != value))
+			{
+				this._Weight = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShortDescription", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+	public string ShortDescription
+	{
+		get
+		{
+			return this._ShortDescription;
+		}
+		set
+		{
+			if ((this._ShortDescription != value))
+			{
+				this._ShortDescription = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+	public string Description
+	{
+		get
+		{
+			return this._Description;
+		}
+		set
+		{
+			if ((this._Description != value))
+			{
+				this._Description = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Note", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+	public string Note
+	{
+		get
+		{
+			return this._Note;
+		}
+		set
+		{
+			if ((this._Note != value))
+			{
+				this._Note = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Meta", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+	public string Meta
+	{
+		get
+		{
+			return this._Meta;
+		}
+		set
+		{
+			if ((this._Meta != value))
+			{
+				this._Meta = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MetaDescription", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+	public string MetaDescription
+	{
+		get
+		{
+			return this._MetaDescription;
+		}
+		set
+		{
+			if ((this._MetaDescription != value))
+			{
+				this._MetaDescription = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MetaKeyword", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+	public string MetaKeyword
+	{
+		get
+		{
+			return this._MetaKeyword;
+		}
+		set
+		{
+			if ((this._MetaKeyword != value))
+			{
+				this._MetaKeyword = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Photo", DbType="NVarChar(70)")]
+	public string Photo
+	{
+		get
+		{
+			return this._Photo;
+		}
+		set
+		{
+			if ((this._Photo != value))
+			{
+				this._Photo = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDCombination", DbType="Int")]
+	public System.Nullable<int> IDCombination
+	{
+		get
+		{
+			return this._IDCombination;
+		}
+		set
+		{
+			if ((this._IDCombination != value))
+			{
+				this._IDCombination = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CombinationName", DbType="NVarChar(200)")]
+	public string CombinationName
+	{
+		get
+		{
+			return this._CombinationName;
+		}
+		set
+		{
+			if ((this._CombinationName != value))
+			{
+				this._CombinationName = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CombinationPrice", DbType="Money")]
+	public System.Nullable<decimal> CombinationPrice
+	{
+		get
+		{
+			return this._CombinationPrice;
+		}
+		set
+		{
+			if ((this._CombinationPrice != value))
+			{
+				this._CombinationPrice = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Category", DbType="NVarChar(50)")]
+	public string Category
+	{
+		get
+		{
+			return this._Category;
+		}
+		set
+		{
+			if ((this._Category != value))
+			{
+				this._Category = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Manufacturer", DbType="NVarChar(25) NOT NULL", CanBeNull=false)]
+	public string Manufacturer
+	{
+		get
+		{
+			return this._Manufacturer;
+		}
+		set
+		{
+			if ((this._Manufacturer != value))
+			{
+				this._Manufacturer = value;
+			}
+		}
+	}
+}
+
+public partial class FUNC_Product_GetAll_ByIDCategoryResult
+{
+	
+	private int _IDProduct;
+	
+	private string _Name;
+	
+	private string _ReferenceCode;
+	
+	private decimal _PriceBeforeDiscount;
+	
+	private decimal _Price;
+	
+	private System.Nullable<int> _Quantity;
+	
+	private bool _Active;
+	
+	private int _IDManufacturer;
+	
+	private int _SequenceNumber;
+	
+	private decimal _TotalDiscount;
+	
+	private bool _TypeDiscountPercent;
+	
+	private decimal _Discount;
+	
+	private decimal _Weight;
+	
+	private string _ShortDescription;
+	
+	private string _Description;
+	
+	private string _Note;
+	
+	private string _Meta;
+	
+	private string _MetaDescription;
+	
+	private string _MetaKeyword;
+	
+	private int _IDCategory;
+	
+	private bool _IsDefault;
+	
+	private string _Photo;
+	
+	private System.Nullable<int> _IDCombination;
+	
+	private string _CombinationName;
+	
+	private System.Nullable<decimal> _CombinationPrice;
+	
+	private string _Category;
+	
+	private string _Manufacturer;
+	
+	public FUNC_Product_GetAll_ByIDCategoryResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDProduct", DbType="Int NOT NULL")]
+	public int IDProduct
+	{
+		get
+		{
+			return this._IDProduct;
+		}
+		set
+		{
+			if ((this._IDProduct != value))
+			{
+				this._IDProduct = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+	public string Name
+	{
+		get
+		{
+			return this._Name;
+		}
+		set
+		{
+			if ((this._Name != value))
+			{
+				this._Name = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReferenceCode", DbType="NVarChar(20)")]
+	public string ReferenceCode
+	{
+		get
+		{
+			return this._ReferenceCode;
+		}
+		set
+		{
+			if ((this._ReferenceCode != value))
+			{
+				this._ReferenceCode = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PriceBeforeDiscount", DbType="Money NOT NULL")]
+	public decimal PriceBeforeDiscount
+	{
+		get
+		{
+			return this._PriceBeforeDiscount;
+		}
+		set
+		{
+			if ((this._PriceBeforeDiscount != value))
+			{
+				this._PriceBeforeDiscount = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Money NOT NULL")]
+	public decimal Price
+	{
+		get
+		{
+			return this._Price;
+		}
+		set
+		{
+			if ((this._Price != value))
+			{
+				this._Price = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Quantity", DbType="Int")]
+	public System.Nullable<int> Quantity
+	{
+		get
+		{
+			return this._Quantity;
+		}
+		set
+		{
+			if ((this._Quantity != value))
+			{
+				this._Quantity = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Active", DbType="Bit NOT NULL")]
+	public bool Active
+	{
+		get
+		{
+			return this._Active;
+		}
+		set
+		{
+			if ((this._Active != value))
+			{
+				this._Active = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDManufacturer", DbType="Int NOT NULL")]
+	public int IDManufacturer
+	{
+		get
+		{
+			return this._IDManufacturer;
+		}
+		set
+		{
+			if ((this._IDManufacturer != value))
+			{
+				this._IDManufacturer = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SequenceNumber", DbType="Int NOT NULL")]
+	public int SequenceNumber
+	{
+		get
+		{
+			return this._SequenceNumber;
+		}
+		set
+		{
+			if ((this._SequenceNumber != value))
+			{
+				this._SequenceNumber = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalDiscount", DbType="Money NOT NULL")]
+	public decimal TotalDiscount
+	{
+		get
+		{
+			return this._TotalDiscount;
+		}
+		set
+		{
+			if ((this._TotalDiscount != value))
+			{
+				this._TotalDiscount = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TypeDiscountPercent", DbType="Bit NOT NULL")]
+	public bool TypeDiscountPercent
+	{
+		get
+		{
+			return this._TypeDiscountPercent;
+		}
+		set
+		{
+			if ((this._TypeDiscountPercent != value))
+			{
+				this._TypeDiscountPercent = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Discount", DbType="Money NOT NULL")]
+	public decimal Discount
+	{
+		get
+		{
+			return this._Discount;
+		}
+		set
+		{
+			if ((this._Discount != value))
+			{
+				this._Discount = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Weight", DbType="Decimal(18,2) NOT NULL")]
+	public decimal Weight
+	{
+		get
+		{
+			return this._Weight;
+		}
+		set
+		{
+			if ((this._Weight != value))
+			{
+				this._Weight = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShortDescription", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+	public string ShortDescription
+	{
+		get
+		{
+			return this._ShortDescription;
+		}
+		set
+		{
+			if ((this._ShortDescription != value))
+			{
+				this._ShortDescription = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+	public string Description
+	{
+		get
+		{
+			return this._Description;
+		}
+		set
+		{
+			if ((this._Description != value))
+			{
+				this._Description = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Note", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+	public string Note
+	{
+		get
+		{
+			return this._Note;
+		}
+		set
+		{
+			if ((this._Note != value))
+			{
+				this._Note = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Meta", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+	public string Meta
+	{
+		get
+		{
+			return this._Meta;
+		}
+		set
+		{
+			if ((this._Meta != value))
+			{
+				this._Meta = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MetaDescription", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+	public string MetaDescription
+	{
+		get
+		{
+			return this._MetaDescription;
+		}
+		set
+		{
+			if ((this._MetaDescription != value))
+			{
+				this._MetaDescription = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MetaKeyword", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+	public string MetaKeyword
+	{
+		get
+		{
+			return this._MetaKeyword;
+		}
+		set
+		{
+			if ((this._MetaKeyword != value))
+			{
+				this._MetaKeyword = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDCategory", DbType="Int NOT NULL")]
+	public int IDCategory
+	{
+		get
+		{
+			return this._IDCategory;
+		}
+		set
+		{
+			if ((this._IDCategory != value))
+			{
+				this._IDCategory = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsDefault", DbType="Bit NOT NULL")]
+	public bool IsDefault
+	{
+		get
+		{
+			return this._IsDefault;
+		}
+		set
+		{
+			if ((this._IsDefault != value))
+			{
+				this._IsDefault = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Photo", DbType="NVarChar(70)")]
+	public string Photo
+	{
+		get
+		{
+			return this._Photo;
+		}
+		set
+		{
+			if ((this._Photo != value))
+			{
+				this._Photo = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDCombination", DbType="Int")]
+	public System.Nullable<int> IDCombination
+	{
+		get
+		{
+			return this._IDCombination;
+		}
+		set
+		{
+			if ((this._IDCombination != value))
+			{
+				this._IDCombination = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CombinationName", DbType="NVarChar(200)")]
+	public string CombinationName
+	{
+		get
+		{
+			return this._CombinationName;
+		}
+		set
+		{
+			if ((this._CombinationName != value))
+			{
+				this._CombinationName = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CombinationPrice", DbType="Money")]
+	public System.Nullable<decimal> CombinationPrice
+	{
+		get
+		{
+			return this._CombinationPrice;
+		}
+		set
+		{
+			if ((this._CombinationPrice != value))
+			{
+				this._CombinationPrice = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Category", DbType="NVarChar(50)")]
+	public string Category
+	{
+		get
+		{
+			return this._Category;
+		}
+		set
+		{
+			if ((this._Category != value))
+			{
+				this._Category = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Manufacturer", DbType="NVarChar(25) NOT NULL", CanBeNull=false)]
+	public string Manufacturer
+	{
+		get
+		{
+			return this._Manufacturer;
+		}
+		set
+		{
+			if ((this._Manufacturer != value))
+			{
+				this._Manufacturer = value;
 			}
 		}
 	}

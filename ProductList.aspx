@@ -1,362 +1,177 @@
 ﻿<%@ Page Title="Products - WIT. Commerce" Language="C#" MasterPageFile="~/MasterPageDNDexe.master" AutoEventWireup="true" CodeFile="ProductList.aspx.cs" Inherits="ProductList" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <link rel="stylesheet" href="/assets/frontend/css/components/pricing-table.css" type="text/css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <input type="hidden" id="HiddenActiveFilter" />
-    <section id="ProductBanner" runat="server" class="new_women_collection background-one">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
+      </header>
+    	<section id="page-title">
 
-                </div>
-            </div>
-        </div>
-    </section>
+			<div class="container clearfix">
+				<h1>Pricing</h1>
+				<span>Start selling your Subscription Plans attractively</span>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="#">Pay Yearly</a></li>
+					<li class="breadcrumb-item"><a href="#">Add-Ons</a></li>
+				</ol>
+			</div>
+
+		</section><!-- #page-title end -->
+	<section id="content">
+
+			<div class="content-wrap">
+
+					<section class="section pricing-section header-stick dark nomargin" style="background-color: #333;">
+
+						<div class="container clearfix">
+							<h2 class="pricing-section--title center">TOMPS ID</h2>
+							<div id="ProductList" class="pricing pricing--sonam">
+								<%--<div class="pricing--item">
+									<h3 class="pricing--title">Startup</h3>
+									<div class="pricing--price"><span class="pricing--currency">$</span>9.90</div>
+									<p class="pricing--sentence">Small business solution</p>
+									<ul class="pricing--feature-list">
+										<li class="pricing--feature">Unlimited calls</li>
+										<li class="pricing--feature">Free hosting</li>
+										<li class="pricing--feature">40MB of storage space</li>
+									</ul>
+									<button class="pricing--action">Choose plan</button>
+								</div>
+								<div class="pricing--item">
+									<h3 class="pricing--title">Standard</h3>
+									<div class="pricing--price"><span class="pricing--currency">$</span>29,90</div>
+									<p class="pricing--sentence">Medium business solution</p>
+									<ul class="pricing--feature-list">
+										<li class="pricing--feature">Unlimited calls</li>
+										<li class="pricing--feature">Free hosting</li>
+										<li class="pricing--feature">10 hours of support</li>
+										<li class="pricing--feature">Social media integration</li>
+										<li class="pricing--feature">1GB of storage space</li>
+									</ul>
+									<button class="pricing--action">Choose plan</button>
+								</div>
+								<div class="pricing--item">
+									<h3 class="pricing--title">Professional</h3>
+									<div class="pricing--price"><span class="pricing--currency">$</span>59,90</div>
+									<p class="pricing--sentence">Gigantic business solution</p>
+									<ul class="pricing--feature-list">
+										<li class="pricing--feature">Unlimited calls</li>
+										<li class="pricing--feature">Free hosting</li>
+										<li class="pricing--feature">Unlimited hours of support</li>
+										<li class="pricing--feature">Social media integration</li>
+										<li class="pricing--feature">Anaylitcs integration</li>
+										<li class="pricing--feature">Unlimited storage space</li>
+									</ul>
+									<button class="pricing--action">Choose plan</button>
+								</div>--%>
+							</div>
+						</div>
+					</section>
+
+                <section class="section pricing-section nomargin" style="background-color: #FFF;">
+						<div class="container clearfix">
+							<div class="fancy-title title-dotted-border title-center">
+						<h3>Comparison Table</h3>
+					</div>
+
+					<table class="table table-hover table-comparison nobottommargin">
+					  <thead>
+						<tr>
+						  <th>&nbsp;</th>
+						  <th>Starter</th>
+						  <th>Professional</th>
+						  <th>Business</th>
+						</tr>
+					  </thead>
+					  <tbody>
+						<tr>
+						  <td>Space</td>
+						  <td>1 GB</td>
+						  <td>5 GB</td>
+						  <td>20 GB</td>
+						</tr>
+						<tr>
+						  <td>Bandwidth</td>
+						  <td>10 GB</td>
+						  <td>100 GB</td>
+						  <td>500 GB</td>
+						</tr>
+						<tr>
+						  <td>Email Accounts</td>
+						  <td>100</td>
+						  <td>1000</td>
+						  <td>5000</td>
+						</tr>
+						<tr>
+						  <td>MySQL Accounts</td>
+						  <td>100</td>
+						  <td>1000</td>
+						  <td>5000</td>
+						</tr>
+						<tr>
+						  <td>SSH Access</td>
+						  <td><i class="icon-remove"></i></td>
+						  <td><i class="icon-remove"></i></td>
+						  <td><i class="icon-ok"></i></td>
+						</tr>
+						<tr>
+						  <td>SMTP Management</td>
+						  <td><i class="icon-remove"></i></td>
+						  <td><i class="icon-remove"></i></td>
+						  <td><i class="icon-ok"></i></td>
+						</tr>
+						<tr>
+						  <td>FTP Access</td>
+						  <td><i class="icon-remove"></i></td>
+						  <td><i class="icon-ok"></i></td>
+						  <td><i class="icon-ok"></i></td>
+						</tr>
+						<tr>
+						  <td>Google Adwords Credit</td>
+						  <td><i class="icon-remove"></i></td>
+						  <td><i class="icon-ok"></i></td>
+						  <td><i class="icon-ok"></i></td>
+						</tr>
+						<tr>
+						  <td>Monthly Price</td>
+						  <td>Free</td>
+						  <td>$9.99</td>
+						  <td>$19.99</td>
+						</tr>
+						<tr>
+						  <td>Quaterly Price</td>
+						  <td>Free</td>
+						  <td>$19.99</td>
+						  <td>$49.99</td>
+						</tr>
+						<tr>
+						  <td>Yearly Price</td>
+						  <td>Free</td>
+						  <td>$69.99</td>
+						  <td>$149.99</td>
+						</tr>
+						<tr>
+						  <td>&nbsp;</td>
+						  <td><a href="#" class="btn btn-secondary">Sign Up</a></td>
+						  <td><a href="#" class="btn btn-secondary">Sign Up</a></td>
+						  <td><a href="#" class="btn btn-secondary">Sign Up</a></td>
+						</tr>
+					  </tbody>
+					</table>
+						</div>
+					</section>
+				</div>
+        
+		
+		</section><!-- #content end -->
     <!-- New Collection Women Are End -->
-    <!--Product List Area -->
-    <div class="product_list_area section_padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 col-sm-3 col-xs-12">
-                    <div class="product_single_sidebar">
-                        <div class="sidebar_title">
-                            <p>Filter</p>
-                        </div>
-                        <div class="sidebar_menu" id="cate-toggle">
-                            <ul>
-                                <li class="has-sub">
-                                    <a href="#">Categories</a>
-                                    <ul id="ProductCategories" class="category-sub">
-<%--                                        <li><a href="#">Hip Bag</a></li>
-                                        <li><a href="#">Outer</a></li>
-                                        <li><a href="#">Lunar</a></li>--%>
-                                    </ul>
-                                </li>
-                                <li class="has-sub">
-                                    <a href="#">Price</a>
-                                    <ul class="category-sub">
-                                        <li><a class="pricefilt" data-min="0" data-max="100000">0 - 100000 IDR</a></li>
-                                        <li><a class="pricefilt" data-min="100000" data-max="200000">100000 - 200000 IDR</a></li>
-                                        <li><a class="pricefilt" data-min="200000" data-max="300000">200000 - 300000 IDR</a></li>
-                                        <li><a class="pricefilt" data-min="300000" data-max="400000">300000 - 400000 IDR</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="breadcumb_list">
-                        <ul class="breadcumb">
-                            <li><a href="/Home">Home</a></li>
-                            <li>/</li>
-                            <li><a href="/Categories">Categories</a></li>
-                            <li>/</li>
-                            <li><a href="#" class="categorynya"></a></li>
-                        </ul>
-                    </div>
-                    <div class="product_area">
-                        <div class="row">
-                            <div class="col-md-12">
-                            </div>
-                        </div>
-                        <div class="list_product">
-                            <div class="row" id="ProductList">
-<%--                                <div class="col-md-3 col-sm-6 col-xs-6">
-                                    <div class="single_feature text-center">
-                                        <div class="feature-img">
-                                            <a href="product-details.html">
-                                                <img src="./images/variable_products/products/hipbag/1.jpg" alt="Feature Image1" />
-                                            </a>
-                                            <span class="img-hover">
-                                                <a href="#">
-                                                    <img src="./images/variable_products/products/hipbag/1.jpg" alt="Feature Image1" />
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <div class="feature_text">
-                                            <a href="product-details.html"><h4>Product name demo #02</h4></a>
-                                            <span>$399.99<del>$499.99</del></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-6">
-                                    <div class="single_feature text-center">
-                                        <div class="feature-img">
-                                            <a href="#">
-                                                <img src="./images/variable_products/products/hipbag/2.jpg" alt="Feature Image1" />
-                                            </a>
-                                            <span class="img-hover">
-                                                <a href="#">
-                                                    <img src="./images/variable_products/products/hipbag/2.jpg" alt="Feature Image1" />
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <div class="feature_text">
-                                            <a href="#"><h4>Product name demo #02</h4></a>
-                                            <span>$399.99<del>$499.99</del></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-6">
-                                    <div class="single_feature text-center">
-                                        <div class="feature-img">
-                                            <a href="#">
-                                                <img src="./images/variable_products/products/hipbag/3.jpg" alt="Feature Image1" />
-                                            </a>
-                                            <span class="img-hover">
-                                                <a href="#">
-                                                    <img src="./images/variable_products/products/hipbag/3.jpg" alt="Feature Image1" />
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <div class="feature_text">
-                                            <a href="#"><h4>Product name demo #02</h4></a>
-                                            <span>$399.99<del>$499.99</del></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-6">
-                                    <div class="single_feature text-center">
-                                        <div class="feature-img">
-                                            <a href="#">
-                                                <img src="./images/variable_products/products/hipbag/4.jpg" alt="Feature Image1" />
-                                            </a>
-                                            <span class="img-hover">
-                                                <a href="#">
-                                                    <img src="./images/variable_products/products/hipbag/4.jpg" alt="Feature Image1" />
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <div class="feature_text">
-                                            <a href="#"><h4>Product name demo #02</h4></a>
-                                            <span>$399.99<del>$499.99</del></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-6">
-                                    <div class="single_feature text-center">
-                                        <div class="feature-img">
-                                            <a href="#">
-                                                <img src="./images/variable_products/products/hipbag/5.jpg" alt="Feature Image1" />
-                                            </a>
-                                            <span class="img-hover">
-                                                <a href="#">
-                                                    <img src="./images/variable_products/products/hipbag/5.jpg" alt="Feature Image1" />
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <div class="feature_text">
-                                            <a href="#"><h4>Product name demo #02</h4></a>
-                                            <span>$399.99<del>$499.99</del></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-6">
-                                    <div class="single_feature text-center">
-                                        <div class="feature-img">
-                                            <a href="#">
-                                                <img src="./images/variable_products/products/hipbag/6.jpg" alt="Feature Image1" />
-                                            </a>
-                                            <span class="img-hover">
-                                                <a href="#">
-                                                    <img src="./images/variable_products/products/hipbag/6.jpg" alt="Feature Image1" />
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <div class="feature_text">
-                                            <a href="#"><h4>Product name demo #02</h4></a>
-                                            <span>$399.99<del>$499.99</del></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-6">
-                                    <div class="single_feature text-center">
-                                        <div class="feature-img">
-                                            <a href="#">
-                                                <img src="./images/variable_products/products/hipbag/7.jpg" alt="Feature Image1" />
-                                            </a>
-                                            <span class="img-hover">
-                                                <a href="#">
-                                                    <img src="./images/variable_products/products/hipbag/7.jpg" alt="Feature Image1" />
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <div class="feature_text">
-                                            <a href="#"><h4>Product name demo #02</h4></a>
-                                            <span>$399.99<del>$499.99</del></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-6">
-                                    <div class="single_feature text-center">
-                                        <div class="feature-img">
-                                            <a href="#">
-                                                <img src="./images/variable_products/products/hipbag/9.jpg" alt="Feature Image1" />
-                                            </a>
-                                            <span class="img-hover">
-                                                <a href="#">
-                                                    <img src="./images/variable_products/products/hipbag/9.jpg" alt="Feature Image1" />
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <div class="feature_text">
-                                            <a href="#"><h4>Product name demo #02</h4></a>
-                                            <span>$399.99<del>$499.99</del></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-6">
-                                    <div class="single_feature text-center">
-                                        <div class="feature-img">
-                                            <a href="#">
-                                                <img src="./images/variable_products/products/hipbag/10.jpg" alt="Feature Image1" />
-                                            </a>
-                                            <span class="img-hover">
-                                                <a href="#">
-                                                    <img src="./images/variable_products/products/hipbag/10.jpg" alt="Feature Image1" />
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <div class="feature_text">
-                                            <a href="#"><h4>Product name demo #02</h4></a>
-                                            <span>$399.99<del>$499.99</del></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-6">
-                                    <div class="single_feature text-center">
-                                        <div class="feature-img">
-                                            <a href="#">
-                                                <img src="./images/variable_products/products/hipbag/11.jpg" alt="Feature Image1" />
-                                            </a>
-                                            <span class="img-hover">
-                                                <a href="#">
-                                                    <img src="./images/variable_products/products/hipbag/11.jpg" alt="Feature Image1" />
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <div class="feature_text">
-                                            <a href="#"><h4>Product name demo #02</h4></a>
-                                            <span>$399.99<del>$499.99</del></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-6">
-                                    <div class="single_feature text-center">
-                                        <div class="feature-img">
-                                            <a href="#">
-                                                <img src="./images/variable_products/products/hipbag/12.jpg" alt="Feature Image1" />
-                                            </a>
-                                            <span class="img-hover">
-                                                <a href="#">
-                                                    <img src="./images/variable_products/products/hipbag/12.jpg" alt="Feature Image1" />
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <div class="feature_text">
-                                            <a href="#"><h4>Product name demo #02</h4></a>
-                                            <span>$399.99<del>$499.99</del></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-6">
-                                    <div class="single_feature text-center">
-                                        <div class="feature-img">
-                                            <a href="#">
-                                                <img src="./images/variable_products/products/hipbag/13.jpg" alt="Feature Image1" />
-                                            </a>
-                                            <span class="img-hover">
-                                                <a href="#">
-                                                    <img src="./images/variable_products/products/hipbag/13.jpg" alt="Feature Image1" />
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <div class="feature_text">
-                                            <a href="#"><h4>Product name demo #02</h4></a>
-                                            <span>$399.99<del>$499.99</del></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-6">
-                                    <div class="single_feature text-center">
-                                        <div class="feature-img">
-                                            <a href="#">
-                                                <img src="./images/variable_products/products/hipbag/14.jpg" alt="Feature Image1" />
-                                            </a>
-                                            <span class="img-hover">
-                                                <a href="#">
-                                                    <img src="./images/variable_products/products/hipbag/14.jpg" alt="Feature Image1" />
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <div class="feature_text">
-                                            <a href="#"><h4>Product name demo #02</h4></a>
-                                            <span>$399.99<del>$499.99</del></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-xs-6">
-                                    <div class="single_feature text-center">
-                                        <div class="feature-img">
-                                            <a href="#">
-                                                <img src="./images/variable_products/products/hipbag/15.jpg" alt="Feature Image1" />
-                                            </a>
-                                            <span class="img-hover">
-                                                <a href="#">
-                                                    <img src="./images/variable_products/products/hipbag/15.jpg" alt="Feature Image1" />
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <div class="feature_text">
-                                            <a href="#"><h4>Product name demo #02</h4></a>
-                                            <span>$399.99<del>$499.99</del></span>
-                                        </div>
-                                    </div>
-                                </div>--%>
-                                
-                                
-                                      
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12 col-sm-6 col-xs-12">
-                                <div class="pagination_area">
-                                    <div class="pagi right paging-prod">
-<%--                                        <a href="#" class="floatleft"><i class="fa fa-arrow-left"> Previous </i></a>
-                                        <!--<ul>
-                                            <li><a href="#"><i class="fa fa-caret-left"></i></a></li>
-                                            <li><a href="#" class="active">1</a></li>
-                                            <li><a href="#">2</a></li>
-                                            <li><a href="#">3</a></li>
-                                            <li><a href="#"><i class="fa fa-caret-right"></i></a></li>
-                                        </ul>-->
-                                       <a href="#" class="right"> Next <i class="fa fa-arrow-right"></i></a>--%>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <!--Product List Area End-->
     <hr class="margin-hr" style="margin:0 auto;padding-bottom:32px;" />
     <!--Product List Area End-->
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolderJS" runat="Server">
+   
     <script src="<%= Page.ResolveUrl("/assets/frontend/scripts/Product.js?v=1.1.2") %>"></script>
-    <script>
-        $(window).scroll(function () {
-            if ($(window).scrollTop() > 130) {
-                $('.product_single_sidebar').addClass("fixing");
-            }
-            else {
-                $('.product_single_sidebar').removeClass("fixing");
-            }
-        });
-    </script>
 </asp:Content>
 

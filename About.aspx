@@ -3,121 +3,142 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <section class=" background-one" style="background: url(assets/frontend/images/banners/about-banner.jpg)no-repeat center center/cover !important;">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                </div>
-            </div>
-        </div>
-    </section>
-    <div class="full_blog_area section_padding padding-bottom-70">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 col-sm-9 boutcont">
-                    <div class="introbout">
-                        <h2 class="page-title text-center">Tentang Niion</h2>
-                        <p style="margin-bottom: 24px;">
-                            Perjalanan kami dimulai pada tahun 2013, empat orang yang bertekad mengembangkan produk yang secara tidak sadar yang diperluka oleh orang banyak.
-                            <br />
-                            Produk yang mengusung fungsionalitas dan juga berperan sebagai barang untuk bergaya. 
-                            <br />
-                            Beberapa konsumen menyebutkan produk NIION sangat berguna. Sejak konsumen menjadi fokus utama kami, tak heran jika kami menerima pujian semacam itu. NIION secara diam-diam menggunakan Green Attitude melalui nilai yang kami berikan pada masing-masing produk : mengurangi kombinasi bahan, mengurangi aksesoris yang digunakan, dapat digunakan kembali, tahan lama, terbuat dari bahan ramah lingkungan dan dapat dipakai kembali. Singkatnya, kami ingin melakukan segalanya untuk lebih dekat kepengalaman dengan produk yang lengkap.NIION cukup mirip dengan semi modern. Beberapa orang mungkin akan bereaksi dengan: "Saya juga bisa melakukannya!" Dan maafkan kami jika kami menanggapi dengan: "Ya, tapi anda tidak melakukannya". NIION adalah sesuatu yang telah terlintas dalam pikiran kamu, sebagai sesuatu yang kamu butuhkan, sesuatu yang kamu inginkan secara diam-diam,mungkin pemikiran itu baru saja hilang saat kehidupan yang sibuk menyambutmu secara rutin. Jika orang di seluruh dunia akhirnya bisa menjalani hidup mereka dengan cara yang mereka cintai di bawah dukungan barang-barang yang memenuhi kebutuhan mereka untuk bergaya, akhirnya kami dengan bangga dapat mengatakan: misi terselesaikan. Hidup adalah sebuah perlombaan, jadi kami memilih untuk terus melaju.
+   	</header><!-- #header end -->
 
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-12 col-sm-9 nanricont">
-                    <div class="col-md-6 col-sm-9 vismismage" style="margin-bottom: 24px;">
-                        <img class="img-full" src="assets/frontend/images/banners/about-banner.jpg" />
-                    </div>
-                    <div class="col-md-6 vismisbout pull-right">
-                        <div class="contbout">
-                            <%--<asp:Label ID="lblIsi" runat="server" Text="Label"></asp:Label>--%>
-                            <h2>Dapat di lipat</h2>
-                            <p style="margin-bottom: 24px;">
-                                Dirancang dengan nilai kepraktisan, fitur dapat dilipat ini memudahkan aktivitas penyimpanan. Hal ini membawa nilai tambah pada tas sehingga bisa dijadikan tas tambahan untuk membawa barang tak terduga yang didapat dari liburan. 
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 col-sm-9 nanricont">
-                    <div class="col-md-6 col-sm-9 vismismage pull-right" style="margin-bottom: 24px;">
-                        <img class="img-responsive" src="assets/frontend/images/banners/byk-warna.jpg" />
-                    </div>
+		<!-- Page Title
+		============================================= -->
+		<section id="page-title" class="page-title-parallax page-title-dark" style="padding: 250px 0; background-image: url('/assets/frontend/images/about/parallax.jpg'); background-size: cover; background-position: center center;" data-bottom-top="background-position:0px 400px;" data-top-bottom="background-position:0px -500px;">
 
-                    <div class="col-md-6 col-sm-9 vismisbout">
-                        <div style="clear: both;"></div>
-                        <div class="contbout">
-                            <%--<asp:Label ID="lblIsi" runat="server" Text="Label"></asp:Label>--%>
+			<div class="container clearfix">
+				<h1>About Us</h1>
+				<span>Everything you need to know about our Company</span>
+				
+			</div>
 
-                            <h2>Memiliki Banyak Warna</h2>
-                            <p style="margin-bottom: 24px;">
-                                Terinspirasi oleh produk dari gaya hidup akhir-akhir ini, warna-warna cerah ini membawa kesegaran dalam bergaya. Warna-warna ini sampai pada sebagian besar produk NIION dan tumbuh menjad iwarna asli NIION yang terkenal
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 col-sm-9 nanricont">
-                    <div style="clear: both;"></div>
-                    <div class="col-md-6 col-sm-9 vismismage" style="margin-bottom: 24px;">
-                        <img class="img-responsive" src="assets/frontend/images/banners/berbagai-gaya.jpg" />
+		</section><!-- #page-title end -->
 
-                    </div>
-                    <div class="col-md-6 col-sm-9 vismisbout pull-right">
-                        <div class="contbout">
-                            <%--<asp:Label ID="lblIsi" runat="server" Text="Label"></asp:Label>--%>
-                            <h2>Dapat Digunakan Dalam Berbagai Gaya</h2>
-                            <p style="margin-bottom: 24px;">
-                                Sama seperti cuaca, suasana hati, dan mata uang, setiap orang selalu berubah dan membutuhkan sesuatu yang bisa memahami perilaku alami ini. Tersedia pada produk-produk pilihan, tas NIION memungkinkan beberapa gaya untuk memastikan bahwa setiap dari kamu mendapatkan kesempatan untuk bergaya.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 col-sm-9 nanricont">
-                    <div style="clear: both;"></div>
-                    <div class="col-md-6 vismismage pull-right " style="margin-bottom: 24px;">
-                        <img class="img-responsive" src="assets/frontend/images/banners/tahan-ciprtan.png" />
-                    </div>
-                    <div class="col-md-6 col-sm-9 vismisbout">
-                        <div class="contbout">
-                            <%--<asp:Label ID="lblIsi" runat="server" Text="Label"></asp:Label>--%>
-                            <h2>Tahan Cipratan</h2>
-                            <p style="margin-bottom: 24px;">
-                                Di buat dengan bahan tahan cipratan agar barang-barangmu tetap aman dari percikan air. Jangan khawatir dengan aktivitas di luar karena tas NIION melindungi barang-barang yang kamu sayangi dan akan tetap kering.
-                            </p>
-                        </div>
-                    </div>
-                </div>
+    	<section id="content">
 
-                <div style="clear: both;"></div>
+			<div class="content-wrap">
 
-            </div>
+				<div class="container clearfix">
+
+					<div class="col_full">
+
+						<div class="heading-block center nobottomborder">
+							<h2>TOMP'S ID</h2>
+							<span>TOMP’S merupakan jawaban dari kebutuhan akan kualitas dan kecepatan monitoring progress project
+pembangunandi lapangan.</span>
+						</div>
+
+						<div class="fslider" data-pagi="false" data-animation="fade">
+							<div class="flexslider">
+								<div class="slider-wrap">
+									<div class="slide"><a href="#"><img src="/assets/frontend/images/about/4.jpg" alt="About Image"></a></div>
+									<div class="slide"><a href="#"><img src="/assets/frontend/images/about/5.jpg" alt="About Image"></a></div>
+									<div class="slide"><a href="#"><img src="/assets/frontend/images/about/6.jpg" alt="About Image"></a></div>
+									<div class="slide"><a href="#"><img src="/assets/frontend/images/about/7.jpg" alt="About Image"></a></div>
+								</div>
+							</div>
+						</div>
+
+					</div>
 
 
-        </div>
-    </div>
-    <!--<section>
-        <div class="floatleft wow fadeInUp">
-            <asp:Image ID="imgAbout" class="full-img" runat="server" />
-        </div>
-    </section>
-    <!-- <section class="about-us wow fadeInUp">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 title-box">
-                    <h2>
-                        <asp:Label ID="lblTitle" runat="server" Text="Label"></asp:Label></h2>
-                </div>
-                <div class="col-md-12">
-                    <asp:Literal ID="lblContent" runat="server"></asp:Literal>
-                </div>
-            </div>
-            <!-- end row -->
-    <!--</div>-->
-    <!-- end container -->
-    <!--</section>-->
-    <hr class="margin-hr" style="margin: 0 auto; padding-bottom: 32px;" />
+				</div>
+
+				
+
+				<div class="row common-height clearfix">
+
+					<div class="col-md-7 col-padding" style="background: url('/assets/frontend/images/team/3.jpg') center center no-repeat; background-size: cover;"></div>
+
+					<div class="col-md-5 col-padding">
+						<div>
+							<div class="heading-block">
+								<span class="before-heading color">Our Vision</span>
+								<h3>Be The Best SAAS Project Management Telco in Indonesia</h3>
+							</div>
+
+							<div class="row clearfix">
+
+								<div class="col-lg-12">
+									<p>Pada saat mengerjakan project kita pasti akan memonitor progress baik itu owner ataupun pelaksananya.
+Sayangnya seringkali terjadi issue resource yang terbatas dan banyaknya data yang complex menyulitkan
+pelaporan . Dan bayangkan jika dengan tomps.id kita akan menghemat waktu dan biaya agar project semakin
+efisien. Perkenalkan tomps . tomps.id merupakan aplikasi project management telco yang menghubungkan
+antara owner dan ventor untuk memonitor mengontrol dan mengevaluasi projectnya secara realtime dan
+terukur</p>
+									
+									
+								</div>
+
+								
+
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+                <div class="divider"><i class="icon-circle"></i></div>
+				<div class="row common-height bottommargin-lg clearfix">
+
+					<div class="col-md-5 col-padding" style="background-color: #F5F5F5;">
+						<div>
+							<div class="heading-block">
+								<span class="before-heading color">Our Mission</span>
+								<h3>“ Closing the distance owner and vendor project to enable connect and various information all
+around Indonesia ”</h3>
+							</div>
+
+							<div class="row clearfix">
+
+								<div class="col-lg-12">
+									<p>TOMP’S merupakan jawaban dari kebutuhan akan kualitas dan kecepatan monitoring progress project
+pembangunandi lapangan. Manfaat bagi user dengan terwujudnya aplikasi ini adalah kontrol proyek semakinmudah, referensi 
+untuk menunjuk vendor pelaksana project, cepatnya tersedia data untuk keperluan evaluasi
+dan Reporting, menghemat resources dan meminimalisir pekerjaan berulang.Sudah lebih dari 1 tahun
+semenjak TOMP’S didirikan pada tahun 2017 TOMP’S telah menjalin kemitraan strategis dengan 86
+mitra/vendor pembangunan project ternama di seluruh Indonesia.
+Tunggu apalagi ayo kita gunakan tomps karena “project management never been easy before”</p>
+								
+								</div>
+
+								
+
+							</div>
+
+						</div>
+					</div>
+
+					<div class="col-md-7 col-padding" style="background: url('/assets/frontend/images/team/8.jpg') center center no-repeat; background-size: cover;"></div>
+
+				</div>
+
+				
+
+					<div class="col_full clearfix">
+
+						<h3>Gallery</h3>
+
+						<div class="masonry-thumbs grid-4" data-big="4" data-lightbox="gallery">
+							<a href="/assets/frontend/images/portfolio/full/1.jpg" data-lightbox="gallery-item"><img class="image_fade" src="/assets/frontend/images/portfolio/4/1.jpg" alt="Gallery Thumb 1"></a>
+							<a href="/assets/frontend/images/portfolio/full/2.jpg" data-lightbox="gallery-item"><img class="image_fade" src="/assets/frontend/images/portfolio/4/2.jpg" alt="Gallery Thumb 2"></a>
+							<a href="/assets/frontend/images/portfolio/full/3.jpg" data-lightbox="gallery-item"><img class="image_fade" src="/assets/frontend/images/portfolio/4/3.jpg" alt="Gallery Thumb 3"></a>
+							<a href="/assets/frontend/images/portfolio/full/4.jpg" data-lightbox="gallery-item"><img class="image_fade" src="/assets/frontend/images/portfolio/4/4.jpg" alt="Gallery Thumb 4"></a>
+							<a href="/assets/frontend/images/portfolio/full/5.jpg" data-lightbox="gallery-item"><img class="image_fade" src="/assets/frontend/images/portfolio/4/5.jpg" alt="Gallery Thumb 5"></a>
+							<a href="/assets/frontend/images/portfolio/full/6.jpg" data-lightbox="gallery-item"><img class="image_fade" src="/assets/frontend/images/portfolio/4/6.jpg" alt="Gallery Thumb 6"></a>
+							<a href="/assets/frontend/images/portfolio/full/7.jpg" data-lightbox="gallery-item"><img class="image_fade" src="/assets/frontend/images/portfolio/4/7.jpg" alt="Gallery Thumb 7"></a>
+							<a href="/assets/frontend/images/portfolio/full/9.jpg" data-lightbox="gallery-item"><img class="image_fade" src="/assets/frontend/images/portfolio/4/9.jpg" alt="Gallery Thumb 9"></a>
+							<a href="/assets/frontend/images/portfolio/full/10.jpg" data-lightbox="gallery-item"><img class="image_fade" src="/assets/frontend/images/portfolio/4/10.jpg" alt="Gallery Thumb 10"></a>
+						</div>
+
+					</div>
+
+			</div>
+
+		</section><!-- #content end -->
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolderJS" runat="Server">
     <script src="/assets/frontend/scripts/cms.js"></script>

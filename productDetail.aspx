@@ -131,18 +131,8 @@
                                             </div>
                                         </div>
                                         <div class="col-md-12 product-cart-area-list nopad">
-                                            <div class="btn-add-to-cart cart-btn add-to-cart hidden">
-                                                <button>Add to Cart</button>
-                                            </div>
-                                            <br /><br />
-                                            <div class="add-to-cart-info hidden">
-                                                <p>Please login / Register to start with this product</p>
-                                                <a class="btn btn-default btn-black" style="float:left;" href="/Authentication">Login / Register</a>
-                                            </div>
-                                            <div class="add-to-cart-exist hidden">
-                                                <p>You Have an Active package on this product, for further info check your package page</p>
-                                                <a class="btn btn-default btn-black" style="float:left;" href="/Package">Package</a>
-                                            </div>
+                                            <div class="btn-add-to-cart cart-btn add-to-cart">
+                                                <button>Add to Cart</button></div>
                                         </div>
                                         <div class="col-md-12 product-cart-area-list nopad infoship">
                                             <div class="background-info"></div>

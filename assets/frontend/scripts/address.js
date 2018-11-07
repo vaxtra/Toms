@@ -3,6 +3,7 @@
 });
 
 var count = 0;
+var idProduct = 0;
 
 $(document).ready(function () {
     PreloadMaster();
@@ -79,6 +80,7 @@ function PreloadMaster() {
                     $(".btn-logout").hide();
                     $(".btn-newAddress").hide();
                 }
+                
             }
             else {
                 $(".loginbut").text("LOGIN");
@@ -180,7 +182,7 @@ function PreloadMaster() {
                 var listCartSummary = result.d.data.CartSummary.Product;
                 var TotalPrice = result.d.data.CartSummary.TotalPrice;
                 LoadListCartSummary(listCartSummary, TotalPrice);
-
+                $("#HiddenIDProduct").val(listCartSummary[0].IDProduct);
 
 
                 $(".TotalPrice").text(result.d.data.CartSummary.TotalPrice);
@@ -204,6 +206,28 @@ function PreloadMaster() {
                 LoadCartList(result.d.data.CartSummary);
             }
 
+            var CustomerProduct = result.d.data.CustomerProduct;
+            if (CustomerProduct && listCartSummary.OrderType == "new") {
+                for (var i = 0; i < CustomerProduct.length; i++)
+                {
+                    if (CustomerProduct[i].IDCustomer == +$("#HiddenIDCustomer").val() && CustomerProduct[i].IDProduct == +$("#HiddenIDProduct").val()) {
+                        $(".placeorderdet").addClass("hidden");
+                        $(".btn-renew").removeClass("hidden");
+                        $(".btn-upgrade").addClass("hidden");
+                    }
+                    else if (CustomerProduct[i].IDCustomer == +$("#HiddenIDCustomer").val() && CustomerProduct[i].IDProduct != +$("#HiddenIDProduct").val()) {
+                        $(".placeorderdet").addClass("hidden");
+                        $(".btn-renew").addClass("hidden");
+                        $(".btn-upgrade").removeClass("hidden");
+                    }
+                    else {
+                        $(".placeorderdet").removeClass("hidden");
+                        $(".btn-renew").addClass("hidden");
+                        $(".btn-upgrade").addClass("hidden");
+                    }
+                }
+            }
+
             $(".format-money").formatCurrency({
                 region: "id-ID"
             })
@@ -220,7 +244,7 @@ function PreloadMaster() {
         'c': 'femaster',
         'm': 'preload',
         'data': {
-            'RequestData': ['Customer', 'Addresses', 'CartSummary', 'Payment']
+            'RequestData': ['Customer', 'Addresses', 'CartSummary', 'Payment', 'CustomerProduct']
         }
     });
 }
@@ -523,31 +547,6 @@ function LoadListCartSummary(data, TotalPrice) {
 function SubmitOrder() {
     REST.onSuccess = function (result) {
         if (result.d.success) {
-
-            
-
-            ga('ecommerce:addTransaction', {
-                'id': result.d.data,                     // Transaction ID. Required.
-                'affiliation': 'NIION Indonesia',          // Affiliation or store name.
-                'revenue': $(".Subtotal").text().replace(" IDR", ""),               // Grand Total.
-                'shipping': $(".TotalShipping").text().replace(" IDR", ""),                  // Shipping.
-                'tax': '0',                     // Tax.
-                'currency': 'IDR'
-            });
-
-            for (var i = 0; i < count; i++) {
-
-                ga('ecommerce:addItem', {
-                    'id': $(".product" + i).data("idproduct"),                     // Transaction ID. Required.
-                    'name': $(".product" + i).data("name"),                       // Product name. Required.
-                    'sku': $(".product" + i).data("reference"),                  // SKU/code.
-                    'category': $(".product" + i).data("category"),               // Category or variation.
-                    'price': $(".product" + i).data("priceunit"),                 // Unit price.
-                    'quantity': $(".product" + i).data("quantity")                // Quantity.
-                });
-            }
-
-            ga('ecommerce:send');
 
             window.location = "/ThankYou";
         }
