@@ -1,0 +1,327 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Linq;
+using System.Linq;
+using System.Reflection;
+using System.Web;
+using WITLibrary;
+
+/// <summary>
+/// Summary description for Class_Attribute
+/// </summary>
+public class Class_Attribute
+{
+    public Class_Attribute()
+    {
+    }
+
+    public int IDSize
+    {
+        get
+        {
+            return 1;
+        }
+    }
+    public int IDColor
+    {
+        get { return 2; }
+    }
+
+    #region AJAX
+    public WITLibrary.Datatable AJAX_GetTable(int iDisplayLength, int iDisplayStart, int sEcho, int iSortingCols, int iSortCol, string sSortDir, string search)
+    {
+        try
+        {
+            using (DataClassesDataContext db = new DataClassesDataContext())
+            {
+                IEnumerable<dynamic> data = Dynamic_GetAll(db);
+                int count = data.Count();
+                if (!string.IsNullOrEmpty(search))
+                    data = data.Where(x => x.Name.ToLower().Contains(search.ToLower())).ToArray();
+                List<Dictionary<string, dynamic>> resultList = new List<Dictionary<string, dynamic>>();
+                foreach (dynamic currData in data)
+                {
+                    Dictionary<string, dynamic> newData = new Dictionary<string, dynamic>();
+                    newData.Add("IDAttribute", currData.IDAttribute);
+                    newData.Add("Name", currData.Name);
+                    newData.Add("TotalValue", currData.TotalValue);
+                    newData.Add("IsColor", currData.IsColor);
+                    resultList.Add(newData);
+                }
+                return OurClass.ParseTable(resultList, count, iDisplayLength, iDisplayStart, sEcho, iSortingCols, iSortCol, sSortDir);
+            }
+        }
+        catch (Exception ex)
+        {
+            Class_Log_Error log = new Class_Log_Error();
+            log.Insert(ex.Message, ex.StackTrace);
+
+            return new WITLibrary.Datatable
+            {
+                sEcho = 0,
+                iTotalRecords = 0,
+                iTotalDisplayRecords = 0,
+                aaData = new List<Dictionary<string, dynamic>>()
+            };
+        }
+    }
+    public ReturnData AJAX_GetDetail(int idAttribute)
+    {
+        try
+        {
+            using (DataClassesDataContext db = new DataClassesDataContext())
+            {
+
+                dynamic _data = Dynamic_GetDetail(db, idAttribute);
+                if (_data != null)
+                    return ReturnData.MessageSuccess("OK", _data);
+                return ReturnData.MessageFailed("The requested resource does not exist.", null);
+            }
+        }
+        catch (Exception ex)
+        {
+            Class_Log_Error log = new Class_Log_Error();
+            log.Insert(ex.Message, ex.StackTrace);
+
+            return ReturnData.MessageFailed(ex.Message, null);
+        }
+    }
+    public ReturnData AJAX_Insert(string name, bool isColor)
+    {
+        try
+        {
+            using (DataClassesDataContext db = new DataClassesDataContext())
+            {
+                if (!ValidationName_Insert(db, name))
+                    return ReturnData.MessageFailed(name + " already exists.", null);
+
+                TBAttribute newData = new TBAttribute
+                {
+                    Name = name,
+                    IsColor = isColor,
+                    Deflag = false,
+                    DateInsert = DateTime.Now,
+                    DateLastUpdate = DateTime.Now,
+                };
+
+                db.TBAttributes.InsertOnSubmit(newData);
+                db.SubmitChanges();
+                if (newData != null)
+                    return ReturnData.MessageSuccess(name + " has been successfully inserted.", null);
+                return ReturnData.MessageFailed(name + " failed to insert.", null);
+            }
+        }
+        catch (Exception ex)
+        {
+            Class_Log_Error log = new Class_Log_Error();
+            log.Insert(ex.Message, ex.StackTrace);
+
+            return ReturnData.MessageFailed(ex.Message, null);
+        }
+    }
+    public ReturnData AJAX_Update(int idAttribute, string name, bool isColor)
+    {
+        try
+        {
+            using (DataClassesDataContext db = new DataClassesDataContext())
+            {
+                if (!ValidationName_Update(db, idAttribute, name))
+                    return ReturnData.MessageFailed(name + " already exists.", null);
+
+                TBAttribute _updateData = GetDetail(db, idAttribute);
+                if (_updateData == null)
+                    return ReturnData.MessageFailed("The requested resource does not exist.", null);
+
+                string _nameBefore = _updateData.Name;
+                _updateData.Name = name;
+                _updateData.IsColor = isColor;
+                _updateData.DateLastUpdate = DateTime.Now;
+                db.SubmitChanges();
+                if (_updateData != null)
+                    return ReturnData.MessageSuccess(_nameBefore + " has been successfully updated.", null);
+                return ReturnData.MessageFailed(_nameBefore + " failed to update.", null);
+            };
+        }
+        catch (Exception ex)
+        {
+            Class_Log_Error log = new Class_Log_Error();
+            log.Insert(ex.Message, ex.StackTrace);
+
+            return ReturnData.MessageFailed(ex.Message, null);
+        }
+    }
+    public ReturnData AJAX_Delete(int idAttribute)
+    {
+        try
+        {
+            using (DataClassesDataContext db = new DataClassesDataContext())
+            {
+                TBAttribute _deleteData = GetDetail(db, idAttribute);
+                if (_deleteData == null)
+                    return ReturnData.MessageFailed("The requested resource does not exist.", null);
+
+                string _nameBefore = _deleteData.Name;
+                _deleteData.Deflag = true;
+                _deleteData.DateLastUpdate = DateTime.Now;
+                db.SubmitChanges();
+                if (_deleteData != null)
+                    return ReturnData.MessageSuccess(_nameBefore + " has been successfully deleted.", null);
+                return ReturnData.MessageFailed(_nameBefore + " failed to delete.", null);
+            }
+        }
+        catch (Exception ex)
+        {
+            Class_Log_Error log = new Class_Log_Error();
+            log.Insert(ex.Message, ex.StackTrace);
+
+            return ReturnData.MessageFailed(ex.Message, null);
+        }
+    }
+    #endregion
+
+    #region DYNAMIC
+    // FUNCTION
+    private Func<DataClassesDataContext, IEnumerable<dynamic>> Dynamic_Func_GetAll
+    {
+        get
+        {
+            Func<DataClassesDataContext, IEnumerable<dynamic>> func =
+              CompiledQuery.Compile<DataClassesDataContext, IEnumerable<dynamic>>
+              ((DataClassesDataContext context) => context.FUNC_Attribute_GetAll()
+                  .AsEnumerable().ToArray());
+            return func;
+        }
+    }
+    private Func<DataClassesDataContext, int, dynamic> Dynamic_Func_GetDetail
+    {
+        get
+        {
+            Func<DataClassesDataContext, int, dynamic> func =
+              CompiledQuery.Compile<DataClassesDataContext, int, dynamic>
+              ((DataClassesDataContext context, int idAttribute) => context.FUNC_Attribute_GetDetail(idAttribute)
+                  .AsEnumerable().FirstOrDefault());
+            return func;
+        }
+    }
+
+    // DYNAMIC
+    public IEnumerable<dynamic> Dynamic_GetAll(DataClassesDataContext db)
+    {
+        try
+        {
+            return Dynamic_Func_GetAll(db).ToArray();
+            //DataClassesDataContext db = new DataClassesDataContext();
+            //return db.TBAttributes.Where(x => !x.Deflag).Select(x => new { x.IDAttribute, x.Name, x.IsColor }).ToArray();
+        }
+        catch (Exception ex)
+        {
+            Class_Log_Error log = new Class_Log_Error();
+            log.Insert(ex.Message, ex.StackTrace);
+
+            return null;
+        }
+    }
+    public dynamic Dynamic_GetDetail(DataClassesDataContext db, int idAttribute)
+    {
+        try
+        {
+            return Dynamic_Func_GetDetail(db, idAttribute);
+        }
+        catch (Exception ex)
+        {
+            Class_Log_Error log = new Class_Log_Error();
+            log.Insert(ex.Message, ex.StackTrace);
+
+            return null;
+        }
+    }
+    #endregion
+
+    #region LINQ
+    // FUNCTION
+    private Func<DataClassesDataContext, IEnumerable<TBAttribute>> Func_GetAll
+    {
+        get
+        {
+            Func<DataClassesDataContext, IEnumerable<TBAttribute>> func =
+              CompiledQuery.Compile<DataClassesDataContext, IEnumerable<TBAttribute>>
+              ((DataClassesDataContext context) => context.TBAttributes.AsEnumerable()
+                .Where(x => !x.Deflag).ToArray());
+            return func;
+        }
+    }
+    private Func<DataClassesDataContext, int, TBAttribute> Func_GetDetail
+    {
+        get
+        {
+            Func<DataClassesDataContext, int, TBAttribute> func =
+              CompiledQuery.Compile<DataClassesDataContext, int, TBAttribute>
+              ((DataClassesDataContext context, int idAttribute) => context.TBAttributes.AsEnumerable()
+                .Where(x => !x.Deflag && x.IDAttribute == idAttribute).FirstOrDefault());
+            return func;
+        }
+    }
+
+    // LINQ
+    public IEnumerable<TBAttribute> GetAll(DataClassesDataContext db)
+    {
+        try
+        {
+            return Func_GetAll(db);
+        }
+        catch (Exception ex)
+        {
+            Class_Log_Error log = new Class_Log_Error();
+            log.Insert(ex.Message, ex.StackTrace);
+
+            return null;
+        }
+    }
+    public TBAttribute GetDetail(DataClassesDataContext db, int idAttribute)
+    {
+        try
+        {
+            return Func_GetDetail(db, idAttribute);
+        }
+        catch (Exception ex)
+        {
+            Class_Log_Error log = new Class_Log_Error();
+            log.Insert(ex.Message, ex.StackTrace);
+
+            return null;
+        }
+    }
+    public bool ValidationName_Insert(DataClassesDataContext db, string name)
+    {
+        try
+        {
+            if (Dynamic_GetAll(db).AsEnumerable().Where(x => x.Name.ToLower() == name).FirstOrDefault() == null)
+                return true;
+            return false;
+        }
+        catch (Exception ex)
+        {
+            Class_Log_Error log = new Class_Log_Error();
+            log.Insert(ex.Message, ex.StackTrace);
+
+            return false;
+        }
+    }
+    public bool ValidationName_Update(DataClassesDataContext db, int idAttribute, string name)
+    {
+        try
+        {
+            if (Dynamic_GetAll(db).AsEnumerable().Where(x => x.Name.ToLower() == name && x.IDAttibute != idAttribute).FirstOrDefault() == null)
+                return true;
+            return false;
+        }
+        catch (Exception ex)
+        {
+            Class_Log_Error log = new Class_Log_Error();
+            log.Insert(ex.Message, ex.StackTrace);
+
+            return false;
+        }
+    }
+    #endregion
+}

@@ -1,0 +1,418 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPageDNDexe.master.cs" Inherits="MasterPageDNDexe" %>
+
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if lt IE 7 ]> <html lang="en" class="ie6">    </html><![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="ie7">    </html><![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="ie8">    </html><![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="ie9">    </html><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html id="Head1" runat="server">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Niion || Home</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0" />
+
+    <!-- Favicon
+    ============================================ -->
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/frontend/images/favicon.ico" />
+    <!-- CSS  -->
+    <!-- Bootstrap CSS
+    ============================================ -->
+    <link rel="stylesheet" href="/assets/frontend/css/bootstrap.min.css" />
+    <!-- owl.carousel CSS
+    ============================================ -->
+    <link rel="stylesheet" href="/assets/frontend/css/owl.carousel.css" />
+    <!-- owl.theme CSS
+    ============================================ -->
+    <link rel="stylesheet" href="/assets/frontend/css/owl.theme.css" />
+    <!-- owl.transitions CSS
+    ============================================ -->
+    <link rel="stylesheet" href="/assets/frontend/css/owl.transitions.css" />
+    <!-- font-awesome.min CSS
+    ============================================ -->
+    <link rel="stylesheet" href="/assets/frontend/css/font-awesome.min.css" />
+    <!-- Pe Icon 7 Css
+    ============================================ -->
+    <link rel="stylesheet" href="/assets/frontend/css/pe-icon-7-stroke.css" />
+    <!-- Meanmenu Css
+     ============================================ -->
+    <link rel="stylesheet" href="/assets/frontend/css/meanmenu.css?v=1.1" />
+    <!-- animate CSS
+    ============================================ -->
+    <link rel="stylesheet" href="/assets/frontend/css/animate.css" />
+    <!-- normalize CSS
+    ============================================ -->
+    <link rel="stylesheet" href="/assets/frontend/css/normalize.css" />
+    <!-- scroll top CSS
+    ============================================ -->
+    <link rel="stylesheet" href="/assets/frontend/css/scroll-top.css" />
+    <!-- lightbox CSS
+    ============================================ -->
+    <link rel="stylesheet" href="/assets/frontend/css/lightbox.min.css" />
+    <!-- main CSS
+    ============================================ -->
+    <link rel="stylesheet" href="/assets/frontend/css/main.css" />
+    <!-- nivo slider CSS
+    ============================================ -->
+    <link rel="stylesheet" href="/assets/frontend/lib/css/nivo-slider.css" type="text/css" />
+    <link rel="stylesheet" href="/assets/frontend/lib/css/preview.css" type="text/css" media="screen" />
+        <!-- toastr CSS
+    ============================================ -->
+    <link href="/assets/global/plugins/bootstrap-toastr/toastr.min.css" rel="stylesheet" />
+    <!-- style CSS
+    ============================================ -->
+    <link rel="stylesheet" href="/assets/frontend/css/style.css?v=3.1.2" />
+    <!-- responsive CSS
+    ============================================ -->
+    <link rel="stylesheet" href="/assets/frontend/css/responsive.css?v=1.1.1" />
+    <script src="/assets/frontend/js/vendor/modernizr-2.8.3.min.js"></script>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body class="home-four">
+    <input type="hidden" id="HiddenIDCustomer" />
+    <input type="hidden" id="HiddenIDProduct" runat="server" />
+    <input type="hidden" id="HiddenIDProduct_Combination" />
+    <input type="hidden" id="HiddenIDCategory" runat="server" />
+    <input type="hidden" id="token" />
+    <input type="hidden" id="token_cart" />
+    <input type="hidden" id="HiddenKeywords" />
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <!-- Header Start -->
+    <header class="header_area">
+        <div class="container-slider">
+            <div class="row">
+                <div class="col-md-2 col-sm-2 col-xs-12 tablogo">
+                    <div class="logo">
+                        <a href="/Home">
+                            <img src="/assets/frontend/images/logos/logo.png" alt="Logo.." /></a>
+                    </div>
+                    <!--Logo End-->
+                </div>
+                <div class="col-md-10 col-sm-10 col-xs-12">
+                    <div class="right_menu">
+                        <ul class="nav_menu  list-style">
+                            <li class="searchlist">
+
+                                <div class="search">
+                                    
+                                    <form id="FormSearch">
+                                        <input type="text" placeholder="Search" name="Search" id="txtSearch" class="form-control guten-input" />
+                                        <button>
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </li>
+                            <li class="account_hover">
+                                <a href="#"><i class="pe-7s-users"></i><em>User</em></a>
+                                <ul class="accounts_menu">
+                                    <li><a href="/Authentication" class="loginbut">Login / Register</a></li>
+                                    <li><a href="#" class="btn-logout">Logout</a></li>
+                                </ul>
+                            </li>
+                            <li class="bag-hover">
+                                <a href="#">
+                                    <i class="pe-7s-cart"></i>
+                                    <em>Cart</em><span>( <span class="TotalQuantity"></span> )</span>
+                                </a>
+                                <div class="bag-lists">
+                                    <ul class="list-summary">
+                                    </ul>
+                                    <ul>
+                                        <li>
+                                            <div class="chechk_view">
+                                                <div class="view_cart floatleft">
+                                                    <a href="/Summary">
+                                                        <h3>View Cart</h3>
+                                                    </a>
+                                                </div>
+                                                <div class="checkout floatright">
+                                                    <a href="/Address">Checkout</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row leftmens">
+                <div class="col-md-2 hidden-xs">
+                    <div class="mainmenu">
+                        <ul id="nav" class="list-style">
+                            <li><a href="/Products">Shop</a></li>
+                            <li>
+                                <a href="/Categories">Shop by Category</a>
+                            </li>
+                            <li>
+                                <a href="/Products/sale">Sale</a>
+                            </li>
+                            <li><a href="/Blog">Journal</a></li>
+                            <li><a href="/Lookbook">Lookbook</a></li>
+                            <li><a href="/ConfirmPayment">Confirm Payment</a></li>
+                            <li><a href="/Contact">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="mobile-menu-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mobile-menu">
+                        <nav id="dropdown">
+                            <ul class="list-style">
+                                <li><a href="/Products">Shop</a></li>
+                                <li>
+                                    <a href="/Categories">Shop By Category</a>
+                                </li>
+                                <li>
+                                    <a href="/Products">Sale</a>
+                                </li>
+                                <li><a href="/Blog">Journal</a></li>
+                                <li><a href="/Lookbook">Lookbook</a></li>
+                                <li><a href="/ConfirmPayment">Confirm Payment</a></li>
+                                <li><a href="/Contact">Contact</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Header Area End -->
+    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+    </asp:ContentPlaceHolder>
+    <!-- Widgets Area -->
+    <div class="widget_area section_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="single_widget">
+                        <div class="widget_text">
+                            <h5>Hubungi Kami</h5>
+                            <ul class="list-style">
+                                <li>022 732 80572</li>
+                                <li>niion.id@gmail.com</li>
+                                <li>Line Official @niion</li>
+                                <li>-</li>
+                                <li>Tersedia Senin-Jumat</li>
+                                <li>Pukul 08.30 - 17.30</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="single_widget">
+                        <div class="widget_text">
+                            <h5>Bantuan</h5>
+                            <ul class="list-style">
+                                <li><a href="/How-to-order">Cara Pemesanan </a></li>
+                                <li><a href="/Syarat-ketentuan">Syarat dan Ketentuan</a></li>
+                                <li><a href="/Kebijakan-Pengiriman.aspx">Kebijakan Pengiriman</a></li>
+                                <li><a href="/Kebijakan-dan-Privasi.aspx">Kebijakan dan Privasi</a></li>
+                                <li><a href="/Kebijakan-Pengembalian.aspx">Kebijakan Pengembalian</a></li>
+                                <li><a href="/faq">FAQ</a></li>
+                                <li><a href="/MyAccount">Akun Saya</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="single_widget">
+                        <div class="widget_text">
+                            <h5>Perusahaan</h5>
+                            <ul class="list-style">
+                                <li><a href="/About.aspx">Tentang Kami</a></li>
+                                <li><a href="/Career">Karir</a></li>
+                                <li><a href="/Kerjasama.aspx">Kerjasama</a></li>
+                                <li><a href="/Store">Toko Kami</a></li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="single_widget last_widget">
+                        <div class="widget_text">
+                            <h5>Get all the info first</h5>
+                            <form id="FormSubscr">
+                                <div id="bootstrap_alert_sub"></div>
+                                <input type="text" name="Email" id="name" placeholder="Enter your email" />
+                                <button>Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Widgets Area End-->
+    <!-- Footer Area -->
+    <footer class="footer_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="copyright">
+                        <p>© 2017<a href="#">PT. NIION Indonesia</a>- All Rights Reserved</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 col-md-offset-3">
+                    <nav class="footer_menu">
+                        <ul class="list-style">
+                            <li><a target="_blank" href="https://www.instagram.com/niion_id/"><i class="fa fa-instagram"></i></a></li>
+                            <li><a target="_blank" href="https://www.facebook.com/NIION.INDONESIA/"><i class="fa fa-facebook"></i></a></li>
+                            <li><a target="_blank" href="https://www.pinterest.com/NIIONINDONESIA/"><i class="fa fa-pinterest"></i></a></li>
+                            <li><a target="_blank" href="https://www.youtube.com/user/niionindonesia"><i class="fa fa-youtube"></i></a></li>
+                            <li><a target="_blank" href="https://twitter.com/NIION_ID"><i class="fa fa-twitter"></i></a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- This  is for scroll to top -->
+    <button class="material-scrolltop" type="button"><span><i class="fa fa-angle-up"></i></span></button>
+    <!-- JS -->
+    <!-- jquery-1.11.3.min js
+    ============================================ -->
+    <script src="/assets/frontend/js/vendor/jquery-1.11.3.min.js"></script>
+
+    <script src="/assets/frontend/js/jquery-ui.js"></script>
+    <!-- bootstrap js
+    ============================================ -->
+    <script src="/assets/frontend/js/bootstrap.min.js"></script>
+    <!-- owl.carousel.min js
+    ============================================ -->
+    <script src="/assets/frontend/js/owl.carousel.js"></script>
+
+    <!--lightbox  js
+    ============================================ -->
+    <script src="/assets/frontend/js/lightbox.min.js"></script>
+
+    <!-- scrolltop js
+    ============================================ -->
+    <script src="/assets/frontend/js/scroll-top.js"></script>
+    <!-- sticky js
+    ============================================ -->
+    <script src="/assets/frontend/js/jquery.sticky.js"></script>
+    <!-- Nivo slider js
+    ============================================ -->
+    <script src="/assets/frontend/lib/js/jquery.nivo.slider.js" type="text/javascript"></script>
+    <script src="/assets/frontend/lib/home.js" type="text/javascript"></script>
+    <!-- wow js
+    ============================================ -->
+    <script src="/assets/frontend/js/wow.js"></script>
+    <!-- plugins js
+    ============================================ -->
+    <script src="/assets/frontend/js/plugins.js"></script>
+    <!-- Meanmenu js
+    ============================================ -->
+    <script src="/assets/frontend/js/jquery.meanmenu.js"></script>
+    <!-- main js
+    ============================================ -->
+    <script src="/assets/frontend/js/main.js"></script>
+
+    <%--WIT COMMERCE JSON--%>
+
+    <script src="/assets/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="/assets/global/plugins/jquery.blockui.min.js"></script>
+    <%--<script src="/assets/frontend/js/isotope.js"></script>
+    <script src="/assets/frontend/js/isotope-init.js"></script>--%>
+    <script src="/assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js"></script>
+    <script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
+    <script src="/assets/global/plugins/moment.min.js"></script>
+    <script src="/assets/global/plugins/moment-with-locales.min.js"></script>
+    <script src="/assets/global/plugins/format-currency/jquery.formatCurrency-1.4.0.min.js"></script>
+    <script src="/assets/global/plugins/format-currency/jquery.formatCurrency.all.js"></script>
+    <script src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+    <script src="/assets/global/scripts/datatable.js"></script>
+    <script src="/assets/global/plugins/bootbox/bootbox.min.js"></script>
+    <script src="/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
+    <script src="/assets/global/scripts/initial.js"></script>
+    <script src="/assets/global/scripts/metronic.js"></script>
+    <script src="/assets/global/scripts/ourframework.client.js"></script>
+    <script src="/assets/frontend/scripts/master.js"></script>
+
+    <%--WIT COMMERCE JSON--%>
+
+    <asp:ContentPlaceHolder ID="ContentPlaceHolderJS" runat="server">
+    </asp:ContentPlaceHolder>
+
+
+        <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/5892e55885dc370a6b94d2d0/default';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-113446350-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-113446350-1');
+    </script>
+
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PKZXGMP');</script>
+<!-- End Google Tag Manager -->
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PKZXGMP"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<!-- Facebook Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '267974907157977');
+        fbq('track', 'PageView');
+    </script>
+    <noscript>
+ <img height="1" width="1" 
+src="https://www.facebook.com/tr?id=267974907157977&ev=PageView
+&noscript=1"/>
+</noscript>
+    <!-- End Facebook Pixel Code -->
+
+</body>
+</html>

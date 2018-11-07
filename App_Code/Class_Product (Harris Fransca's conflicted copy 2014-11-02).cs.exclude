@@ -1,0 +1,1392 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Linq;
+using System.Linq;
+using System.Web;
+
+/// <summary>
+/// Summary description for Class_Product
+/// </summary>
+public class Class_Product
+{
+    public Class_Product()
+    { }
+
+    #region PRODUCT
+    #region AJAX
+    public dynamic AJAX_GetTable(int iDisplayLength, int iDisplayStart, int sEcho, int iSortingCols, int iSortCol, string sSortDir, string search)
+    {
+        try
+        {
+            dynamic[] data = Dynamic_GetTable(new DataClassesDataContext()).ToArray();
+            int count = data.Count();
+            if (!string.IsNullOrEmpty(search))
+                data = data.AsEnumerable().Where(x => x.Name.ToLower().Contains(search.ToLower())).ToArray();
+            Dictionary<string, dynamic>[] resultList = new Dictionary<string, dynamic>[count];
+            for (int i = 0; i < resultList.Count(); i++)
+            {
+                Dictionary<string, dynamic> newData = new Dictionary<string, dynamic>();
+                newData.Add("SequenceNumber", data[i].SequenceNumber);
+                newData.Add("Name", data[i].Name);
+                newData.Add("ReferenceCode", data[i].ReferenceCode);
+                newData.Add("PriceBeforeDiscount", WITLibrary.ConvertCustom.FormatMoney(data[i].PriceBeforeDiscount));
+                newData.Add("Price", WITLibrary.ConvertCustom.FormatMoney(data[i].Price));
+                newData.Add("Quantity", data[i].Quantity);
+                newData.Add("Active", data[i].Active);
+                newData.Add("IDProduct", data[i].IDProduct);
+                resultList[i] = newData;
+            }
+            return OurClass.ParseTable(resultList, count, iDisplayLength, iDisplayStart, sEcho, iSortingCols, iSortCol, sSortDir);
+        }
+        catch (Exception)
+        {
+            return new WITLibrary.Datatable
+            {
+                sEcho = 0,
+                iTotalRecords = 0,
+                iTotalDisplayRecords = 0,
+                aaData = new List<Dictionary<string, dynamic>>()
+            };
+        }
+    }
+    public ReturnData AJAX_Preload_Insert()
+    {
+        try
+        {
+            using (DataClassesDataContext db = new DataClassesDataContext())
+            {
+                Class_Manufacturer _manufacturer = new Class_Manufacturer();
+                Dictionary<string, dynamic> _result = new Dictionary<string, dynamic>();
+                _result.Add("Manufacturer", _manufacturer.Dynamic_GetData_Active(db));
+                return ReturnData.MessageSuccess("OK", _result);
+            }
+        }
+        catch (Exception ex)
+        {
+            return ReturnData.MessageFailed(ex.Message, null);
+        }
+    }
+    public ReturnData AJAX_Preload_Update(int idProduct)
+    {
+        try
+        {
+            using (DataClassesDataContext db = new DataClassesDataContext())
+            {
+                Dictionary<string, dynamic> _result = new Dictionary<string, dynamic>();
+                dynamic _product = Dynamic_GetDetail_Information(db, idProduct);
+                if (_product != null)
+                {
+                    Class_Attribute _attribute = new Class_Attribute();
+                    _result.Add("Product", _product);
+                    _result.Add("DefaultCategory", Dynamic_GetDefault_Categories(db, idProduct));
+                    _result.Add("SelectedCategories", Dynamic_GetData_Categories_ByIDProduct(db, idProduct));
+                    _result.Add("TreeCategories", GetTree_Category(db, idProduct));
+                    _result.Add("Photos", Dynamic_GetData_Photo_ByIDProduct(db, idProduct));
+                    _result.Add("Attributes", _attribute.Dynamic_GetAll(db));
+                    return ReturnData.MessageSuccess("OK", _result);
+                }
+                return ReturnData.MessageFailed("The requested resource does not exist.", null);
+            }
+        }
+        catch (Exception ex)
+        {
+            return ReturnData.MessageFailed(ex.Message, null);
+        }
+    }
+    #endregion
+
+    #region DYNAMIC
+    // FUNCTION
+    private Func<DataClassesDataContext, IEnumerable<dynamic>> Dynamic_Func_GetAll
+    {
+        get
+        {
+            Func<DataClassesDataContext, IEnumerable<dynamic>> func =
+              CompiledQuery.Compile<DataClassesDataContext, IEnumerable<dynamic>>
+              ((DataClassesDataContext context) => context.FUNC_Product_GetAll()
+                  .AsEnumerable().OrderBy(x => x.SequenceNumber).ToArray());
+            return func;
+        }
+    }
+    private Func<DataClassesDataContext, IEnumerable<dynamic>> Dynamic_Func_GetTable
+    {
+        get
+        {
+            Func<DataClassesDataContext, IEnumerable<dynamic>> func =
+              CompiledQuery.Compile<DataClassesDataContext, IEnumerable<dynamic>>
+              ((DataClassesDataContext context) => context.FUNC_Product_GetTable()
+                  .AsEnumerable().OrderBy(x => x.SequenceNumber).ToArray());
+            return func;
+        }
+    }
+    private Func<DataClassesDataContext, int, IEnumerable<dynamic>> Dynamic_Func_GetDetail
+    {
+        get
+        {
+            Func<DataClassesDataContext, int, IEnumerable<dynamic>> func =
+              CompiledQuery.Compile<DataClassesDataContext, int, IEnumerable<dynamic>>
+              ((DataClassesDataContext context, int idProduct) => context.FUNC_Product_GetDetail(idProduct)
+                  .AsEnumerable().ToArray());
+            return func;
+        }
+    }
+
+    // DYNAMIC
+    public IEnumerable<dynamic> Dynamic_GetAll(DataClassesDataContext db)
+    {
+        try
+        {
+            return Dynamic_Func_GetAll(db).AsEnumerable().Select(x => new
+            {
+                x.IDProduct,
+                x.Name,
+                x.ReferenceCode,
+                x.PriceBeforeDiscount,
+                x.Price,
+                x.Quantity,
+                x.Active,
+                x.IDManufacturer,
+                x.SequenceNumber,
+                x.TotalDiscount,
+                x.TypeDiscountPercent,
+                x.Discount,
+                x.Weight,
+                x.ShortDescription,
+                x.Description,
+                x.Note,
+                x.Meta,
+                x.MetaDescription,
+                x.MetaKeyword,
+                Photo = OurClass.ImageExists(x.Photo, "product") ? x.Photo : "noimage.jpg",
+                x.Manufacturer,
+                x.Category
+            }).ToArray();
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+    public IEnumerable<dynamic> Dynamic_GetTable(DataClassesDataContext db)
+    {
+        try
+        {
+            return Dynamic_Func_GetTable(db).AsEnumerable().Select(x => new
+            {
+                x.IDProduct,
+                x.Name,
+                x.ReferenceCode,
+                x.PriceBeforeDiscount,
+                x.Price,
+                Quantity = x.Quantity == null ? 0 : x.Quantity,
+                x.Active,
+                x.SequenceNumber
+            }).ToArray();
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+    public dynamic Dynamic_GetDetail(DataClassesDataContext db, int idProduct)
+    {
+        try
+        {
+            return Dynamic_Func_GetDetail(db, idProduct).AsEnumerable().Select(x => new
+            {
+                x.IDProduct,
+                x.Name,
+                x.ReferenceCode,
+                x.PriceBeforeDiscount,
+                x.Price,
+                x.Quantity,
+                x.Active,
+                x.IDManufacturer,
+                x.SequenceNumber,
+                x.TotalDiscount,
+                x.TypeDiscountPercent,
+                x.Discount,
+                x.Weight,
+                x.ShortDescription,
+                x.Description,
+                x.Note,
+                x.Meta,
+                x.MetaDescription,
+                x.MetaKeyword,
+                Photo = OurClass.ImageExists(x.Photo, "product") ? x.Photo : "noimage.jpg",
+                x.Manufacturer,
+                x.Category
+            }).FirstOrDefault();
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+    #endregion
+
+    #region LINQ
+    // FUNCTION
+    private Func<DataClassesDataContext, IEnumerable<TBProduct>> Func_GetAll
+    {
+        get
+        {
+            Func<DataClassesDataContext, IEnumerable<TBProduct>> func =
+              CompiledQuery.Compile<DataClassesDataContext, IEnumerable<TBProduct>>
+              ((DataClassesDataContext context) => context.TBProducts
+                  .AsEnumerable().OrderBy(x => x.SequenceNumber).ToArray());
+            return func;
+        }
+    }
+    private Func<DataClassesDataContext, int, TBProduct> Func_GetDetail
+    {
+        get
+        {
+            Func<DataClassesDataContext, int, TBProduct> func =
+              CompiledQuery.Compile<DataClassesDataContext, int, TBProduct>
+              ((DataClassesDataContext context, int idProduct) => context.TBProducts
+                  .AsEnumerable().Where(x => x.IDProduct == idProduct).FirstOrDefault());
+            return func;
+        }
+    }
+
+    // LINQ
+    public IEnumerable<TBProduct> GetAll(DataClassesDataContext db)
+    {
+        try
+        {
+            return Func_GetAll(db);
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+    public TBProduct GetDetail(DataClassesDataContext db, int idProduct)
+    {
+        try
+        {
+            return Func_GetDetail(db, idProduct);
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+    #endregion
+    #endregion
+
+    #region INFORMATION
+    #region AJAX
+    public ReturnData AJAX_Insert_Information(int idManufacturer, string referenceCode, string name, decimal priceBeforeDiscount, bool typeDiscountPercent, decimal discount, decimal weight, string shortDescription, string description, string note, bool active)
+    {
+        try
+        {
+            using (DataClassesDataContext db = new DataClassesDataContext())
+            {
+                if (referenceCode.Trim() != "")
+                    if (ValidationReferenceCode_Insert(db, referenceCode))
+                        return ReturnData.MessageFailed(referenceCode + " already exists.", null);
+
+                Class_Manufacturer _manufacturer = new Class_Manufacturer();
+                if (_manufacturer.Dynamic_GetDetail(db, idManufacturer) == null)
+                    return ReturnData.MessageFailed("The requested resource does not exist.", null);
+
+                TBProduct _newData = new TBProduct
+                {
+                    IDManufacturer = idManufacturer,
+                    SequenceNumber = 0,
+                    ReferenceCode = referenceCode,
+                    Name = name,
+                    PriceBeforeDiscount = priceBeforeDiscount,
+                    TypeDiscountPercent = typeDiscountPercent,
+                    Discount = discount,
+                    Weight = weight,
+                    ShortDescription = shortDescription,
+                    Description = description,
+                    Note = note,
+                    Active = active,
+                    Deflag = false,
+                    DateInsert = DateTime.Now,
+                    DateLastUpdate = DateTime.Now
+                };
+                _newData.TotalDiscount = (_newData.TypeDiscountPercent) ? _newData.PriceBeforeDiscount * (_newData.Discount / 100) : _newData.Discount;
+                _newData.Price = _newData.PriceBeforeDiscount - _newData.TotalDiscount;
+                db.TBProducts.InsertOnSubmit(_newData);
+                db.SubmitChanges();
+
+                if (_newData != null)
+                {
+                    if (Update_SequenceNumber(db))
+                        return ReturnData.MessageSuccess(name + " has been successfully inserted.", _newData.IDProduct);
+                    return ReturnData.MessageFailed(name + " failed to insert.", null);
+                }
+                return ReturnData.MessageFailed(name + " failed to insert.", null);
+            }
+        }
+        catch (Exception ex)
+        {
+            return ReturnData.MessageFailed(ex.Message, null);
+        }
+    }
+    public ReturnData AJAX_Update_Information(int idProduct, string referenceCode, string name, decimal priceBeforeDiscount, bool typeDiscountPercent, decimal discount, decimal weight, string shortDescription, string description, string note, bool active)
+    {
+        try
+        {
+            using (DataClassesDataContext db = new DataClassesDataContext())
+            {
+                TBProduct _updateData = GetDetail(db, idProduct);
+                if (_updateData == null)
+                    return ReturnData.MessageFailed("The requested resource does not exist.", null);
+
+                if (referenceCode.Trim() != "")
+                    if (ValidationReferenceCode_Update(db, idProduct, referenceCode))
+                        return ReturnData.MessageFailed(referenceCode + " already exists.", null);
+
+                string _nameBefore = _updateData.Name;
+                _updateData.ReferenceCode = referenceCode;
+                _updateData.Name = name;
+                _updateData.PriceBeforeDiscount = priceBeforeDiscount;
+                _updateData.TypeDiscountPercent = typeDiscountPercent;
+                _updateData.Discount = discount;
+                _updateData.TotalDiscount = (_updateData.TypeDiscountPercent) ? _updateData.PriceBeforeDiscount * (_updateData.Discount / 100) : _updateData.Discount;
+                _updateData.Price = _updateData.PriceBeforeDiscount - _updateData.TotalDiscount;
+                _updateData.Weight = weight;
+                _updateData.ShortDescription = shortDescription;
+                _updateData.Description = description;
+                _updateData.Note = note;
+                _updateData.Active = active;
+                _updateData.DateLastUpdate = DateTime.Now;
+                foreach (TBProduct_Combination item in _updateData.TBProduct_Combinations.AsEnumerable().ToArray())
+                {
+                    item.PriceBeforeImpact = _updateData.PriceBeforeDiscount;
+                    item.PriceAfterImpact = _updateData.PriceBeforeDiscount + item.ImpactPrice;
+                    item.TypeDiscountPercent = _updateData.TypeDiscountPercent;
+                    item.Discount = _updateData.Discount;
+                    item.TotalDiscount = (item.TypeDiscountPercent) ? item.PriceAfterImpact * (item.Discount / 100) : item.Discount;
+                    item.Price = item.PriceAfterImpact - item.TotalDiscount;
+                    item.WeightBeforeImpact = _updateData.Weight;
+                    item.Weight = item.WeightBeforeImpact + item.ImpactWeight;
+                }
+                db.SubmitChanges();
+
+                if (_updateData != null)
+                    return ReturnData.MessageSuccess(_nameBefore + " has been successfully updated.", null);
+                return ReturnData.MessageFailed(_nameBefore + " failed to update.", null);
+            }
+        }
+        catch (Exception ex)
+        {
+            return ReturnData.MessageFailed(ex.Message, null);
+        }
+    }
+    public ReturnData AJAX_Delete_Information(int idProduct)
+    {
+        try
+        {
+            using (DataClassesDataContext db = new DataClassesDataContext())
+            {
+                TBProduct _updateData = GetDetail(db, idProduct);
+                if (_updateData == null)
+                    return ReturnData.MessageFailed("The requested resource does not exist.", null);
+
+                string _nameBefore = _updateData.Name;
+                _updateData.Deflag = true;
+                _updateData.DateLastUpdate = DateTime.Now;
+                db.SubmitChanges();
+
+                if (_updateData != null)
+                    return ReturnData.MessageSuccess(_nameBefore + " has been successfully deleted.", null);
+                return ReturnData.MessageFailed(_nameBefore + " failed to delete.", null);
+            }
+        }
+        catch (Exception ex)
+        {
+            return ReturnData.MessageFailed(ex.Message, null);
+        }
+    }
+    public ReturnData AJAX_ChangeActive_Information(int idProduct)
+    {
+        try
+        {
+            using (DataClassesDataContext db = new DataClassesDataContext())
+            {
+                TBProduct _updateData = GetDetail(db, idProduct);
+                if (_updateData == null)
+                    return ReturnData.MessageFailed("The requested resource does not exist.", null);
+
+                string _nameBefore = _updateData.Name;
+                _updateData.Active = !_updateData.Active;
+                _updateData.DateLastUpdate = DateTime.Now;
+                db.SubmitChanges();
+
+                if (_updateData != null)
+                {
+                    if (_updateData.Active)
+                        return ReturnData.MessageSuccess(_nameBefore + " has been successfully activated.", null);
+                    return ReturnData.MessageSuccess(_nameBefore + " has been successfully deactivated.", null);
+                }
+                return ReturnData.MessageFailed(_nameBefore + " failed to change active status.", null);
+            }
+        }
+        catch (Exception ex)
+        {
+            return ReturnData.MessageFailed(ex.Message, null);
+        }
+    }
+    public ReturnData AJAX_UpSequence_Information(int idProduct)
+    {
+        try
+        {
+            using (DataClassesDataContext db = new DataClassesDataContext())
+            {
+                TBProduct _selectedProduct = GetDetail(db, idProduct);
+                if (_selectedProduct != null)
+                {
+                    TBProduct _changeProduct = GetAll(db).AsEnumerable().Where(x => x.SequenceNumber == _selectedProduct.SequenceNumber - 1).FirstOrDefault();
+                    if (_changeProduct != null)
+                    {
+                        int _temp = _changeProduct.SequenceNumber;
+                        _changeProduct.SequenceNumber = _selectedProduct.SequenceNumber;
+                        _selectedProduct.SequenceNumber = _temp;
+                        db.SubmitChanges();
+                        return ReturnData.MessageSuccess(_selectedProduct.Name + " has been successfully moved.", null);
+                    }
+                    return ReturnData.MessageFailed(_selectedProduct.Name + " failed to move.", null);
+                }
+                return ReturnData.MessageFailed("The requested resource does not exist.", null);
+            }
+        }
+        catch (Exception ex)
+        {
+            return ReturnData.MessageFailed(ex.Message, null);
+        }
+    }
+    public ReturnData AJAX_DownSequence_Information(int idProduct)
+    {
+        try
+        {
+            using (DataClassesDataContext db = new DataClassesDataContext())
+            {
+                TBProduct _selectedProduct = GetDetail(db, idProduct);
+                if (_selectedProduct != null)
+                {
+                    TBProduct _changeProduct = GetAll(db).AsEnumerable().Where(x => x.SequenceNumber == _selectedProduct.SequenceNumber + 1).FirstOrDefault();
+                    if (_changeProduct != null)
+                    {
+                        int _temp = _changeProduct.SequenceNumber;
+                        _changeProduct.SequenceNumber = _selectedProduct.SequenceNumber;
+                        _selectedProduct.SequenceNumber = _temp;
+                        db.SubmitChanges();
+                        return ReturnData.MessageSuccess(_selectedProduct.Name + " has been successfully moved.", null);
+                    }
+                    return ReturnData.MessageFailed(_selectedProduct.Name + " failed to move.", null);
+                }
+                return ReturnData.MessageFailed("The requested resource does not exist.", null);
+            }
+        }
+        catch (Exception ex)
+        {
+            return ReturnData.MessageFailed(ex.Message, null);
+        }
+    }
+    public bool ValidationReferenceCode_Insert(DataClassesDataContext db, string referenceCode)
+    {
+        try
+        {
+            if (Dynamic_GetAll_Information(db).AsEnumerable().Where(x => x.ReferenceCode.ToLower() == referenceCode.ToLower()).FirstOrDefault() != null)
+                return false;
+            return true;
+        }
+        catch (Exception)
+        {
+            return true;
+        }
+    }
+    public bool ValidationReferenceCode_Update(DataClassesDataContext db, int idProduct, string referenceCode)
+    {
+        try
+        {
+            if (Dynamic_GetAll_Information(db).AsEnumerable().Where(x => x.ReferenceCode.ToLower() == referenceCode.ToLower() && x.IDProduct != idProduct).FirstOrDefault() != null)
+                return true;
+            return false;
+        }
+        catch (Exception)
+        {
+            return true;
+        }
+    }
+    public bool Update_SequenceNumber(DataClassesDataContext db)
+    {
+        try
+        {
+            TBProduct[] _products = GetAll(db).ToArray();
+            for (int i = 0; i < _products.Count(); i++)
+            {
+                _products[i].SequenceNumber = i + 1;
+            }
+            db.SubmitChanges();
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
+    #endregion
+
+    #region DYNAMIC
+    // FUNCTION
+    private Func<DataClassesDataContext, IEnumerable<dynamic>> Dynamic_Func_GetAll_Information
+    {
+        get
+        {
+            Func<DataClassesDataContext, IEnumerable<dynamic>> func =
+              CompiledQuery.Compile<DataClassesDataContext, IEnumerable<dynamic>>
+              ((DataClassesDataContext context) => context.FUNC_Product_GetAll_Information()
+                  .AsEnumerable().OrderBy(x => x.SequenceNumber).ToArray());
+            return func;
+        }
+    }
+    private Func<DataClassesDataContext, int, dynamic> Dynamic_Func_GetDetail_Information
+    {
+        get
+        {
+            Func<DataClassesDataContext, int, dynamic> func =
+              CompiledQuery.Compile<DataClassesDataContext, int, dynamic>
+              ((DataClassesDataContext context, int idProduct) => context.FUNC_Product_GetDetail_Information(idProduct)
+                  .AsEnumerable().FirstOrDefault());
+            return func;
+        }
+    }
+
+    // DYNAMIC
+    public IEnumerable<dynamic> Dynamic_GetAll_Information(DataClassesDataContext db)
+    {
+        try
+        {
+            return Dynamic_Func_GetAll_Information(db);
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+    public dynamic Dynamic_GetDetail_Information(DataClassesDataContext db, int idProduct)
+    {
+        try
+        {
+            return Dynamic_Func_GetDetail_Information(db, idProduct);
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+    #endregion
+
+    #region LINQ
+    #endregion
+    #endregion
+
+    #region META
+    #region AJAX
+    public ReturnData AJAX_Update_Meta(int idProduct, string meta, string metaDescription, string metaKeyword)
+    {
+        try
+        {
+            using (DataClassesDataContext db = new DataClassesDataContext())
+            {
+                TBProduct _updateData = GetDetail(db, idProduct);
+                if (_updateData == null)
+                    return ReturnData.MessageFailed("The requested resource does not exist.", null);
+
+                string _nameBefore = _updateData.Name;
+                _updateData.Meta = meta;
+                _updateData.MetaDescription = metaDescription;
+                _updateData.MetaKeyword = metaKeyword;
+                _updateData.DateLastUpdate = DateTime.Now;
+                db.SubmitChanges();
+
+                if (_updateData != null)
+                    return ReturnData.MessageSuccess("SEO for " + _nameBefore + " has been successfully updated.", null);
+                return ReturnData.MessageFailed(_nameBefore + " failed to update.", null);
+            }
+        }
+        catch (Exception ex)
+        {
+            return ReturnData.MessageFailed(ex.Message, null);
+        }
+    }
+    #endregion
+    #endregion
+
+    #region CATEGORIES
+    #region AJAX
+    public ReturnData AJAX_Update_Categories(int idProduct, int[] categories)
+    {
+        try
+        {
+            using (DataClassesDataContext db = new DataClassesDataContext())
+            {
+                if (categories.Count() == 0)
+                    return ReturnData.MessageFailed("No selected category to insert.", null);
+
+                dynamic _product = Dynamic_GetDetail_Information(db, idProduct);
+                if (_product == null)
+                    return ReturnData.MessageFailed("The requested resource does not exist.", null);
+
+                TBProduct_Category[] _oldCategories = GetData_Category_ByIDProduct(db, _product.IDProduct);
+                List<TBCategory> _categories = new List<TBCategory>();
+                Class_Category _category = new Class_Category();
+                foreach (int item in categories)
+                {
+                    if (_oldCategories.AsEnumerable().Where(x => x.IDCategory == item).FirstOrDefault() == null)
+                    {
+                        TBCategory _newData = _category.GetDetail(db, item);
+                        if (_categories == null)
+                            return ReturnData.MessageFailed("Some category does not exists.", null);
+                        if (!_newData.Active)
+                            return ReturnData.MessageFailed(_newData.Name + " failed to insert, because " + _newData.Name + " does not active.", null);
+                        _categories.Add(_newData);
+                    }
+                }
+                foreach (TBProduct_Category item in _oldCategories)
+                {
+                    dynamic _item = categories.Where(x => x == item.IDCategory).FirstOrDefault();
+                    if (_item == 0)
+                    {
+                        if (item.IsDefault)
+                            return ReturnData.MessageFailed(item.TBCategory.Name + " failed to insert, because " + item.TBCategory.Name + " set as default category for this product.", null);
+                        db.TBProduct_Categories.DeleteOnSubmit(item);
+                    }
+                    else
+                    {
+                        if (!item.TBCategory.Active)
+                            return ReturnData.MessageFailed(item.TBCategory.Name + " failed to insert, because " + item.TBCategory.Name + " does not active.", null);
+                    }
+                }
+                db.SubmitChanges();
+
+                foreach (dynamic item in _categories)
+                {
+                    TBProduct_Category _newData = GetData_Category_ByIDProduct(db, idProduct).Where(x => x.IDCategory == item.IDCategory).FirstOrDefault();
+                    if (_newData == null)
+                    {
+                        _newData = new TBProduct_Category
+                        {
+                            IDProduct = idProduct,
+                            IDCategory = item.IDCategory,
+                            IsDefault = (Dynamic_GetData_Categories_ByIDProduct(db, idProduct).Where(x => x.IsDefault).Count() == 0) ? true : false,
+                            DateInsert = DateTime.Now,
+                            DateLastUpdate = DateTime.Now,
+                        };
+
+                        db.TBProduct_Categories.InsertOnSubmit(_newData);
+                    }
+                }
+                db.SubmitChanges();
+
+                Dictionary<string, dynamic> _result = new Dictionary<string, dynamic>();
+                _result.Add("DefaultCategory", Dynamic_GetDefault_Categories(db, idProduct));
+                _result.Add("SelectedCategories", Dynamic_GetData_Categories_ByIDProduct(db, idProduct));
+                _result.Add("TreeCategories", GetTree_Category(db, idProduct));
+                return ReturnData.MessageSuccess(categories.Count() + " categories has been successfully updated.", _result);
+            }
+        }
+        catch (Exception ex)
+        {
+            return ReturnData.MessageFailed(ex.Message, null);
+        }
+    }
+    public ReturnData AJAX_ChangeDefault_Categories(int idProduct_Categories)
+    {
+        try
+        {
+            using (DataClassesDataContext db = new DataClassesDataContext())
+            {
+                string _nameBefore = "";
+                dynamic _changeData = Dynamic_GetDetail_Categories(db, idProduct_Categories);
+                if (_changeData == null)
+                    return ReturnData.MessageFailed("The requested resource does not exist.", null);
+
+                _nameBefore = _changeData.Name;
+                if (_changeData.IsDefault)
+                    return ReturnData.MessageFailed(_nameBefore + " already default category for this product.", null);
+
+                foreach (TBProduct_Category item in GetData_Category_ByIDProduct(db, _changeData.IDProduct))
+                {
+                    if (item.IDCategory != _changeData.IDCategory)
+                    {
+                        if (item.IsDefault)
+                        {
+                            item.IsDefault = false;
+                            item.DateLastUpdate = DateTime.Now;
+                        }
+                    }
+                    else
+                    {
+                        if (!item.TBCategory.Active)
+                            return ReturnData.MessageFailed(_nameBefore + " failed to set as default, because " + _nameBefore + " does not active.", null);
+                        item.IsDefault = true;
+                        item.DateLastUpdate = DateTime.Now;
+                    }
+                }
+                db.SubmitChanges();
+                Dictionary<string, dynamic> _result = new Dictionary<string, dynamic>();
+                _result.Add("SelectedCategories", Dynamic_GetData_Categories_ByIDProduct(db, _changeData.IDProduct));
+                _result.Add("DefaultCategory", Dynamic_GetDefault_Categories(db, _changeData.IDProduct));
+                return ReturnData.MessageSuccess(_nameBefore + " has been successfully default.", _result);
+            }
+        }
+        catch (Exception ex)
+        {
+            return ReturnData.MessageFailed(ex.Message, null);
+        }
+    }
+
+    #region TREE
+    public IEnumerable<dynamic> GetTree_Category(DataClassesDataContext db, int idProduct)
+    {
+        Class_Category _category = new Class_Category();
+        return GenerateUL(db, _category, _category.GetDataBy_IDCategoryParent(db, 0), idProduct);
+
+    }
+    private IEnumerable<WITLibrary.JsTreeModel> GenerateUL(DataClassesDataContext db, Class_Category _category, IEnumerable<TBCategory> menus, int idProduct)
+    {
+        List<WITLibrary.JsTreeModel> _newCategory = new List<WITLibrary.JsTreeModel>();
+        foreach (var menu in menus)
+        {
+            if (menu.TBCategories.AsEnumerable().Any())
+            {
+                _newCategory.Add(new WITLibrary.JsTreeModel
+                {
+                    text = menu.Name,
+                    icon = menu.Active ? "fa fa-tags icon-state-success" : "fa fa-tags icon-state-danger",
+                    state = new WITLibrary.JsTreeState { selected = menu.TBProduct_Categories.AsEnumerable().FirstOrDefault(x => x.IDProduct == idProduct) != null },
+                    li_attr = new WITLibrary.JsTreeAttr { id = menu.IDCategory.ToString() },
+                    children = GenerateUL(db, _category, _category.GetDataBy_IDCategoryParent(db, menu.IDCategory), idProduct).ToArray()
+                });
+            }
+            else
+            {
+                _newCategory.Add(new WITLibrary.JsTreeModel
+                {
+                    text = menu.Name,
+                    icon = menu.Active ? "fa fa-tags icon-state-success" : "fa fa-tags icon-state-danger",
+                    li_attr = new WITLibrary.JsTreeAttr { id = menu.IDCategory.ToString() },
+                    state = new WITLibrary.JsTreeState { selected = menu.TBProduct_Categories.AsEnumerable().FirstOrDefault(x => x.IDProduct == idProduct) != null }
+                });
+            }
+        }
+        return _newCategory.ToArray();
+    }
+    #endregion
+    #endregion
+
+    #region DYNAMIC
+    // FUNCTION
+    private Func<DataClassesDataContext, IEnumerable<dynamic>> Dynamic_Func_GetAll_Category
+    {
+        get
+        {
+            Func<DataClassesDataContext, IEnumerable<dynamic>> func =
+              CompiledQuery.Compile<DataClassesDataContext, IEnumerable<dynamic>>
+              ((DataClassesDataContext context) => context.FUNC_Product_Category_GetAll()
+                  .AsEnumerable().ToArray());
+            return func;
+        }
+    }
+    private Func<DataClassesDataContext, int, IEnumerable<dynamic>> Dynamic_Func_GetData_ByIDProduct_Category
+    {
+        get
+        {
+            Func<DataClassesDataContext, int, IEnumerable<dynamic>> func =
+              CompiledQuery.Compile<DataClassesDataContext, int, IEnumerable<dynamic>>
+              ((DataClassesDataContext context, int idProduct) => context.FUNC_Product_Category_GetData_ByIDProduct(idProduct)
+                  .AsEnumerable().ToArray());
+            return func;
+        }
+    }
+    private Func<DataClassesDataContext, int, dynamic> Dynamic_Func_GetData_Default_Category
+    {
+        get
+        {
+            Func<DataClassesDataContext, int, dynamic> func =
+              CompiledQuery.Compile<DataClassesDataContext, int, dynamic>
+              ((DataClassesDataContext context, int idProduct) => context.FUNC_Product_Category_GetData_Default(idProduct)
+                  .AsEnumerable().FirstOrDefault());
+            return func;
+        }
+    }
+    private Func<DataClassesDataContext, int, dynamic> Dynamic_Func_GetDetail_Category
+    {
+        get
+        {
+            Func<DataClassesDataContext, int, dynamic> func =
+              CompiledQuery.Compile<DataClassesDataContext, int, dynamic>
+              ((DataClassesDataContext context, int idProduct_Category) => context.FUNC_Product_Category_GetDetail(idProduct_Category)
+                  .AsEnumerable().FirstOrDefault());
+            return func;
+        }
+    }
+
+    // DYNAMIC
+    public IEnumerable<dynamic> Dynamic_GetAll_Categories(DataClassesDataContext db)
+    {
+        try
+        {
+            return Dynamic_Func_GetAll_Category(db);
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+    public IEnumerable<dynamic> Dynamic_GetData_Categories_ByIDProduct(DataClassesDataContext db, int idProduct)
+    {
+        try
+        {
+            return Dynamic_Func_GetData_ByIDProduct_Category(db, idProduct);
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+    public dynamic Dynamic_GetDetail_Categories(DataClassesDataContext db, int idProduct_Category)
+    {
+        try
+        {
+            return Dynamic_Func_GetDetail_Category(db, idProduct_Category);
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+    public dynamic Dynamic_GetDefault_Categories(DataClassesDataContext db, int idProduct)
+    {
+        try
+        {
+            return Dynamic_Func_GetData_Default_Category(db, idProduct);
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+    #endregion
+
+    #region LINQ
+    // FUNCTION
+    private Func<DataClassesDataContext, IEnumerable<TBProduct_Category>> Func_GetAll_Category
+    {
+        get
+        {
+            Func<DataClassesDataContext, IEnumerable<TBProduct_Category>> func =
+              CompiledQuery.Compile<DataClassesDataContext, IEnumerable<TBProduct_Category>>
+              ((DataClassesDataContext context) => context.TBProduct_Categories.AsEnumerable()
+                .Where(x => !x.TBCategory.Deflag).ToArray());
+            return func;
+        }
+    }
+    private Func<DataClassesDataContext, int, IEnumerable<TBProduct_Category>> Func_GetData_ByIDProduct_Category
+    {
+        get
+        {
+            Func<DataClassesDataContext, int, IEnumerable<TBProduct_Category>> func =
+              CompiledQuery.Compile<DataClassesDataContext, int, IEnumerable<TBProduct_Category>>
+              ((DataClassesDataContext context, int idProduct) => context.TBProduct_Categories.AsEnumerable()
+                .Where(x => !x.TBCategory.Deflag && x.IDProduct == idProduct).ToArray());
+            return func;
+        }
+    }
+    private Func<DataClassesDataContext, int, TBProduct_Category> Func_GetDetail_Category
+    {
+        get
+        {
+            Func<DataClassesDataContext, int, TBProduct_Category> func =
+              CompiledQuery.Compile<DataClassesDataContext, int, TBProduct_Category>
+              ((DataClassesDataContext context, int idProduct_Category) => context.TBProduct_Categories.AsEnumerable()
+                .Where(x => !x.TBCategory.Deflag && x.IDProduct_Category == idProduct_Category).FirstOrDefault());
+            return func;
+        }
+    }
+
+    // LINQ
+    public IEnumerable<TBProduct_Category> GetAll_Category(DataClassesDataContext db)
+    {
+        try
+        {
+            return Func_GetAll_Category(db).ToArray();
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+    public IEnumerable<TBProduct_Category> GetData_Category_ByIDProduct(DataClassesDataContext db, int idProduct)
+    {
+        try
+        {
+            return Func_GetData_ByIDProduct_Category(db, idProduct).ToArray();
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+    public TBProduct_Category GetDetail_Category(DataClassesDataContext db, int idProduct_Category)
+    {
+        try
+        {
+            return Func_GetDetail_Category(db, idProduct_Category);
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+    #endregion
+    #endregion
+
+    #region PHOTO
+    #region AJAX
+    public ReturnData AJAX_Insert_Photo(int idProduct, HttpPostedFile file)
+    {
+        try
+        {
+            using (DataClassesDataContext db = new DataClassesDataContext())
+            {
+                dynamic _product = Dynamic_GetDetail_Information(db, idProduct);
+                if (_product == null)
+                    return ReturnData.MessageFailed("The requested resource does not exist.", null);
+
+                List<TBProduct_Photo> _renameFile = GetData_Photo_ByIDProduct(db, idProduct).ToList();
+                for (int i = 0; i < _renameFile.Count; i++)
+                {
+                    string oldPhoto = _renameFile[i].Photo;
+                    _renameFile[i].Photo = ((string)_product.Name).ToLower().Replace(" ", "-") + "-" + (i + 1).ToString() + WITLibrary.ConvertCustom.GetExtention(oldPhoto);
+                    if (OurClass.ImageExists(oldPhoto, "product"))
+                        System.IO.File.Move(HttpContext.Current.Server.MapPath("~/assets/images/product/" + oldPhoto), HttpContext.Current.Server.MapPath("~/assets/images/product/" + _renameFile[i].Photo));
+                }
+
+                int fileSizeInBytes = file.ContentLength;
+                string fileName = file.FileName;
+                string fileExtension = System.IO.Path.GetExtension(fileName);
+
+                TBProduct_Photo _newData = new TBProduct_Photo
+                {
+                    IDProduct = idProduct,
+                    IsCover = (_renameFile.Where(x => x.IsCover).Count() == 0) ? true : false,
+                    Photo = ((string)_product.Name).ToLower().Replace(" ", "-") + "-" + (_renameFile.Count() + 1).ToString() + fileExtension,
+                    DateInsert = DateTime.Now,
+                    DateLastUpdate = DateTime.Now,
+                };
+
+                db.TBProduct_Photos.InsertOnSubmit(_newData);
+                db.SubmitChanges();
+                if (_newData != null)
+                {
+                    file.SaveAs(HttpContext.Current.Server.MapPath("/assets/images/product/" + _newData.Photo));
+                    return ReturnData.MessageSuccess(fileName + " for this product has been successfully uploaded.", null);
+                }
+                return ReturnData.MessageFailed(fileName + " for this product failed to upload.", null);
+
+            }
+        }
+        catch (Exception ex)
+        {
+            return ReturnData.MessageFailed(ex.Message, null);
+        }
+    }
+    public ReturnData AJAX_ChangeCover_Photo(int idProduct_Photo)
+    {
+        try
+        {
+            using (DataClassesDataContext db = new DataClassesDataContext())
+            {
+                string _nameBefore = "";
+                dynamic _changeData = Dynamic_GetDetail_Photo(db, idProduct_Photo);
+                if (_changeData == null)
+                    return ReturnData.MessageFailed("The requested resource does not exist.", null);
+
+                _nameBefore = _changeData.Photo;
+                if (_changeData.IsCover)
+                    return ReturnData.MessageFailed(_nameBefore + " already cover for this product.", null);
+
+                foreach (TBProduct_Photo item in GetData_Photo_ByIDProduct(db, _changeData.IDProduct))
+                {
+                    if (item.IDProduct_Photo != _changeData.IDProduct_Photo)
+                    {
+                        if (item.IsCover)
+                        {
+                            item.IsCover = false;
+                            item.DateLastUpdate = DateTime.Now;
+                        }
+                    }
+                    else
+                    {
+                        item.IsCover = true;
+                        item.DateLastUpdate = DateTime.Now;
+                    }
+                }
+                db.SubmitChanges();
+                Dictionary<string, dynamic> _result = new Dictionary<string, dynamic>();
+                _result.Add("Photos", Dynamic_GetData_Photo_ByIDProduct(db, _changeData.IDProduct));
+                return ReturnData.MessageSuccess(_nameBefore + " has been successfully set cover for this product.", _result);
+            }
+        }
+        catch (Exception ex)
+        {
+            return ReturnData.MessageFailed(ex.Message, null);
+        }
+    }
+    public ReturnData AJAX_Delete_Photo(int idProduct_Photo)
+    {
+        try
+        {
+            using (DataClassesDataContext db = new DataClassesDataContext())
+            {
+                TBProduct_Photo _deleteData = GetDetail_Photo(db, idProduct_Photo);
+                if (_deleteData == null)
+                    return ReturnData.MessageFailed("The requested resource does not exist.", null);
+                string _nameBefore = _deleteData.Photo;
+                if (_deleteData.IsCover)
+                    return ReturnData.MessageFailed(_nameBefore + " failed to delete, because photo already cover for this product.", null);
+                if (_deleteData.TBProduct_Combination_Photos.AsEnumerable().ToArray().Count() != 0)
+                    return ReturnData.MessageFailed(_nameBefore + " failed to delete, because photo already use for some combination.", null);
+
+                db.TBProduct_Photos.DeleteOnSubmit(_deleteData);
+                db.SubmitChanges();
+
+                OurClass.DeleteFile(_deleteData.Photo, "product");
+                Dictionary<string, dynamic> _result = new Dictionary<string, dynamic>();
+                _result.Add("Photos", Dynamic_GetData_Photo_ByIDProduct(db, _deleteData.IDProduct));
+                return ReturnData.MessageSuccess(_nameBefore + " has been successfully deleted.", _result);
+            }
+        }
+        catch (Exception ex)
+        {
+            return ReturnData.MessageFailed(ex.Message, null);
+        }
+    }
+    #endregion
+
+    #region DYNAMIC
+    // FUNCTION
+    private Func<DataClassesDataContext, IEnumerable<dynamic>> Dynamic_Func_GetAll_Photo
+    {
+        get
+        {
+            Func<DataClassesDataContext, IEnumerable<dynamic>> func =
+              CompiledQuery.Compile<DataClassesDataContext, IEnumerable<dynamic>>
+              ((DataClassesDataContext context) => context.FUNC_Product_Photo_GetAll()
+                  .AsEnumerable().OrderByDescending(x => x.IsCover).ToArray());
+            return func;
+        }
+    }
+    private Func<DataClassesDataContext, int, IEnumerable<dynamic>> Dynamic_Func_GetData_ByIDProduct_Photo
+    {
+        get
+        {
+            Func<DataClassesDataContext, int, IEnumerable<dynamic>> func =
+              CompiledQuery.Compile<DataClassesDataContext, int, IEnumerable<dynamic>>
+              ((DataClassesDataContext context, int idProduct) => context.FUNC_Product_Photo_GetData_ByIDProduct(idProduct)
+                  .AsEnumerable().OrderByDescending(x => x.IsCover).ToArray());
+            return func;
+        }
+    }
+    private Func<DataClassesDataContext, int, IEnumerable<dynamic>> Dynamic_Func_GetDetail_Photo
+    {
+        get
+        {
+            Func<DataClassesDataContext, int, IEnumerable<dynamic>> func =
+              CompiledQuery.Compile<DataClassesDataContext, int, IEnumerable<dynamic>>
+              ((DataClassesDataContext context, int idProduct_Photo) => context.FUNC_Product_Photo_GetDetail(idProduct_Photo)
+                  .AsEnumerable().ToArray());
+            return func;
+        }
+    }
+
+    // DYNAMIC
+    public IEnumerable<dynamic> Dynamic_GetAll_Photo(DataClassesDataContext db)
+    {
+        try
+        {
+            return Dynamic_Func_GetAll_Photo(db).AsEnumerable().Select(x => new
+            {
+                x.IDProduct_Photo,
+                x.IDProduct,
+                x.Photo,
+                Preview = OurClass.ImageExists(x.Photo, "product") ? x.Photo : "noimage.jpg",
+                x.IsCover
+            }).ToArray();
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+    public IEnumerable<dynamic> Dynamic_GetData_Photo_ByIDProduct(DataClassesDataContext db, int idProduct)
+    {
+        try
+        {
+            return Dynamic_Func_GetData_ByIDProduct_Photo(db, idProduct).AsEnumerable().Select(x => new
+            {
+                x.IDProduct_Photo,
+                x.IDProduct,
+                x.Photo,
+                Preview = OurClass.ImageExists(x.Photo, "product") ? x.Photo : "noimage.jpg",
+                x.IsCover
+            }).ToArray();
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+    public dynamic Dynamic_GetDetail_Photo(DataClassesDataContext db, int idProduct_Photo)
+    {
+        try
+        {
+            return Dynamic_Func_GetDetail_Photo(db, idProduct_Photo).AsEnumerable().Select(x => new
+            {
+                x.IDProduct_Photo,
+                x.IDProduct,
+                x.Photo,
+                Preview = OurClass.ImageExists(x.Photo, "product") ? x.Photo : "noimage.jpg",
+                x.IsCover
+            }).FirstOrDefault();
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+    #endregion
+
+    #region LINQ
+    // FUNCTION
+    private Func<DataClassesDataContext, IEnumerable<TBProduct_Photo>> Func_GetAll_Photo
+    {
+        get
+        {
+            Func<DataClassesDataContext, IEnumerable<TBProduct_Photo>> func =
+              CompiledQuery.Compile<DataClassesDataContext, IEnumerable<TBProduct_Photo>>
+              ((DataClassesDataContext context) => context.TBProduct_Photos.AsEnumerable()
+                .ToArray());
+            return func;
+        }
+    }
+    private Func<DataClassesDataContext, int, IEnumerable<TBProduct_Photo>> Func_GetData_ByIDProduct_Photo
+    {
+        get
+        {
+            Func<DataClassesDataContext, int, IEnumerable<TBProduct_Photo>> func =
+              CompiledQuery.Compile<DataClassesDataContext, int, IEnumerable<TBProduct_Photo>>
+              ((DataClassesDataContext context, int idProduct) => context.TBProduct_Photos.AsEnumerable()
+                .Where(x => x.IDProduct == idProduct).ToArray());
+            return func;
+        }
+    }
+    private Func<DataClassesDataContext, int, TBProduct_Photo> Func_GetDetail_Photo
+    {
+        get
+        {
+            Func<DataClassesDataContext, int, TBProduct_Photo> func =
+              CompiledQuery.Compile<DataClassesDataContext, int, TBProduct_Photo>
+              ((DataClassesDataContext context, int idProduct_Photo) => context.TBProduct_Photos.AsEnumerable()
+                .Where(x => x.IDProduct_Photo == idProduct_Photo).FirstOrDefault());
+            return func;
+        }
+    }
+
+    // LINQ
+    public IEnumerable<TBProduct_Photo> GetAll_Photo(DataClassesDataContext db)
+    {
+        try
+        {
+            return Func_GetAll_Photo(db);
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+    public IEnumerable<TBProduct_Photo> GetData_Photo_ByIDProduct(DataClassesDataContext db, int idProduct)
+    {
+        try
+        {
+            return Func_GetData_ByIDProduct_Photo(db, idProduct);
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+    public TBProduct_Photo GetDetail_Photo(DataClassesDataContext db, int idProduct_Photo)
+    {
+        try
+        {
+            return Func_GetDetail_Photo(db, idProduct_Photo);
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+    #endregion
+    #endregion
+
+    #region COMBINATION
+    #region AJAX
+    public ReturnData AJAX_Insert_Combination(int idProduct, string referenceCode, decimal basePrice, decimal impactPrice, decimal impactWeight, int quantity, int[] idProduct_Photos, int[] idValues)
+    {
+        try
+        {
+            using (DataClassesDataContext db = new DataClassesDataContext())
+            {
+                TBProduct _product = GetDetail(db, idProduct);
+                if (_product == null)
+                    return ReturnData.MessageFailed("The requested resource does not exist.", null);
+
+                if (idValues.Count() == 0)
+                    return ReturnData.MessageFailed("No values selected.", null);
+                if (idProduct_Photos.Count() == 0)
+                    return ReturnData.MessageFailed("No photos selected.", null);
+
+                TBProduct_Combination _productCombination = new TBProduct_Combination
+                {
+                    IDProduct = _product.IDProduct,
+                    SequenceNumber = 0,
+                    ReferenceCode = referenceCode,
+                    BasePrice = basePrice,
+                    PriceBeforeImpact = _product.PriceBeforeDiscount,
+                    ImpactPrice = impactPrice,
+                    Discount = _product.Discount,
+                    TypeDiscountPercent = _product.TypeDiscountPercent,
+                    WeightBeforeImpact = _product.Weight,
+                    ImpactWeight = impactWeight,
+                    Quantity = quantity,
+                    Deflag = false,
+                    DateInsert = DateTime.Now,
+                    DateLastUpdate = DateTime.Now
+                };
+                _productCombination.PriceAfterImpact = _productCombination.PriceBeforeImpact + _productCombination.ImpactPrice;
+                _productCombination.TotalDiscount = _productCombination.TypeDiscountPercent ? _productCombination.PriceAfterImpact * _productCombination.Discount / 100 : _productCombination.PriceAfterImpact - _productCombination.Discount;
+                _productCombination.Price = _productCombination.PriceAfterImpact - _productCombination.TotalDiscount;
+
+                Class_Value _value = new Class_Value();
+                foreach (int item in idValues)
+                {
+                    dynamic _item = _value.Dynamic_GetDetail(db, item);
+                    if (_item == null)
+                        return ReturnData.MessageFailed("Value does not exist.", null);
+
+                    _productCombination.TBProduct_Combination_Details.Add(new TBProduct_Combination_Detail
+                    {
+                        IDValue = _item.IDValue,
+                        NameAttribute = _item.AttributeName,
+                        NameValue = _item.Name,
+                        DateInsert = DateTime.Now
+                    });
+                }
+
+                foreach (int item in idProduct_Photos)
+                {
+                    dynamic _item = Dynamic_GetDetail_Photo(db, item);
+                    if (_item == null)
+                        return ReturnData.MessageFailed("Photo does not exist.", null);
+
+                    _productCombination.TBProduct_Combination_Photos.Add(new TBProduct_Combination_Photo
+                    {
+                        IDProduct_Photo = _item.IDProduct_Photo,
+                        DateInsert = DateTime.Now
+                    });
+                }
+                db.SubmitChanges();
+                return ReturnData.MessageSuccess("Combination has been successfully inserted.", null);
+            }
+        }
+        catch (Exception ex)
+        {
+            return ReturnData.MessageFailed(ex.Message, null);
+        }
+    }
+    #endregion
+
+    #region LINQ
+    // FUNCTION
+    private Func<DataClassesDataContext, IEnumerable<TBProduct_Combination>> Func_GetAll_Combination
+    {
+        get
+        {
+            Func<DataClassesDataContext, IEnumerable<TBProduct_Combination>> func =
+              CompiledQuery.Compile<DataClassesDataContext, IEnumerable<TBProduct_Combination>>
+              ((DataClassesDataContext context) => context.TBProduct_Combinations.AsEnumerable()
+                .Where(x => !x.Deflag).ToArray());
+            return func;
+        }
+    }
+    private Func<DataClassesDataContext, int, IEnumerable<TBProduct_Combination>> Func_GetData_ByIDProduct_Combination
+    {
+        get
+        {
+            Func<DataClassesDataContext, int, IEnumerable<TBProduct_Combination>> func =
+              CompiledQuery.Compile<DataClassesDataContext, int, IEnumerable<TBProduct_Combination>>
+              ((DataClassesDataContext context, int idProduct) => context.TBProduct_Combinations.AsEnumerable()
+                .Where(x => x.IDProduct == idProduct && !x.Deflag).ToArray());
+            return func;
+        }
+    }
+    private Func<DataClassesDataContext, int, TBProduct_Combination> Func_GetDetail_Combination
+    {
+        get
+        {
+            Func<DataClassesDataContext, int, TBProduct_Combination> func =
+              CompiledQuery.Compile<DataClassesDataContext, int, TBProduct_Combination>
+              ((DataClassesDataContext context, int idProduct_Combination) => context.TBProduct_Combinations.AsEnumerable()
+                .Where(x => x.IDProduct_Combination == idProduct_Combination && !x.Deflag).FirstOrDefault());
+            return func;
+        }
+    }
+
+    // LINQ
+    public IEnumerable<TBProduct_Combination> GetAll_Combination(DataClassesDataContext db)
+    {
+        try
+        {
+            return Func_GetAll_Combination(db).ToArray();
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+    public IEnumerable<TBProduct_Combination> GetData_Combination_ByIDProduct(DataClassesDataContext db, int idProduct)
+    {
+        try
+        {
+            return Func_GetData_ByIDProduct_Combination(db, idProduct).ToArray();
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+    public TBProduct_Combination GetDetail_Combination(DataClassesDataContext db, int idProduct_Combination)
+    {
+        try
+        {
+            return Func_GetDetail_Combination(db, idProduct_Combination);
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+    #endregion
+    #endregion
+}

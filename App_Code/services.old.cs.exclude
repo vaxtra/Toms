@@ -1,0 +1,1611 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Services;
+
+/// <summary>
+/// Summary description for services
+/// </summary>
+[WebService(Namespace = "http://tempuri.org/")]
+[WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
+// To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
+[System.Web.Script.Services.ScriptService]
+public class services : System.Web.Services.WebService
+{
+
+    public services()
+    {
+
+        //Uncomment the following line if using designed components 
+        //InitializeComponent(); 
+    }
+
+    [WebMethod]
+    public string HelloWorld()
+    {
+        return "Hello World";
+    }
+
+    [WebMethod]
+    public void dtcat()
+    {
+        Class_Category _category = new Class_Category();
+        int idCategoryParent = 0;
+        if (Convert.ToInt32(HttpContext.Current.Request["idCategoryParent"]) != 0)
+            idCategoryParent = Convert.ToInt32(HttpContext.Current.Request["idCategoryParent"]);
+        System.Web.Script.Serialization.JavaScriptSerializer ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+        HttpContext.Current.Response.Clear();
+        HttpContext.Current.Response.ContentType = ("text/html");
+        HttpContext.Current.Response.BufferOutput = true;
+        HttpContext.Current.Response.Write(ser.Serialize(_category.AJAX_GetTable(Convert.ToInt32(HttpContext.Current.Request["iDisplayLength"]), Convert.ToInt32(HttpContext.Current.Request["iDisplayStart"]), Convert.ToInt32(HttpContext.Current.Request["sEcho"]), Convert.ToInt32(HttpContext.Current.Request["iSortingCols"]), Convert.ToInt32(HttpContext.Current.Request["iSortCol_0"]), HttpContext.Current.Request["sSortDir_0"], HttpContext.Current.Request["sSearch"], idCategoryParent)));
+        HttpContext.Current.Response.End();
+    }
+
+    [WebMethod]
+    public void dtattr()
+    {
+        Class_Attribute _attribute = new Class_Attribute();
+        System.Web.Script.Serialization.JavaScriptSerializer ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+        HttpContext.Current.Response.Clear();
+        HttpContext.Current.Response.ContentType = ("text/html");
+        HttpContext.Current.Response.BufferOutput = true;
+        HttpContext.Current.Response.Write(ser.Serialize(_attribute.AJAX_GetTable(Convert.ToInt32(HttpContext.Current.Request["iDisplayLength"]), Convert.ToInt32(HttpContext.Current.Request["iDisplayStart"]), Convert.ToInt32(HttpContext.Current.Request["sEcho"]), Convert.ToInt32(HttpContext.Current.Request["iSortingCols"]), Convert.ToInt32(HttpContext.Current.Request["iSortCol_0"]), HttpContext.Current.Request["sSortDir_0"], HttpContext.Current.Request["sSearch"])));
+        HttpContext.Current.Response.End();
+    }
+
+    [WebMethod]
+    public void dtval()
+    {
+        Class_Value _value = new Class_Value();
+        System.Web.Script.Serialization.JavaScriptSerializer ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+        HttpContext.Current.Response.Clear();
+        HttpContext.Current.Response.ContentType = ("text/html");
+        HttpContext.Current.Response.BufferOutput = true;
+        HttpContext.Current.Response.Write(ser.Serialize(_value.AJAX_GetTable(Convert.ToInt32(HttpContext.Current.Request["iDisplayLength"]), Convert.ToInt32(HttpContext.Current.Request["iDisplayStart"]), Convert.ToInt32(HttpContext.Current.Request["sEcho"]), Convert.ToInt32(HttpContext.Current.Request["iSortingCols"]), Convert.ToInt32(HttpContext.Current.Request["iSortCol_0"]), HttpContext.Current.Request["sSortDir_0"], HttpContext.Current.Request["sSearch"], HttpContext.Current.Request["idattr"])));
+        HttpContext.Current.Response.End();
+    }
+
+    [WebMethod]
+    public void dtman()
+    {
+        Class_Manufacturer _manufacturer = new Class_Manufacturer();
+        System.Web.Script.Serialization.JavaScriptSerializer ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+        HttpContext.Current.Response.Clear();
+        HttpContext.Current.Response.ContentType = ("text/html");
+        HttpContext.Current.Response.BufferOutput = true;
+        HttpContext.Current.Response.Write(ser.Serialize(_manufacturer.AJAX_GetTable(Convert.ToInt32(HttpContext.Current.Request["iDisplayLength"]), Convert.ToInt32(HttpContext.Current.Request["iDisplayStart"]), Convert.ToInt32(HttpContext.Current.Request["sEcho"]), Convert.ToInt32(HttpContext.Current.Request["iSortingCols"]), Convert.ToInt32(HttpContext.Current.Request["iSortCol_0"]), HttpContext.Current.Request["sSortDir_0"], HttpContext.Current.Request["sSearch"])));
+        HttpContext.Current.Response.End();
+    }
+
+    [WebMethod]
+    public void dtcust()
+    {
+        Class_Customer _customer = new Class_Customer();
+        System.Web.Script.Serialization.JavaScriptSerializer ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+        HttpContext.Current.Response.Clear();
+        HttpContext.Current.Response.ContentType = ("text/html");
+        HttpContext.Current.Response.BufferOutput = true;
+        HttpContext.Current.Response.Write(ser.Serialize(_customer.AJAX_GetTable(Convert.ToInt32(HttpContext.Current.Request["iDisplayLength"]), Convert.ToInt32(HttpContext.Current.Request["iDisplayStart"]), Convert.ToInt32(HttpContext.Current.Request["sEcho"]), Convert.ToInt32(HttpContext.Current.Request["iSortingCols"]), Convert.ToInt32(HttpContext.Current.Request["iSortCol_0"]), HttpContext.Current.Request["sSortDir_0"], HttpContext.Current.Request["sSearch"])));
+        HttpContext.Current.Response.End();
+    }
+
+    [WebMethod]
+    public void dtCar()
+    {
+        Class_Carrier _carrier = new Class_Carrier();
+        System.Web.Script.Serialization.JavaScriptSerializer ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+        HttpContext.Current.Response.Clear();
+        HttpContext.Current.Response.ContentType = ("text/html");
+        HttpContext.Current.Response.BufferOutput = true;
+        HttpContext.Current.Response.Write(ser.Serialize(_carrier.AJAX_GetTable(Convert.ToInt32(HttpContext.Current.Request["iDisplayLength"]), Convert.ToInt32(HttpContext.Current.Request["iDisplayStart"]), Convert.ToInt32(HttpContext.Current.Request["sEcho"]), Convert.ToInt32(HttpContext.Current.Request["iSortingCols"]), Convert.ToInt32(HttpContext.Current.Request["iSortCol_0"]), HttpContext.Current.Request["sSortDir_0"], HttpContext.Current.Request["sSearch"])));
+        HttpContext.Current.Response.End();
+    }
+
+    [WebMethod]
+    public void dtShip()
+    {
+        Class_Shipping _shipping = new Class_Shipping();
+        System.Web.Script.Serialization.JavaScriptSerializer ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+        HttpContext.Current.Response.Clear();
+        HttpContext.Current.Response.ContentType = ("text/html");
+        HttpContext.Current.Response.BufferOutput = true;
+        HttpContext.Current.Response.Write(ser.Serialize(_shipping.AJAX_GetTable(Convert.ToInt32(HttpContext.Current.Request["iDisplayLength"]), Convert.ToInt32(HttpContext.Current.Request["iDisplayStart"]), Convert.ToInt32(HttpContext.Current.Request["sEcho"]), Convert.ToInt32(HttpContext.Current.Request["iSortingCols"]), Convert.ToInt32(HttpContext.Current.Request["iSortCol_0"]), HttpContext.Current.Request["sSortDir_0"], HttpContext.Current.Request["sSearch"], HttpContext.Current.Request["idCarrier"])));
+        HttpContext.Current.Response.End();
+    }
+
+    [WebMethod]
+    public void dtpro()
+    {
+        Class_Product _product = new Class_Product();
+        System.Web.Script.Serialization.JavaScriptSerializer ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+        HttpContext.Current.Response.Clear();
+        HttpContext.Current.Response.ContentType = ("text/html");
+        HttpContext.Current.Response.BufferOutput = true;
+        HttpContext.Current.Response.Write(ser.Serialize(_product.AJAX_GetTable(Convert.ToInt32(HttpContext.Current.Request["iDisplayLength"]), Convert.ToInt32(HttpContext.Current.Request["iDisplayStart"]), Convert.ToInt32(HttpContext.Current.Request["sEcho"]), Convert.ToInt32(HttpContext.Current.Request["iSortingCols"]), Convert.ToInt32(HttpContext.Current.Request["iSortCol_0"]), HttpContext.Current.Request["sSortDir_0"], HttpContext.Current.Request["sSearch"])));
+        HttpContext.Current.Response.End();
+    }
+
+    [WebMethod]
+    public void dtvo()
+    {
+        Class_Voucher _voucher = new Class_Voucher();
+        System.Web.Script.Serialization.JavaScriptSerializer ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+        HttpContext.Current.Response.Clear();
+        HttpContext.Current.Response.ContentType = ("text/html");
+        HttpContext.Current.Response.BufferOutput = true;
+        HttpContext.Current.Response.Write(ser.Serialize(_voucher.AJAX_GetTable(Convert.ToInt32(HttpContext.Current.Request["iDisplayLength"]), Convert.ToInt32(HttpContext.Current.Request["iDisplayStart"]), Convert.ToInt32(HttpContext.Current.Request["sEcho"]), Convert.ToInt32(HttpContext.Current.Request["iSortingCols"]), Convert.ToInt32(HttpContext.Current.Request["iSortCol_0"]), HttpContext.Current.Request["sSortDir_0"], HttpContext.Current.Request["sSearch"])));
+        HttpContext.Current.Response.End();
+    }
+
+    [WebMethod]
+    public void admin_dtOrd()
+    {
+        Class_Order _order = new Class_Order();
+        System.Web.Script.Serialization.JavaScriptSerializer ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+        HttpContext.Current.Response.Clear();
+        HttpContext.Current.Response.ContentType = ("text/html");
+        HttpContext.Current.Response.BufferOutput = true;
+        HttpContext.Current.Response.Write(ser.Serialize(_order.AJAX_GetTable(Convert.ToInt32(HttpContext.Current.Request["iDisplayLength"]), Convert.ToInt32(HttpContext.Current.Request["iDisplayStart"]), Convert.ToInt32(HttpContext.Current.Request["sEcho"]), Convert.ToInt32(HttpContext.Current.Request["iSortingCols"]), Convert.ToInt32(HttpContext.Current.Request["iSortCol_0"]), HttpContext.Current.Request["sSortDir_0"], HttpContext.Current.Request["sSearch"])));
+        HttpContext.Current.Response.End();
+    }
+
+    [WebMethod]
+    public void admin_dtCountry()
+    {
+        Class_Region region = new Class_Region();
+        System.Web.Script.Serialization.JavaScriptSerializer ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+        HttpContext.Current.Response.Clear();
+        HttpContext.Current.Response.ContentType = ("text/html");
+        HttpContext.Current.Response.BufferOutput = true;
+        HttpContext.Current.Response.Write(ser.Serialize(region.AJAX_GetTable_Country(Convert.ToInt32(HttpContext.Current.Request["iDisplayLength"]), Convert.ToInt32(HttpContext.Current.Request["iDisplayStart"]), Convert.ToInt32(HttpContext.Current.Request["sEcho"]), Convert.ToInt32(HttpContext.Current.Request["iSortingCols"]), Convert.ToInt32(HttpContext.Current.Request["iSortCol_0"]), HttpContext.Current.Request["sSortDir_0"], HttpContext.Current.Request["sSearch"])));
+        HttpContext.Current.Response.End();
+    }
+
+    [WebMethod]
+    public void admin_dtProvince()
+    {
+        Class_Region region = new Class_Region();
+        System.Web.Script.Serialization.JavaScriptSerializer ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+        HttpContext.Current.Response.Clear();
+        HttpContext.Current.Response.ContentType = ("text/html");
+        HttpContext.Current.Response.BufferOutput = true;
+        HttpContext.Current.Response.Write(ser.Serialize(region.AJAX_GetTable_Province(Convert.ToInt32(HttpContext.Current.Request["iDisplayLength"]), Convert.ToInt32(HttpContext.Current.Request["iDisplayStart"]), Convert.ToInt32(HttpContext.Current.Request["sEcho"]), Convert.ToInt32(HttpContext.Current.Request["iSortingCols"]), Convert.ToInt32(HttpContext.Current.Request["iSortCol_0"]), HttpContext.Current.Request["sSortDir_0"], HttpContext.Current.Request["sSearch"], HttpContext.Current.Request["idCountry"])));
+        HttpContext.Current.Response.End();
+    }
+
+    [WebMethod]
+    public void admin_dtCity()
+    {
+        Class_Region region = new Class_Region();
+        System.Web.Script.Serialization.JavaScriptSerializer ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+        HttpContext.Current.Response.Clear();
+        HttpContext.Current.Response.ContentType = ("text/html");
+        HttpContext.Current.Response.BufferOutput = true;
+        HttpContext.Current.Response.Write(ser.Serialize(region.AJAX_GetTable_City(Convert.ToInt32(HttpContext.Current.Request["iDisplayLength"]), Convert.ToInt32(HttpContext.Current.Request["iDisplayStart"]), Convert.ToInt32(HttpContext.Current.Request["sEcho"]), Convert.ToInt32(HttpContext.Current.Request["iSortingCols"]), Convert.ToInt32(HttpContext.Current.Request["iSortCol_0"]), HttpContext.Current.Request["sSortDir_0"], HttpContext.Current.Request["sSearch"], HttpContext.Current.Request["idProvince"])));
+        HttpContext.Current.Response.End();
+    }
+
+    [WebMethod]
+    public void admin_dtDistrict()
+    {
+        Class_Region region = new Class_Region();
+        System.Web.Script.Serialization.JavaScriptSerializer ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+        HttpContext.Current.Response.Clear();
+        HttpContext.Current.Response.ContentType = ("text/html");
+        HttpContext.Current.Response.BufferOutput = true;
+        HttpContext.Current.Response.Write(ser.Serialize(region.AJAX_GetTable_District(Convert.ToInt32(HttpContext.Current.Request["iDisplayLength"]), Convert.ToInt32(HttpContext.Current.Request["iDisplayStart"]), Convert.ToInt32(HttpContext.Current.Request["sEcho"]), Convert.ToInt32(HttpContext.Current.Request["iSortingCols"]), Convert.ToInt32(HttpContext.Current.Request["iSortCol_0"]), HttpContext.Current.Request["sSortDir_0"], HttpContext.Current.Request["sSearch"], HttpContext.Current.Request["idCity"])));
+        HttpContext.Current.Response.End();
+    }
+
+    [WebMethod]
+    public void admin_dtMonitoring()
+    {
+        Class_Product_Combination combination = new Class_Product_Combination();
+        System.Web.Script.Serialization.JavaScriptSerializer ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+        HttpContext.Current.Response.Clear();
+        HttpContext.Current.Response.ContentType = ("text/html");
+        HttpContext.Current.Response.BufferOutput = true;
+        HttpContext.Current.Response.Write(ser.Serialize(combination.AJAX_GetTable_Monitoring(Convert.ToInt32(HttpContext.Current.Request["iDisplayLength"]), Convert.ToInt32(HttpContext.Current.Request["iDisplayStart"]), Convert.ToInt32(HttpContext.Current.Request["sEcho"]), Convert.ToInt32(HttpContext.Current.Request["iSortingCols"]), Convert.ToInt32(HttpContext.Current.Request["iSortCol_0"]), HttpContext.Current.Request["sSortDir_0"], HttpContext.Current.Request["sSearch"])));
+        HttpContext.Current.Response.End();
+    }
+
+    [WebMethod]
+    public void admin_dtAvailableQuantity()
+    {
+        Class_Product_Combination combination = new Class_Product_Combination();
+        System.Web.Script.Serialization.JavaScriptSerializer ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+        HttpContext.Current.Response.Clear();
+        HttpContext.Current.Response.ContentType = ("text/html");
+        HttpContext.Current.Response.BufferOutput = true;
+        HttpContext.Current.Response.Write(ser.Serialize(combination.AJAX_GetTable_AvailableQuantity(Convert.ToInt32(HttpContext.Current.Request["iDisplayLength"]), Convert.ToInt32(HttpContext.Current.Request["iDisplayStart"]), Convert.ToInt32(HttpContext.Current.Request["sEcho"]), Convert.ToInt32(HttpContext.Current.Request["iSortingCols"]), Convert.ToInt32(HttpContext.Current.Request["iSortCol_0"]), HttpContext.Current.Request["sSortDir_0"], HttpContext.Current.Request["sSearch"])));
+        HttpContext.Current.Response.End();
+    }
+
+    [WebMethod]
+    public void admin_dtBestProducts()
+    {
+        Class_Product product = new Class_Product();
+        System.Web.Script.Serialization.JavaScriptSerializer ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+        HttpContext.Current.Response.Clear();
+        HttpContext.Current.Response.ContentType = ("text/html");
+        HttpContext.Current.Response.BufferOutput = true;
+        HttpContext.Current.Response.Write(ser.Serialize(product.AJAX_GetTable_BestSeller(Convert.ToInt32(HttpContext.Current.Request["iDisplayLength"]), Convert.ToInt32(HttpContext.Current.Request["iDisplayStart"]), Convert.ToInt32(HttpContext.Current.Request["sEcho"]), Convert.ToInt32(HttpContext.Current.Request["iSortingCols"]), Convert.ToInt32(HttpContext.Current.Request["iSortCol_0"]), HttpContext.Current.Request["sSortDir_0"], HttpContext.Current.Request["sSearch"])));
+        HttpContext.Current.Response.End();
+    }
+
+    [WebMethod]
+    public void admin_dtBestCategories()
+    {
+        Class_Category category = new Class_Category();
+        System.Web.Script.Serialization.JavaScriptSerializer ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+        HttpContext.Current.Response.Clear();
+        HttpContext.Current.Response.ContentType = ("text/html");
+        HttpContext.Current.Response.BufferOutput = true;
+        HttpContext.Current.Response.Write(ser.Serialize(category.AJAX_GetTable_BestCategories(Convert.ToInt32(HttpContext.Current.Request["iDisplayLength"]), Convert.ToInt32(HttpContext.Current.Request["iDisplayStart"]), Convert.ToInt32(HttpContext.Current.Request["sEcho"]), Convert.ToInt32(HttpContext.Current.Request["iSortingCols"]), Convert.ToInt32(HttpContext.Current.Request["iSortCol_0"]), HttpContext.Current.Request["sSortDir_0"], HttpContext.Current.Request["sSearch"])));
+        HttpContext.Current.Response.End();
+    }
+
+    [WebMethod]
+    public void admin_dtBestManufacturer()
+    {
+        Class_Manufacturer manufacturer = new Class_Manufacturer();
+        System.Web.Script.Serialization.JavaScriptSerializer ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+        HttpContext.Current.Response.Clear();
+        HttpContext.Current.Response.ContentType = ("text/html");
+        HttpContext.Current.Response.BufferOutput = true;
+        HttpContext.Current.Response.Write(ser.Serialize(manufacturer.AJAX_GetTable_BestManufacturer(Convert.ToInt32(HttpContext.Current.Request["iDisplayLength"]), Convert.ToInt32(HttpContext.Current.Request["iDisplayStart"]), Convert.ToInt32(HttpContext.Current.Request["sEcho"]), Convert.ToInt32(HttpContext.Current.Request["iSortingCols"]), Convert.ToInt32(HttpContext.Current.Request["iSortCol_0"]), HttpContext.Current.Request["sSortDir_0"], HttpContext.Current.Request["sSearch"])));
+        HttpContext.Current.Response.End();
+    }
+
+    [WebMethod]
+    public void admin_dtBestCustomer()
+    {
+        Class_Customer customer = new Class_Customer();
+        System.Web.Script.Serialization.JavaScriptSerializer ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+        HttpContext.Current.Response.Clear();
+        HttpContext.Current.Response.ContentType = ("text/html");
+        HttpContext.Current.Response.BufferOutput = true;
+        HttpContext.Current.Response.Write(ser.Serialize(customer.AJAX_GetTable_BestCustomer(Convert.ToInt32(HttpContext.Current.Request["iDisplayLength"]), Convert.ToInt32(HttpContext.Current.Request["iDisplayStart"]), Convert.ToInt32(HttpContext.Current.Request["sEcho"]), Convert.ToInt32(HttpContext.Current.Request["iSortingCols"]), Convert.ToInt32(HttpContext.Current.Request["iSortCol_0"]), HttpContext.Current.Request["sSortDir_0"], HttpContext.Current.Request["sSearch"])));
+        HttpContext.Current.Response.End();
+    }
+
+    [WebMethod]
+    public void admin_dtPaymentMethod()
+    {
+        Class_PaymentMethod payment = new Class_PaymentMethod();
+        System.Web.Script.Serialization.JavaScriptSerializer ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+        HttpContext.Current.Response.Clear();
+        HttpContext.Current.Response.ContentType = ("text/html");
+        HttpContext.Current.Response.BufferOutput = true;
+        HttpContext.Current.Response.Write(ser.Serialize(payment.AJAX_GetTable(Convert.ToInt32(HttpContext.Current.Request["iDisplayLength"]), Convert.ToInt32(HttpContext.Current.Request["iDisplayStart"]), Convert.ToInt32(HttpContext.Current.Request["sEcho"]), Convert.ToInt32(HttpContext.Current.Request["iSortingCols"]), Convert.ToInt32(HttpContext.Current.Request["iSortCol_0"]), HttpContext.Current.Request["sSortDir_0"], HttpContext.Current.Request["sSearch"])));
+        HttpContext.Current.Response.End();
+    }
+
+    [WebMethod]
+    public void admin_dtEmployee()
+    {
+        Class_Employee employee = new Class_Employee();
+        System.Web.Script.Serialization.JavaScriptSerializer ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+        HttpContext.Current.Response.Clear();
+        HttpContext.Current.Response.ContentType = ("text/html");
+        HttpContext.Current.Response.BufferOutput = true;
+        HttpContext.Current.Response.Write(ser.Serialize(employee.AJAX_GetTable(Convert.ToInt32(HttpContext.Current.Request["iDisplayLength"]), Convert.ToInt32(HttpContext.Current.Request["iDisplayStart"]), Convert.ToInt32(HttpContext.Current.Request["sEcho"]), Convert.ToInt32(HttpContext.Current.Request["iSortingCols"]), Convert.ToInt32(HttpContext.Current.Request["iSortCol_0"]), HttpContext.Current.Request["sSortDir_0"], HttpContext.Current.Request["sSearch"])));
+        HttpContext.Current.Response.End();
+    }
+
+    [WebMethod]
+    public void admin_dtPage()
+    {
+        Class_Page page = new Class_Page();
+        System.Web.Script.Serialization.JavaScriptSerializer ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+        HttpContext.Current.Response.Clear();
+        HttpContext.Current.Response.ContentType = ("text/html");
+        HttpContext.Current.Response.BufferOutput = true;
+        HttpContext.Current.Response.Write(ser.Serialize(page.AJAX_GetTable(Convert.ToInt32(HttpContext.Current.Request["iDisplayLength"]), Convert.ToInt32(HttpContext.Current.Request["iDisplayStart"]), Convert.ToInt32(HttpContext.Current.Request["sEcho"]), Convert.ToInt32(HttpContext.Current.Request["iSortingCols"]), Convert.ToInt32(HttpContext.Current.Request["iSortCol_0"]), HttpContext.Current.Request["sSortDir_0"], HttpContext.Current.Request["sSearch"])));
+        HttpContext.Current.Response.End();
+    }
+
+    [WebMethod]
+    public void admin_dtPageCategory()
+    {
+        Class_Page_Category pageCategory = new Class_Page_Category();
+        System.Web.Script.Serialization.JavaScriptSerializer ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+        HttpContext.Current.Response.Clear();
+        HttpContext.Current.Response.ContentType = ("text/html");
+        HttpContext.Current.Response.BufferOutput = true;
+        HttpContext.Current.Response.Write(ser.Serialize(pageCategory.AJAX_GetTable(Convert.ToInt32(HttpContext.Current.Request["iDisplayLength"]), Convert.ToInt32(HttpContext.Current.Request["iDisplayStart"]), Convert.ToInt32(HttpContext.Current.Request["sEcho"]), Convert.ToInt32(HttpContext.Current.Request["iSortingCols"]), Convert.ToInt32(HttpContext.Current.Request["iSortCol_0"]), HttpContext.Current.Request["sSortDir_0"], HttpContext.Current.Request["sSearch"], Convert.ToInt32(HttpContext.Current.Request["idPage"]))));
+        HttpContext.Current.Response.End();
+    }
+
+    [WebMethod]
+    public void admin_dtPost()
+    {
+        Class_Post post = new Class_Post();
+        System.Web.Script.Serialization.JavaScriptSerializer ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+        HttpContext.Current.Response.Clear();
+        HttpContext.Current.Response.ContentType = ("text/html");
+        HttpContext.Current.Response.BufferOutput = true;
+        HttpContext.Current.Response.Write(ser.Serialize(post.AJAX_GetTable(Convert.ToInt32(HttpContext.Current.Request["iDisplayLength"]), Convert.ToInt32(HttpContext.Current.Request["iDisplayStart"]), Convert.ToInt32(HttpContext.Current.Request["sEcho"]), Convert.ToInt32(HttpContext.Current.Request["iSortingCols"]), Convert.ToInt32(HttpContext.Current.Request["iSortCol_0"]), HttpContext.Current.Request["sSortDir_0"], HttpContext.Current.Request["sSearch"])));
+        HttpContext.Current.Response.End();
+    }
+
+    [WebMethod]
+    public dynamic Request(Dictionary<string, dynamic> data)
+    {
+        try
+        {
+            if (data.ContainsKey("c") && data.ContainsKey("m"))
+            {
+
+                switch ((string)data["c"])
+                {
+                    #region BACKEND
+                    #region category
+                    case "becat":
+                        {
+                            Class_Category _category = new Class_Category();
+                            dynamic param = data["data"];
+                            switch ((string)data["m"])
+                            {
+                                case "preload":
+                                    {
+                                        return _category.AJAX_GetDetail(param["id"]);
+                                    }
+                                case "icat":
+                                    {
+                                        return _category.AJAX_Insert(param["baseImage"], param["fnImage"], param["idparent"], param["name"], param["description"], param["active"]);
+                                    }
+                                case "ucat":
+                                    {
+                                        return _category.AJAX_Update(param["id"], param["baseImage"], param["fnImage"], param["idparent"], param["name"], param["description"], param["active"]);
+                                    }
+                                case "dcat":
+                                    {
+                                        return _category.AJAX_Delete(param["id"]);
+                                    }
+                                case "statustoggle":
+                                    {
+                                        return _category.AJAX_StatusToggle(param["id"]);
+                                    }
+                                case "upreload":
+                                    {
+                                        return _category.AJAX_PreloadUpdate(param["id"]);
+                                    }
+                                default:
+                                    return ReturnData.MessageFailed("endpoint not found", null);
+                            }
+                        }
+                    #endregion
+                    #region attribute
+                    case "beattr":
+                        {
+                            Class_Attribute _attribute = new Class_Attribute();
+                            dynamic param = data["data"];
+                            switch ((string)data["m"])
+                            {
+                                case "iattr":
+                                    {
+                                        return _attribute.AJAX_Insert(param["Name"], param["IsColor"]);
+                                    }
+                                case "uattr":
+                                    {
+                                        return _attribute.AJAX_Update(param["id"], param["Name"], param["IsColor"]);
+                                    }
+                                case "dattr":
+                                    {
+                                        return _attribute.AJAX_Delete(param["id"]);
+                                    }
+                                case "upreload":
+                                    {
+                                        return _attribute.AJAX_GetDetail(param["id"]);
+                                    }
+                                default:
+                                    return ReturnData.MessageFailed("endpoint not found", null);
+                            }
+                        }
+                    #endregion
+                    #region value
+                    case "beval":
+                        {
+                            Class_Value _value = new Class_Value();
+                            Class_Attribute _attribute = new Class_Attribute();
+                            dynamic param = data["data"];
+                            switch ((string)data["m"])
+                            {
+                                case "preload":
+                                    {
+                                        return _attribute.AJAX_GetDetail(param["idattr"]);
+                                    }
+                                case "upreload":
+                                    {
+                                        return _value.AJAX_PreloadUpdate(param["id"]);
+                                    }
+                                case "ival":
+                                    {
+                                        return _value.AJAX_Insert(param["idattr"], param["Name"], param["RGBColor"]);
+                                    }
+                                case "uval":
+                                    {
+                                        return _value.AJAX_Update(param["id"], param["Name"], param["RGBColor"]);
+                                    }
+                                case "dval":
+                                    {
+                                        return _value.AJAX_Delete(param["id"]);
+                                    }
+                                default:
+                                    return ReturnData.MessageFailed("endpoint not found", null);
+                            }
+                        }
+                    #endregion
+                    #region manufacturer
+                    case "beman":
+                        {
+                            Class_Manufacturer _manufacturer = new Class_Manufacturer();
+                            dynamic param = data["data"];
+                            switch ((string)data["m"])
+                            {
+                                case "iman":
+                                    {
+                                        return _manufacturer.AJAX_Insert(param["baseImage"], param["fnImage"], param["name"], param["email"], param["phone"], param["address"], param["description"], param["active"]);
+                                    }
+                                case "rman":
+                                    {
+                                        return _manufacturer.AJAX_GetDetail(param["id"]);
+                                    }
+                                case "dman":
+                                    {
+                                        return _manufacturer.AJAX_Delete(param["id"]);
+                                    }
+                                case "statustoggle":
+                                    {
+                                        return _manufacturer.AJAX_StatusToggle(param["id"]);
+                                    }
+                                case "upreload":
+                                    {
+                                        return _manufacturer.AJAX_GetDetail(param["id"]);
+                                    }
+                                case "uman":
+                                    {
+                                        return _manufacturer.AJAX_Update(param["IDManufacturer"], param["baseImage"], param["fnImage"], param["Name"], param["Email"], param["Phone"], param["Address"], param["Description"], param["Active"]);
+
+                                    }
+                                default:
+                                    return ReturnData.MessageFailed("endpoint not found", null);
+                            }
+                        }
+                    #endregion
+                    #region product
+                    case "bepro":
+                        {
+                            Class_Product _product = new Class_Product();
+                            Class_Value _value = new Class_Value();
+                            dynamic param = data["data"];
+                            switch ((string)data["m"])
+                            {
+                                case "preload":
+                                    {
+                                        return _product.AJAX_Preload_Insert();
+                                    }
+                                case "rval":
+                                    {
+                                        return _value.AJAX_GetDataBy_IDAttribute(param["IDAttribute"]);
+                                    }
+                                case "setcover":
+                                    {
+                                        return _product.AJAX_ChangeCover_Photo(param["id"]);
+                                    }
+                                case "uppropos"://up product position
+                                    {
+                                        return _product.AJAX_UpSequence_Information(param["id"]);
+                                    }
+                                case "downpropos"://down product position
+                                    {
+                                        return _product.AJAX_DownSequence_Information(param["id"]);
+                                    }
+                                case "upreload":
+                                    {
+                                        return _product.AJAX_Preload_Update(param["id"]);
+                                    }
+                                case "ipro":
+                                    {
+                                        return _product.AJAX_Insert_Information(param["IDManufacturer"], param["ReferenceCode"], param["Name"], param["PriceBeforeDiscount"], param["TypeDiscountPercent"], param["Discount"], param["Weight"], param["ShortDescription"], param["Description"], param["Note"], param["Active"]);
+                                    }
+                                case "uproinfo":
+                                    {
+                                        return _product.AJAX_Update_Information(param["IDProduct"], param["ReferenceCode"], param["Name"], param["PriceBeforeDiscount"], param["TypeDiscountPercent"], param["Discount"], param["Weight"], param["ShortDescription"], param["Description"], param["Note"], param["Active"]);
+                                    }
+                                case "uprocat":
+                                    {
+                                        List<int> _idCat = new List<int>();
+                                        foreach (var item in param["IDCategory"])
+                                        {
+                                            _idCat.Add(Convert.ToInt32(item));
+                                        }
+                                        return _product.AJAX_Update_Categories(param["IDProduct"], _idCat.ToArray());
+                                    }
+                                case "uproseo":
+                                    {
+                                        return _product.AJAX_Update_Meta(param["IDProduct"], param["Meta"], param["MetaDescription"], param["MetaKeyword"]);
+                                    }
+                                case "uprodefcat":
+                                    {
+                                        return _product.AJAX_ChangeDefault_Categories(param["IDProduct_Category"]);
+                                    }
+                                case "changedefcat":
+                                    {
+                                        return _product.AJAX_ChangeDefault_Categories(param["idcat"]);
+                                    }
+                                case "dpro":
+                                    {
+                                        return _product.AJAX_Delete_Information(param["id"]);
+                                    }
+                                case "dprophoto":
+                                    {
+                                        return _product.AJAX_Delete_Photo(param["id"]);
+                                    }
+                                case "statustoggle":
+                                    {
+                                        return _product.AJAX_ChangeActive_Information(param["id"]);
+                                    }
+                                case "iprocom":
+                                    {
+                                        List<int> _values = new List<int>();
+                                        foreach (var item in param["Values"])
+                                        {
+                                            _values.Add(Convert.ToInt32(item));
+                                        }
+                                        List<int> _photos = new List<int>();
+                                        foreach (var item in param["Photos"])
+                                        {
+                                            _photos.Add(Convert.ToInt32(item));
+                                        }
+                                        return _product.AJAX_Insert_Combination(param["IDProduct"], param["ReferenceCode"], param["BasePrice"], param["ImpactPrice"], param["ImpactWeight"], param["Quantity"], _photos.ToArray(), _values.ToArray());
+                                    }
+                                case "uprocom":
+                                    {
+                                        List<int> _values = new List<int>();
+                                        foreach (var item in param["Values"])
+                                        {
+                                            _values.Add(Convert.ToInt32(item));
+                                        }
+                                        List<int> _photos = new List<int>();
+                                        foreach (var item in param["Photos"])
+                                        {
+                                            _photos.Add(Convert.ToInt32(item));
+                                        }
+                                        return _product.AJAX_Update_Combination(param["IDProduct_Combination"], param["IDProduct"], param["ReferenceCode"], param["BasePrice"], param["ImpactPrice"], param["ImpactWeight"], param["Quantity"], _photos.ToArray(), _values.ToArray());
+                                        //return _product.AJAX_Insert_Combination(param["IDProduct"], param["ReferenceCode"], param["BasePrice"], param["ImpactPrice"], param["ImpactWeight"], param["Quantity"], _photos.ToArray(), _values.ToArray());
+                                    }
+                                case "dprocom":
+                                    {
+                                        return _product.AJAX_Delete_Combination(param["id"]);
+                                    }
+                                case "preloaducom":
+                                    {
+                                        return _product.AJAX_Preload_Update_Combination(param["id"]);
+                                    }
+                                default:
+                                    return ReturnData.MessageFailed("endpoint not found", null);
+                            }
+                        }
+                    #endregion
+                    #region carrier
+                    case "becar":
+                        {
+                            Class_Carrier _carrier = new Class_Carrier();
+                            dynamic param = data["data"];
+                            switch ((string)data["m"])
+                            {
+                                case "icar":
+                                    {
+                                        return _carrier.AJAX_Insert(param["baseImage"], param["Information"], param["fnImage"], param["Name"]);
+                                    }
+                                case "statustoggle":
+                                    {
+                                        return _carrier.AJAX_StatusToggle(param["IDCarrier"], param["Active"]);
+                                    }
+                                case "upreload":
+                                    {
+                                        return _carrier.AJAX_GetDetail(param["IDCarrier"]);
+                                    }
+                                case "ucar":
+                                    {
+                                        return _carrier.AJAX_Update(param["IDCarrier"], param["Name"], param["Information"], param["BaseImage"], param["FnImage"]);
+                                    }
+                                default:
+                                    return ReturnData.MessageFailed("endpoint not found", null);
+                            }
+                        }
+                    #endregion
+                    #region Shipping
+                    case "beship":
+                        {
+                            Class_Shipping _shipping = new Class_Shipping();
+                            dynamic param = data["data"];
+                            switch ((string)data["m"])
+                            {
+                                case "rbycar":
+                                    {
+                                        return _shipping.AJAX_GetByIDCarrier(param["IDCarrier"]);
+                                    }
+                                case "uprice":
+                                    {
+                                        return _shipping.AJAX_Update_Price(param["IDShipping"], param["Price"]);
+                                    }
+                                default:
+                                    return ReturnData.MessageFailed("endpoint not found", null);
+                            }
+                        }
+                    #endregion
+                    #region Voucher
+                    case "bevo":
+                        {
+                            dynamic param = data["data"];
+                            switch ((string)data["m"])
+                            {
+                                case "preload":
+                                    {
+                                        Class_Customer _cust = new Class_Customer();
+                                        Dictionary<string, dynamic> result = new Dictionary<string, dynamic>();
+                                        result.Add("Customer", _cust.Dynamic_GetAll());
+                                        return ReturnData.MessageSuccess("OK", result);
+                                    }
+                                case "upreload":
+                                    {
+                                        Class_Customer _cust = new Class_Customer();
+                                        Class_Voucher _voucher = new Class_Voucher();
+                                        Dictionary<string, dynamic> result = new Dictionary<string, dynamic>();
+                                        result.Add("Customer", _cust.Dynamic_GetAll());
+                                        result.Add("Voucher", _voucher.Dynamic_GetDetail(param["IDVoucher"]));
+                                        return ReturnData.MessageSuccess("OK", result);
+                                    }
+                                case "ivo":
+                                    {
+                                        Class_Voucher _voucher = new Class_Voucher();
+                                        return _voucher.AJAX_Insert(param["IDCustomer"], param["Name"], param["Code"], param["Description"], param["VoucherType"], param["Value"], param["TotalAvailable"], param["MinimumAmount"], param["StartDate"], param["EndDate"], param["Active"]);
+                                    }
+                                case "dvo":
+                                    {
+                                        Class_Voucher _voucher = new Class_Voucher();
+                                        return _voucher.AJAX_Delete(param["IDVoucher"]);
+                                    }
+                                case "uvo":
+                                    {
+                                        Class_Voucher _voucher = new Class_Voucher();
+                                        return _voucher.AJAX_Update(param["IDVoucher"], param["IDCustomer"], param["Name"], param["Code"], param["Description"], param["VoucherType"], param["Value"], param["TotalAvailable"], param["MinimumAmount"], param["StartDate"], param["EndDate"], param["Active"]);
+                                    }
+                                default:
+                                    return ReturnData.MessageFailed("Endpoint not found", null);
+                            }
+                        }
+                    #endregion
+                    #region MASTER
+                    case "bemaster":
+                        {
+                            dynamic param = data["data"];
+                            switch ((string)data["m"])
+                            {
+                                case "preload":
+                                    {
+                                        Dictionary<string, object> result = new Dictionary<string, object>();
+                                        foreach (var item in param["RequestData"])
+                                        {
+                                            if (item == "DetailOrder")
+                                            {
+                                                Class_Order _order = new Class_Order();
+                                                int idOrder = param["IDOrder"];
+                                                result.Add("DetailOrder", _order.Dynamic_GetDetail_ByIDOrder(idOrder));
+                                            }
+                                            if (item == "EmailConfiguration")
+                                            {
+                                                Class_Configuration config = new Class_Configuration();
+                                                result.Add(item, config.Dynamic_Get_EmailConfiguration());
+                                            }
+                                            if (item == "AutoCancel")
+                                            {
+                                                Class_Configuration config = new Class_Configuration();
+                                                result.Add(item, config.Dynamic_Get_AutoCancel());
+                                            }
+                                            if (item == "MonitoringStock")
+                                            {
+                                                Class_Product_Combination combination = new Class_Product_Combination();
+                                                result.Add(item, combination.Dynamic_GetData_MonitoringStock());
+                                            }
+                                            if (item == "PaymentMethod")
+                                            {
+                                                Class_PaymentMethod payment = new Class_PaymentMethod();
+                                                result.Add(item, payment.Dynamic_GetDetail_ByIDPayment_Method(param["IDPaymentMethod"]));
+                                            }
+                                            if (item == "Role")
+                                            {
+                                                Class_Role role = new Class_Role();
+                                                result.Add(item, role.Dynamic_GetAll());
+                                            }
+                                        }
+                                        return ReturnData.MessageSuccess("OK", result);
+                                    }
+                                default:
+                                    return ReturnData.MessageFailed("Endpoint not found", null);
+                            }
+                        }
+                    #endregion
+                    #region ORDER
+                    case "beord":
+                        {
+                            dynamic param = data["data"];
+                            switch ((string)data["m"])
+                            {
+                                case "rstord":
+                                    {
+                                        Class_Order_Status _status = new Class_Order_Status();
+                                        return _status.AJAX_GetAll();
+                                    }
+                                case "ustord":
+                                    {
+                                        Class_Order _order = new Class_Order();
+                                        return _order.AJAX_UpdateOrderStatus(param["IDOrder"], param["IDOrderStatus"]);
+                                    }
+                                default:
+                                    return ReturnData.MessageFailed("Endpoint not found", null);
+                            }
+                        }
+                    #endregion
+                    #region CUSTOMER
+                    case "becust":
+                        {
+                            dynamic param = data["data"];
+                            switch ((string)data["m"])
+                            {
+                                case "statusToggle":
+                                    {
+                                        Class_Customer _cust = new Class_Customer();
+                                        return _cust.AJAX_BE_StatusToggle(param["IDCustomer"]);
+                                    }
+                                case "dcust":
+                                    {
+                                        Class_Customer _cust = new Class_Customer();
+                                        return _cust.AJAX_BE_Delete(param["IDCustomer"]);
+                                    }
+                                default:
+                                    return ReturnData.MessageFailed("Endpoint not found", null);
+                            }
+                        }
+                    #endregion
+                    #region CONFIGURATION
+                    case "beconf":
+                        {
+                            dynamic param = data["data"];
+                            switch ((string)data["m"])
+                            {
+                                case "uconf":
+                                    {
+                                        Class_Configuration conf = new Class_Configuration();
+                                        return conf.AJAX_Update_Configuration(param);
+                                    }
+                                case "uautocancel":
+                                    {
+                                        Class_Configuration conf = new Class_Configuration();
+                                        return conf.AJAX_Update_AutoCancel(param);
+                                    }
+                                default:
+                                    return ReturnData.MessageFailed("endpoint not found", null);
+                            }
+                        }
+                    #endregion
+                    #region PAYMENT
+                    case "bepay":
+                        {
+                            dynamic param = data["data"];
+                            switch ((string)data["m"])
+                            {
+                                case "ipay":
+                                    {
+                                        Class_PaymentMethod payment = new Class_PaymentMethod();
+                                        return payment.AJAX_Insert(param["Name"], param["Bank"], param["Owner"], param["AccountNumber"], param["Description"], param["BaseImage"], param["FnImage"]);
+                                    }
+                                case "upay":
+                                    {
+                                        Class_PaymentMethod payment = new Class_PaymentMethod();
+                                        return payment.AJAX_Update(param["IDPaymentMethod"], param["Name"], param["Bank"], param["Owner"], param["AccountNumber"], param["Description"], param["BaseImage"], param["FnImage"]);
+                                    }
+                                case "dpay":
+                                    {
+                                        Class_PaymentMethod payment = new Class_PaymentMethod();
+                                        return payment.AJAX_Delete(param["IDPaymentMethod"]);
+                                    }
+                                default:
+                                    return ReturnData.MessageFailed("endpoint not found", null);
+                            }
+                        }
+                    #endregion
+                    #region DASHBOARD
+                    case "admindashboard":
+                        {
+                            dynamic param = data["data"];
+                            switch ((string)data["m"])
+                            {
+                                case "preload":
+                                    {
+                                        DataClassesDataContext db = new DataClassesDataContext();
+                                        Dictionary<string, object> result = new Dictionary<string, object>();
+                                        Class_Customer cust = new Class_Customer();
+                                        Class_Product _pro = new Class_Product();
+
+                                        foreach (var item in param["RequestData"])
+                                        {
+                                            if (item == "BestSeller")
+                                            {
+                                                Class_Product product = new Class_Product();
+                                                result.Add(item, product.Dynamic_Get_BestSeller(10));
+                                            }
+                                            if (item == "RecentOrder")
+                                            {
+                                                Class_Product product = new Class_Product();
+                                                result.Add(item, product.Dynamic_Get_RecentOrder(10));
+                                            }
+                                            if (item == "NewCustomers")
+                                            {
+                                                Class_Customer Cust = new Class_Customer();
+                                                result.Add(item, cust.Dynamic_Get_NewCustomer(10));
+                                            }
+                                            if (item == "TotalCustomer")
+                                            {
+                                                Class_Customer Cust = new Class_Customer();
+                                                result.Add(item, cust.dynamic_Get_TotalCustomer());
+                                            }
+                                            if (item == "TotalOrder")
+                                            {
+                                                Class_Order order = new Class_Order();
+                                                result.Add(item, order.Dynamic_Get_TotalOrder());
+                                            }
+                                            if (item == "AverageOrder")
+                                            {
+                                                Class_Order order = new Class_Order();
+                                                result.Add(item, order.Dynamic_Get_AverageOrder());
+                                            }
+                                            if (item == "TotalSales")
+                                            {
+                                                Class_Order order = new Class_Order();
+                                                result.Add(item, order.Dynamic_Get_TotalSales());
+                                            }
+                                            if (item == "ChartRevenue")
+                                            {
+                                                Class_Order order = new Class_Order();
+                                                result.Add(item, order.Dynamic_Get_Chart_Revenue());
+                                            }
+                                        }
+                                        return ReturnData.MessageSuccess("OK", result);
+                                    }
+                                default:
+                                    return ReturnData.MessageFailed("endpoint not found", null);
+                            }
+                        }
+                    #endregion
+                    #region LOGIN
+                    case "beauth":
+                        {
+                            dynamic param = data["data"];
+                            switch ((string)data["m"])
+                            {
+                                case "login":
+                                    {
+                                        Class_Employee user = new Class_Employee();
+                                        return user.AJAX_BE_Login(param["Email"], param["Password"], param["Remember"]);
+                                    }
+                                case "logout":
+                                    {
+                                        Class_Employee emp = new Class_Employee();
+                                        return emp.AJAX_FE_Logout();
+                                    }
+                                default:
+                                    return ReturnData.MessageFailed("Endpoint not found", null);
+                            }
+                        }
+                    #endregion
+                    #region EMPLOYEE
+                    case "beemp":
+                        {
+                            dynamic param = data["data"];
+                            switch ((string)data["m"])
+                            {
+                                case "iemp":
+                                    {
+                                        Class_Employee employee = new Class_Employee();
+                                        return employee.AJAX_BE_Insert(param["IDRole"], param["Name"], param["Email"], param["Password"]);
+                                    }
+                                case "uemp":
+                                    {
+                                        Class_Employee employee = new Class_Employee();
+                                        return employee.AJAX_BE_Updates(param["IDEmployee"], param["IDRole"], param["Name"], param["Email"], param["Password"]);
+                                    }
+                                case "demp":
+                                    {
+                                        Class_Employee emp = new Class_Employee();
+                                        return emp.AJAX_BE_Delete(param["IDEmployee"]);
+                                    }
+                                case "statusToggle":
+                                    {
+                                        Class_Employee emp = new Class_Employee();
+                                        return emp.AJAX_BE_StatusToggle(param["IDEmployee"]);
+                                    }
+                                case "detemp":
+                                    {
+                                        Class_Employee emp = new Class_Employee();
+                                        return emp.AJAX_GetDetail(param["IDEmployee"]);
+                                    }
+                                case "uprofile":
+                                    {
+                                        Class_Employee emp = new Class_Employee();
+                                        var cookie = HttpContext.Current.Request.Cookies[System.Configuration.ConfigurationManager.AppSettings["cookieAdmin"].ToString()];
+                                        if (cookie == null)
+                                            return ReturnData.MessageFailed("token is empty", null);
+                                        return emp.AJAX_BE_Update_MyProfile_With_Token(cookie.Value, param["Name"], param["Email"], param["Password"]);
+                                    }
+                                case "detprofile":
+                                    {
+                                        Class_Employee emp = new Class_Employee();
+                                        var cookie = HttpContext.Current.Request.Cookies[System.Configuration.ConfigurationManager.AppSettings["cookieAdmin"].ToString()];
+                                        if (cookie == null)
+                                            return ReturnData.MessageFailed("token is empty", null);
+                                        return ReturnData.MessageSuccess("OK", emp.Dynamic_GetData_By_Token(cookie.Value));
+                                    }
+                                default:
+                                    return ReturnData.MessageFailed("Endpoint not found", null);
+                            }
+                        }
+                    #endregion
+                    #region PAGES
+                    case "bepag":
+                        {
+                            Class_Page _page = new Class_Page();
+                            dynamic param = data["data"];
+                            switch ((string)data["m"])
+                            {
+                                case "preload":
+                                    {
+                                        return _page.AJAX_GetAll();
+                                    }
+                                case "ipag":
+                                    {
+                                        return _page.AJAX_Insert(param["pageTitle"], param["pageShortContent"], param["pageContent"], param["active"]);
+                                    }
+                                case "upaginfo":
+                                    {
+                                        return _page.AJAX_BE_Updates(param["IDPage"], param["pageTitle"], param["pageShortContent"], param["pageContent"]);
+                                    }
+                                case "dpag":
+                                    {
+                                        return _page.AJAX_BE_Delete(param["IDPage"]);
+                                    }
+                                case "detpag":
+                                    {
+                                        return _page.AJAX_GetDetail(param["IDPage"]);
+                                    }
+                                case "statusToggle":
+                                    {
+                                        return _page.AJAX_BE_StatusToggle(param["IDPage"]);
+                                    }
+                                case "dpagphoto":
+                                    {
+                                        return _page.AJAX_Delete_Photo(param["IDPageMedia"]);
+                                    }
+                                case "setcover":
+                                    {
+                                        return _page.AJAX_ChangeCover_Photo(param["IDPageMedia"]);
+                                    }
+                                case "upagphoinfo":
+                                    {
+                                        Class_Page_Media _pageMedia = new Class_Page_Media();
+                                        return _pageMedia.AJAX_Updates(param["IDPageMedia"], param["Title"], param["Description"]);
+                                    }
+                                case "detpagphoto":
+                                    {
+                                        return _page.AJAX_GetDetailPhoto(param["IDPageMedia"]);
+                                    }
+                                default:
+                                    return ReturnData.MessageFailed("endpoint not found", null);
+                            }
+                        }
+                    #endregion
+                    #region PAGE CATEGORY
+                    case "bepagcat":
+                        {
+                            Class_Page_Category _pageCategory = new Class_Page_Category();
+                            dynamic param = data["data"];
+                            switch ((string)data["m"])
+                            {
+                                case "ipagcat":
+                                    {
+                                        return _pageCategory.AJAX_Insert(param["name"], param["description"], param["idPage"]);
+                                    }
+                                case "upagcat":
+                                    {
+                                        return _pageCategory.AJAX_Updates(param["idPageCategory"], param["name"], param["description"]);
+                                    }
+                                case "dpagcat":
+                                    {
+                                        return _pageCategory.AJAX_Delete(param["idPageCategory"]);
+                                    }
+                                case "upreload":
+                                    {
+                                        return _pageCategory.AJAX_GetDetail(param["idPageCategory"]);
+                                    }
+                                default:
+                                    return ReturnData.MessageFailed("endpoint not found", null);
+                            }
+                        }
+                    #endregion
+                    #region POST
+                    case "bepost":
+                        {
+                            Class_Post _post = new Class_Post();
+                            dynamic param = data["data"];
+                            switch ((string)data["m"])
+                            {
+                                case "ipost":
+                                    {
+                                        return _post.AJAX_Insert(param["postTitle"], param["postShortContent"], param["postContent"], param["idPage"], param["active"]);
+                                    }
+                                case "upost":
+                                    {
+                                        return _post.AJAX_Updates(param["IDPost"], param["postTitle"], param["postShortContent"], param["postContent"]);
+                                    }
+                                case "dpost":
+                                    {
+                                        return _post.AJAX_Delete(param["IDPost"]);
+                                    }
+                                case "detpost":
+                                    {
+                                        return _post.AJAX_GetDetail(param["IDPost"]);
+                                    }
+                                case "detpagcatpost":
+                                    {
+                                        return _post.AJAX_GetPageCategory(param["IDPage"], param["IDPost"]);
+                                    }
+                                case "statusToggle":
+                                    {
+                                        return _post.AJAX_StatusToggle(param["IDPost"]);
+                                    }
+                                case "dpostphoto":
+                                    {
+                                        return _post.AJAX_Delete_Photo(param["IDPostMedia"]);
+                                    }
+                                case "upostphoinfo":
+                                    {
+                                        Class_Post_Media _postMedia = new Class_Post_Media();
+                                        return _postMedia.AJAX_Updates(param["IDPostMedia"], param["Title"], param["Description"]);
+                                    }
+                                case "detpostphoto":
+                                    {
+                                        return _post.AJAX_GetDetailPhoto(param["IDPostMedia"]);
+                                    }
+                                case "upostpagcat":
+                                    {
+                                        List<int> _idCat = new List<int>();
+                                        foreach (var item in param["IDPageCategory"])
+                                        {
+                                            _idCat.Add(Convert.ToInt32(item));
+                                        }
+                                        return _post.AJAX_Update_Categories(param["IDPost"], param["IDPage"], _idCat.ToArray());
+                                    }
+                                default:
+                                    return ReturnData.MessageFailed("endpoint not found", null);
+                            }
+                        }
+                    #endregion
+                    #endregion
+                    #region FRONTEND
+                    #region MASTER
+                    case "femaster":
+                        {
+                            dynamic param = data["data"];
+                            switch ((string)data["m"])
+                            {
+                                case "preload":
+                                    {
+                                        DataClassesDataContext db = new DataClassesDataContext();
+                                        Dictionary<string, object> result = new Dictionary<string, object>();
+                                        Class_Customer cust = new Class_Customer();
+                                        Class_Product _pro = new Class_Product();
+
+                                        foreach (var item in param["RequestData"])
+                                        {
+                                            if (item == "OrderSummary")
+                                            {
+                                                Class_Order _order = new Class_Order();
+                                                var cookie = HttpContext.Current.Request.Cookies[System.Configuration.ConfigurationManager.AppSettings["cookieUser"].ToString()];
+                                                if (cookie != null)
+                                                {
+                                                    var _result = cust.DecryptToken(cookie.Value) as IDictionary<string, object>;
+                                                    result.Add("OrderSummary", _order.Dynamic_GetLastOrder_ByEmailCustomer(_result["email"].ToString()));
+                                                }
+                                            }
+                                            if (item == "ProductDetail")
+                                            {
+                                                result.Add(item, _pro.AJAX_FE_GetDetail_Preload(param["_param_IDProduct"]).data);
+                                            }
+                                            if (item == "Cart")
+                                            {
+                                                if (HttpContext.Current.Request.Cookies[System.Configuration.ConfigurationManager.AppSettings["cookieCart"].ToString()] != null)
+                                                {
+                                                    Class_Order _order = new Class_Order();
+                                                    result.Add("Cart", _order.DYNAMIC_GetCart());
+                                                }
+                                            }
+                                            if (item == "CartSummary")
+                                            {
+                                                if (HttpContext.Current.Request.Cookies[System.Configuration.ConfigurationManager.AppSettings["cookieCart"].ToString()] != null)
+                                                {
+                                                    Class_Order _order = new Class_Order();
+                                                    result.Add(item, _order.DYNAMIC_GetCartSummary());
+                                                }
+                                            }
+                                            if (item == "Customer")
+                                            {
+                                                if (HttpContext.Current.Request.Cookies[System.Configuration.ConfigurationManager.AppSettings["cookieUser"].ToString()] == null)
+                                                    result.Add("Customer", null);
+                                                else
+                                                {
+                                                    string token = HttpContext.Current.Request.Cookies[System.Configuration.ConfigurationManager.AppSettings["cookieUser"].ToString()].Value;
+                                                    var _result = cust.DecryptToken(token) as IDictionary<string, object>;
+                                                    result.Add("token", token);
+                                                    result.Add("Customer", cust.DYNAMIC_GetData_ByEmailAndPassword(_result["email"].ToString(), _result["password"].ToString()));
+                                                }
+                                            }
+                                            if (item == "ListProduct")
+                                            {
+                                                Class_Product _product = new Class_Product();
+
+                                                if (param["IDManufacturer"] != 0)
+                                                    result.Add(item, _product.Dynamic_GetData_ByIDManufacturer(param["IDManufacturer"]));
+                                                else if (param["IDCategory"] != 0)
+                                                    result.Add(item, _product.Dynamic_GetData_ByIDCategory(param["IDCategory"]));
+                                                else
+                                                    result.Add("ListProduct", _pro.AJAX_FE_GetAll(param["_param_take"]).data);
+                                            }
+                                            if (item == "Country")
+                                            {
+                                                Class_Region region = new Class_Region();
+                                                result.Add("Country", region.DYNAMIC_GetCountry());
+                                            }
+                                            if (item == "Province")
+                                            {
+                                                Class_Region region = new Class_Region();
+                                                result.Add("Province", region.DYNAMIC_GetProvince_ByIDCountry(1));
+                                            }
+                                            if (item == "Addresses")
+                                            {
+                                                Class_Address addr = new Class_Address();
+                                                if (HttpContext.Current.Request.Cookies[System.Configuration.ConfigurationManager.AppSettings["cookieUser"].ToString()] == null)
+                                                    return ReturnData.MessageFailed("Please login/register", null);
+                                                else
+                                                {
+                                                    string token = HttpContext.Current.Request.Cookies[System.Configuration.ConfigurationManager.AppSettings["cookieUser"].ToString()].Value;
+                                                    dynamic _result = OurClass.DecryptToken(token);
+                                                    //result.Add("Addresses", addr.Dynamci_GetAll_ByIDCustomer(_result));
+                                                    result.Add("Addresses", addr.Dynamic_GetAll_ByEmail(_result["email"]));
+                                                }
+                                            }
+                                            if (item == "Address")
+                                            {
+                                                Class_Address addr = new Class_Address();
+                                                result.Add(item, addr.Dynamic_GetDetail_ByIDAddress(param["_param_IDAddress"]));
+                                            }
+                                            if (item == "Shipping")
+                                            {
+                                                if (HttpContext.Current.Request.Cookies[System.Configuration.ConfigurationManager.AppSettings["cookieCart"].ToString()] != null)
+                                                {
+                                                    string token = HttpContext.Current.Request.Cookies[System.Configuration.ConfigurationManager.AppSettings["cookieCart"].ToString()].Value;
+                                                    dynamic CartData = OurClass.DecryptToken(token);
+                                                    //dynamic
+                                                    dynamic address = CartData["DeliveryAddress"];
+                                                    int idDistrict = address["IDDistrict"];
+                                                    Class_Shipping shipping = new Class_Shipping();
+                                                    dynamic shippingData = shipping.Dynamic_GetShipping_ByIDDistrict(idDistrict);
+                                                    List<dynamic> resultShipping = new List<dynamic>();
+                                                    foreach (dynamic itemShipping in shippingData)
+                                                    {
+                                                        decimal totalWeight = Math.Round((decimal)CartData["TotalWeight"], MidpointRounding.AwayFromZero);
+                                                        decimal totalPrice = itemShipping.Price * totalWeight;
+                                                        if (CartData["TotalWeight"] < 1)
+                                                            totalPrice = itemShipping.Price;
+                                                        Dictionary<string, dynamic> returnShippingData = new Dictionary<string, dynamic>();
+                                                        returnShippingData.Add("IDCarrier", itemShipping.IDCarrier);
+                                                        returnShippingData.Add("IDShipping", itemShipping.IDShipping);
+                                                        returnShippingData.Add("IDDistrict", itemShipping.IDDistrict);
+                                                        returnShippingData.Add("Name", itemShipping.Name);
+                                                        returnShippingData.Add("Image", itemShipping.Image);
+                                                        returnShippingData.Add("Price", itemShipping.Price);
+                                                        returnShippingData.Add("Information", itemShipping.Information);
+                                                        returnShippingData.Add("TotalPrice", totalPrice);
+                                                        returnShippingData.Add("ImageShipping", itemShipping.Image);
+
+                                                        resultShipping.Add(returnShippingData);
+                                                    }
+                                                    result.Add(item, resultShipping);
+                                                }
+
+                                            }
+                                            if (item == "Payment")
+                                            {
+                                                Class_PaymentMethod payment = new Class_PaymentMethod();
+                                                result.Add(item, payment.Dynamic_GetAll());
+                                            }
+                                            if (item == "OrderHistory")
+                                            {
+                                                Class_Order _order = new Class_Order();
+                                                if (HttpContext.Current.Request.Cookies[System.Configuration.ConfigurationManager.AppSettings["cookieUser"].ToString()] == null)
+                                                    result.Add("OrderHistory", null);
+                                                else
+                                                {
+                                                    string token = HttpContext.Current.Request.Cookies[System.Configuration.ConfigurationManager.AppSettings["cookieUser"].ToString()].Value;
+                                                    var _result = cust.DecryptToken(token) as IDictionary<string, object>;
+                                                    var customer = cust.DYNAMIC_GetData_ByEmailAndPassword(_result["email"].ToString(), _result["password"].ToString());
+                                                    result.Add(item, _order.Dynamic_GetData_ByIDCustomer(customer.IDCustomer));
+                                                }
+
+                                            }
+                                            if (item == "OrderNumber")
+                                            {
+                                                Class_Order _order = new Class_Order();
+                                                if (HttpContext.Current.Request.Cookies[System.Configuration.ConfigurationManager.AppSettings["cookieUser"].ToString()] == null)
+                                                    result.Add("OrderHistory", null);
+                                                else
+                                                {
+                                                    string token = HttpContext.Current.Request.Cookies[System.Configuration.ConfigurationManager.AppSettings["cookieUser"].ToString()].Value;
+                                                    var _result = cust.DecryptToken(token) as IDictionary<string, object>;
+                                                    var customer = cust.DYNAMIC_GetData_ByEmailAndPassword(_result["email"].ToString(), _result["password"].ToString());
+                                                    result.Add(item, _order.Dynamic_GetData_OrderNumber_ByIDCustomer(customer.IDCustomer));
+                                                }
+                                            }
+                                            if (item == "SimiliarProduct")
+                                            {
+                                                Class_Product _product = new Class_Product();
+                                                result.Add(item, _product.Dynamic_GetSimiliarProduct(param["_param_IDProduct"], 12));
+                                            }
+                                            if (item == "FilterProduct")
+                                            {
+                                                Class_Category cat = new Class_Category();
+                                                result.Add(item, cat.Dynamic_GetFilter());
+                                            }
+                                            if (item == "Voucher")
+                                            {
+                                                Class_Voucher voucher = new Class_Voucher();
+                                                result.Add(item, voucher.Dynamic_GetData_ByIDCustomer(param["IDCustomer"]));
+                                            }
+                                            if (item == "Category")
+                                            {
+                                                Class_Category cat = new Class_Category();
+                                                result.Add(item, cat.Dynamic_GetAll(db));
+                                            }
+                                            if (item == "AutoCancel")
+                                            {
+                                                Class_Configuration config = new Class_Configuration();
+                                                result.Add(item, config.AJAX_AutoCancel());
+                                            }
+                                            if (item == "Post")
+                                            {
+                                                Class_Post post = new Class_Post();
+                                                result.Add(item, post.Dynamic_FE_GetPost_ByIDPageCategory(db, param["IDPageCategory"]));
+                                            }
+                                        }
+                                        return ReturnData.MessageSuccess("OK", result);
+                                    }
+                                case "logout":
+                                    {
+                                        Class_Customer cust = new Class_Customer();
+                                        if (HttpContext.Current.Request.Cookies[System.Configuration.ConfigurationManager.AppSettings["cookieUser"].ToString()] == null)
+                                            return ReturnData.MessageFailed("Cookie not found", null);
+                                        else
+                                            return cust.AJAX_FE_Logout(HttpContext.Current.Request.Cookies[System.Configuration.ConfigurationManager.AppSettings["cookieUser"].ToString()].Value.ToString());
+                                    }
+                                default:
+                                    return ReturnData.MessageFailed("Endpoint not found", null);
+                            }
+                        }
+                    #endregion
+                    #region PRODUCT
+                    case "fepro":
+                        {
+                            Class_Product _product = new Class_Product();
+                            dynamic param = data["data"];
+                            switch ((string)data["m"])
+                            {
+                                case "prolist":
+                                    {
+                                        return _product.AJAX_FE_GetAll(param["take"]);
+                                    }
+                                case "preloaddet":
+                                    {
+                                        return _product.AJAX_FE_GetDetail_Preload(param["IDProduct"]);
+                                    }
+                                case "oncolorchg":
+                                    {
+                                        return _product.AJAX_FE_GetSize_ByIDProductAndIDColor(param["IDProduct"], param["IDColor"]);
+                                    }
+                                case "rproman":
+                                    {
+                                        return _product.AJAX_GetData_ByIDManufacturer(param["IDManufacturer"]);
+                                    }
+                                //get best seller product
+                                case "rbest":
+                                    {
+                                        return _product.AJAX_GetBestSeller(0);
+                                    }
+                                case "rsale":
+                                    {
+                                        return _product.AJAX_GetSale();
+                                    }
+                                case "filter":
+                                    {
+                                        return _product.AJAX_Filter_Product(param["IDCategoryProduct"], param["IDCategoryGender"], param["IDCategoryPrice"]);
+                                    }
+                                case "search":
+                                    {
+                                        return _product.AJAX_Search_Product(param["Keywords"]);
+                                    }
+                                default:
+                                    return ReturnData.MessageFailed("Endpoint not found", null);
+                            }
+                        }
+                    #endregion
+                    #region REGISTER
+                    case "fereg":
+                        {
+                            dynamic param = data["data"];
+                            Class_Customer cust = new Class_Customer();
+                            switch ((string)data["m"])
+                            {
+                                case "reg":
+                                    {
+                                        DateTime _birthdate = Convert.ToDateTime(param["Birthdate"]);
+                                        string address = param["Address"];
+                                        if (param["Address2"] != "")
+                                            address += "<br/>" + param["Address2"];
+                                        return cust.AJAX_FE_Register(param["FirstName"], param["LastName"], param["Gender"], param["Email"], param["Password"], param["PhoneNumber"], _birthdate, true, param["AddressName"], address, param["PostalCode"], param["Country"], param["Province"], param["City"], param["District"]);
+                                    }
+                                case "regpreload":
+                                    {
+                                        Class_Region _region = new Class_Region();
+                                        return _region.AJAX_FE_PreloadRegistration();
+                                    }
+                                case "rcty":
+                                    {
+                                        Class_Region _region = new Class_Region();
+                                        return _region.AJAX_FE_GetCity_ByIDProvince(param["IDProvince"]);
+                                    }
+                                case "rdis":
+                                    {
+                                        Class_Region _region = new Class_Region();
+                                        return _region.AJAX_FE_GetDistrict_ByIDCity(param["IDCity"]);
+                                    }
+                                default:
+                                    return ReturnData.MessageFailed("Endpoint not found", null);
+                            }
+                        }
+                    #endregion
+                    #region AUTH
+                    case "feauth":
+                        {
+                            dynamic param = data["data"];
+                            switch ((string)data["m"])
+                            {
+                                case "login":
+                                    {
+                                        Class_Customer _cust = new Class_Customer();
+                                        if (HttpContext.Current.Request.Cookies[System.Configuration.ConfigurationManager.AppSettings["cookieUser"].ToString()] == null)
+                                            return _cust.AJAX_FE_Login(param["e"], param["p"]);
+                                        else
+                                            return ReturnData.MessageFailed("Already login", null);
+                                    }
+                                case "EmailCheck":
+                                    {
+                                        Class_Customer _cust = new Class_Customer();
+                                        return _cust.AJAX_FE_Email_Check(param["e"]);
+                                    }
+                                default:
+                                    return ReturnData.MessageFailed("Endpoint not found", null);
+                            }
+                        }
+                    #endregion
+                    #region ORDER
+                    case "feorder":
+                        {
+                            dynamic param = data["data"];
+                            switch ((string)data["m"])
+                            {
+                                case "addcart":
+                                    {
+                                        Class_Order _order = new Class_Order();
+                                        return _order.DYNAMIC_AddToCart(param["IDProduct"], param["IDCombination"], param["Quantity"], param["Price"], param["CombinationName"], param["ProductName"]);
+                                    }
+                                case "delcart":
+                                    {
+                                        Class_Order _order = new Class_Order();
+                                        return _order.AJAX_DeleteCart(param["IDCombination"]);
+                                    }
+                                case "getcart":
+                                    {
+                                        Class_Order _order = new Class_Order();
+                                        return _order.AJAX_GetCart();
+                                    }
+                                case "iorder":
+                                    {
+                                        Class_Order _order = new Class_Order();
+                                        return _order.AJAX_SubmitOrder();
+                                    }
+                                default:
+                                    return ReturnData.MessageFailed("Endpoint not found", null);
+                            }
+                        }
+                    #endregion
+                    #region SUMMARY
+                    case "fesum":
+                        {
+                            dynamic param = data["data"];
+                            switch ((string)data["m"])
+                            {
+                                case "vo"://submit voucher
+                                    {
+                                        Class_Voucher vo = new Class_Voucher();
+                                        return vo.AJAX_SubmitVoucher(param["Code"], param["Token"], param["TotalAmount"]);
+                                    }
+                                case "uprc"://update price setelah submit voucher
+                                    {
+                                        Class_Order order = new Class_Order();
+                                        return order.Dynamic_SetTotalPrice(param["Price"]);
+                                    }
+                                case "dpro":
+                                    {
+                                        Class_Order order = new Class_Order();
+                                        return order.AJAX_DeleteCart(param["IDCombination"]);
+                                    }
+                                case "uqty":
+                                    {
+                                        Class_Order order = new Class_Order();
+                                        return order.AJAX_UpdateQuantity(param["IDCombination"], param["Quantity"]);
+                                    }
+                                default:
+                                    return ReturnData.MessageFailed("Endpoint not found", null);
+                            }
+                        }
+                    #endregion
+                    #region ADDRESS
+                    case "feaddr":
+                        {
+                            dynamic param = data["data"];
+                            switch ((string)data["m"])
+                            {
+                                case "iaddr":
+                                    {
+                                        Class_Address addr = new Class_Address();
+                                        return addr.AJAX_Insert(param["IDCustomer"], param["Country"], param["Province"], param["City"], param["District"], param["PeopleName"], param["Name"], param["Address"], param["Phone"], param["PostalCode"], param["AdditionalInformation"]);
+                                    }
+                                case "uaddr":
+                                    {
+                                        Class_Address addr = new Class_Address();
+                                        return addr.AJAX_Update(param["IDAddress"], param["IDCustomer"], param["Country"], param["Province"], param["City"], param["District"], param["PeopleName"], param["Name"], param["Address"], param["Phone"], param["PostalCode"], param["AdditionalInformation"], true);
+                                    }
+                                case "daddr":
+                                    {
+                                        Class_Address addr = new Class_Address();
+                                        return addr.AJAX_Delete(param["IDAddress"], param["IDCustomer"]);
+                                    }
+                                case "detaddr":
+                                    {
+                                        Class_Address addr = new Class_Address();
+                                        return addr.AJAX_GetDetail(param["IDAddress"], param["IDCustomer"]);
+                                    }
+                                case "iaddrtocrt":
+                                    {
+                                        Class_Order order = new Class_Order();
+                                        return order.AJAX_SaveAddressToCart(param["IDBillingAddress"], param["IDDeliveryAddress"], param["Notes"]);
+                                    }
+                                default:
+                                    return ReturnData.MessageFailed("endpoint not found", null);
+                            }
+                        }
+                    #endregion
+                    #region SHIPPING
+                    case "feshp":
+                        {
+                            dynamic param = data["data"];
+                            switch ((string)data["m"])
+                            {
+                                case "ishptocrt":
+                                    {
+                                        Class_Shipping shipping = new Class_Shipping();
+                                        return shipping.AJAX_SaveShippingToCart(param["IDShipping"]);
+                                    }
+                                default:
+                                    return ReturnData.MessageFailed("endpoint not found", null);
+                            }
+                        }
+                    #endregion
+                    #region Payment
+                    case "fepay":
+                        {
+                            dynamic param = data["data"];
+                            switch ((string)data["m"])
+                            {
+                                case "ipaytocart":
+                                    {
+                                        Class_PaymentMethod payment = new Class_PaymentMethod();
+                                        return payment.AJAX_Insert_ToCart(param["IDPayment"]);
+                                    }
+                                default:
+                                    return ReturnData.MessageFailed("endpoint not found", null);
+                            }
+                        }
+                    #endregion
+                    #region CONFRIM PAYMENT
+                    case "fecopay":
+                        {
+                            dynamic param = data["data"];
+                            switch ((string)data["m"])
+                            {
+                                case "icopay":
+                                    {
+                                        Class_Payment_Confirmation confirm = new Class_Payment_Confirmation();
+                                        return confirm.AJAX_Submit(param["IDOrder"], param["Name"], param["Email"], param["PhoneNumber"], param["Bank"], param["Amount"], param["PaymentDate"], param["Notes"], param["baseImage"], param["fnImage"]);
+                                    }
+                                default:
+                                    return ReturnData.MessageFailed("endpoint not found", null);
+                            }
+                        }
+                    #endregion
+                    #region CUSTOMER
+                    case "fecust":
+                        {
+                            dynamic param = data["data"];
+                            switch ((string)data["m"])
+                            {
+                                case "uinfo":
+                                    {
+                                        Class_Customer cust = new Class_Customer();
+                                        if (HttpContext.Current.Request.Cookies[System.Configuration.ConfigurationManager.AppSettings["cookieUser"].ToString()] == null)
+                                            return ReturnData.MessageFailed("Customer not found", null);
+                                        else
+                                        {
+                                            DateTime _birthdate = Convert.ToDateTime(param["Birthdate"]);
+                                            return cust.AJAX_Update_PersonalInformation(param["IDCustomer"], param["FirstName"], param["LastName"], param["Gender"], param["Email"], param["PhoneNumber"], _birthdate);
+                                        }
+                                    }
+                                case "upass":
+                                    {
+                                        Class_Customer cust = new Class_Customer();
+                                        if (HttpContext.Current.Request.Cookies[System.Configuration.ConfigurationManager.AppSettings["cookieUser"].ToString()] == null)
+                                            return ReturnData.MessageFailed("Customer not found", null);
+                                        else
+                                        {
+                                            return cust.AJAX_Update_Password(param["IDCustomer"], param["OldPassword"], param["NewPassword"]);
+                                        }
+                                    }
+                                case "detorder":
+                                    {
+                                        Class_Order order = new Class_Order();
+                                        return order.AJAX_GetDetail_By_IDOrder(param["IDOrder"]);
+                                    }
+                                default:
+                                    return ReturnData.MessageFailed("endpoint not found", null);
+                            }
+                        }
+                    #endregion
+                    #endregion
+                    default:
+                        return ReturnData.MessageFailed("endpoint not found", null);
+                }
+            }
+            else
+            {
+                return "format error";
+            }
+
+        }
+        catch (Exception ex)
+        {
+            return ReturnData.MessageFailed(ex.Message, null);
+        }
+    }
+}

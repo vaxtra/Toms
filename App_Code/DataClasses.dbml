@@ -1,0 +1,1574 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DBToms" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=119.235.251.242,780;Initial Catalog=DBToms;User ID=WITVPS" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DBTomsConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.TBAddress" Member="TBAddresses">
+    <Type Name="TBAddress">
+      <Column Name="IDAddress" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDCustomer" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDCountry" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDProvince" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDCity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDDistrict" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PeopleName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="PostalCode" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="AdditionalInformation" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TBAddress_TBOrder" Member="TBOrders" ThisKey="IDAddress" OtherKey="IDDeliveryAddress" Type="TBOrder" />
+      <Association Name="TBAddress_TBOrder1" Member="TBOrders1" ThisKey="IDAddress" OtherKey="IDBillingAddress" Type="TBOrder" />
+      <Association Name="TBCity_TBAddress" Member="TBCity" ThisKey="IDCity" OtherKey="IDCity" Type="TBCity" IsForeignKey="true" />
+      <Association Name="TBCountry_TBAddress" Member="TBCountry" ThisKey="IDCountry" OtherKey="IDCountry" Type="TBCountry" IsForeignKey="true" />
+      <Association Name="TBCustomer_TBAddress" Member="TBCustomer" ThisKey="IDCustomer" OtherKey="IDCustomer" Type="TBCustomer" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="TBDistrict_TBAddress" Member="TBDistrict" ThisKey="IDDistrict" OtherKey="IDDistrict" Type="TBDistrict" IsForeignKey="true" />
+      <Association Name="TBProvince_TBAddress" Member="TBProvince" ThisKey="IDProvince" OtherKey="IDProvince" Type="TBProvince" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBWishlist" Member="TBWishlists">
+    <Type Name="TBWishlist">
+      <Column Name="IDWishlist" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDProduct_Combination" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDCustomer" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TBCustomer_TBWishlist" Member="TBCustomer" ThisKey="IDCustomer" OtherKey="IDCustomer" Type="TBCustomer" IsForeignKey="true" />
+      <Association Name="TBProduct_Combination_TBWishlist" Member="TBProduct_Combination" ThisKey="IDProduct_Combination" OtherKey="IDProduct_Combination" Type="TBProduct_Combination" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBAttribute" Member="TBAttributes">
+    <Type Name="TBAttribute">
+      <Column Name="IDAttribute" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IsColor" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TBAttribute_TBValue" Member="TBValues" ThisKey="IDAttribute" OtherKey="IDAttribute" Type="TBValue" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBCarrier" Member="TBCarriers">
+    <Type Name="TBCarrier">
+      <Column Name="IDCarrier" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Image" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Information" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TBCarrier_TBShipping" Member="TBShippings" ThisKey="IDCarrier" OtherKey="IDCarrier" Type="TBShipping" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBCategory" Member="TBCategories">
+    <Type Name="TBCategory">
+      <Column Name="IDCategory" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDCategoryParent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IDPromo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Image" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TBCategory_TBCategory" Member="TBCategories" ThisKey="IDCategory" OtherKey="IDCategoryParent" Type="TBCategory" />
+      <Association Name="TBCategory_TBProduct_Category" Member="TBProduct_Categories" ThisKey="IDCategory" OtherKey="IDCategory" Type="TBProduct_Category" />
+      <Association Name="TBCategory_TBCategory" Member="TBCategory1" ThisKey="IDCategoryParent" OtherKey="IDCategory" Type="TBCategory" IsForeignKey="true" />
+      <Association Name="TBPromo_TBCategory" Member="TBPromo" ThisKey="IDPromo" OtherKey="IDPromo" Type="TBPromo" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBCity" Member="TBCities">
+    <Type Name="TBCity">
+      <Column Name="IDCity" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDProvince" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="CityType" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TBCity_TBAddress" Member="TBAddresses" ThisKey="IDCity" OtherKey="IDCity" Type="TBAddress" />
+      <Association Name="TBCity_TBDistrict" Member="TBDistricts" ThisKey="IDCity" OtherKey="IDCity" Type="TBDistrict" />
+      <Association Name="TBProvince_TBCity" Member="TBProvince" ThisKey="IDProvince" OtherKey="IDProvince" Type="TBProvince" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBConfiguration" Member="TBConfigurations">
+    <Type Name="TBConfiguration">
+      <Column Name="IDConfiguration" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Value" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBCountry" Member="TBCountries">
+    <Type Name="TBCountry">
+      <Column Name="IDCountry" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TBCountry_TBAddress" Member="TBAddresses" ThisKey="IDCountry" OtherKey="IDCountry" Type="TBAddress" />
+      <Association Name="TBCountry_TBProvince" Member="TBProvinces" ThisKey="IDCountry" OtherKey="IDCountry" Type="TBProvince" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBCurrency" Member="TBCurrencies">
+    <Type Name="TBCurrency">
+      <Column Name="IDCurrency" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ISOCode" Type="System.String" DbType="NVarChar(3)" CanBeNull="true" />
+      <Column Name="ISOCodeNumeric" Type="System.String" DbType="NVarChar(3)" CanBeNull="true" />
+      <Column Name="Sign" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="blank" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Format" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Decimal" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ConversionRate" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsDefault" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="TBCurrency_TBProduct_Currency" Member="TBProduct_Currencies" ThisKey="IDCurrency" OtherKey="IDCurrency" Type="TBProduct_Currency" />
+      <Association Name="TBCurrency_TBOrder" Member="TBOrders" ThisKey="IDCurrency" OtherKey="IDCurrency" Type="TBOrder" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBCustomer" Member="TBCustomers">
+    <Type Name="TBCustomer">
+      <Column Name="IDCustomer" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDCustomer_Group" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Gender" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Birthday" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="IsSubscribe" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TBCustomer_TBAddress" Member="TBAddresses" ThisKey="IDCustomer" OtherKey="IDCustomer" Type="TBAddress" />
+      <Association Name="TBCustomer_TBWishlist" Member="TBWishlists" ThisKey="IDCustomer" OtherKey="IDCustomer" Type="TBWishlist" />
+      <Association Name="TBCustomer_TBVoucher" Member="TBVouchers" ThisKey="IDCustomer" OtherKey="IDCustomer" Type="TBVoucher" />
+      <Association Name="TBCustomer_TBCustomer_Product" Member="TBCustomer_Products" ThisKey="IDCustomer" OtherKey="IDCustomer" Type="TBCustomer_Product" />
+      <Association Name="TBCustomer_TBOrder" Member="TBOrders" ThisKey="IDCustomer" OtherKey="IDCustomer" Type="TBOrder" />
+      <Association Name="TBCustomer_Group_TBCustomer" Member="TBCustomer_Group" ThisKey="IDCustomer_Group" OtherKey="IDCustomer_Group" Type="TBCustomer_Group" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBCustomer_Group" Member="TBCustomer_Groups">
+    <Type Name="TBCustomer_Group">
+      <Column Name="IDCustomer_Group" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TBCustomer_Group_TBCustomer" Member="TBCustomers" ThisKey="IDCustomer_Group" OtherKey="IDCustomer_Group" Type="TBCustomer" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBDistrict" Member="TBDistricts">
+    <Type Name="TBDistrict">
+      <Column Name="IDDistrict" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDCity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="dateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TBDistrict_TBAddress" Member="TBAddresses" ThisKey="IDDistrict" OtherKey="IDDistrict" Type="TBAddress" />
+      <Association Name="TBDistrict_TBShipping" Member="TBShippings" ThisKey="IDDistrict" OtherKey="IDDistrict" Type="TBShipping" />
+      <Association Name="TBCity_TBDistrict" Member="TBCity" ThisKey="IDCity" OtherKey="IDCity" Type="TBCity" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBEmployee" Member="TBEmployees">
+    <Type Name="TBEmployee">
+      <Column Name="IDEmployee" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDRole" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="TBEmployee_TBLog_Order" Member="TBLog_Orders" ThisKey="IDEmployee" OtherKey="IDEmployee" Type="TBLog_Order" />
+      <Association Name="TBEmployee_TBLog_Stock" Member="TBLog_Stocks" ThisKey="IDEmployee" OtherKey="IDEmployee" Type="TBLog_Stock" />
+      <Association Name="TBRole_TBEmployee" Member="TBRole" ThisKey="IDRole" OtherKey="IDRole" Type="TBRole" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBLog_Error" Member="TBLog_Errors">
+    <Type Name="TBLog_Error">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ErrorMessage" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="StackTrace" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBLog_Order" Member="TBLog_Orders">
+    <Type Name="TBLog_Order">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDEmployee" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IDOrder" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Reference" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="OrderStatus" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CustomerName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="TBEmployee_TBLog_Order" Member="TBEmployee" ThisKey="IDEmployee" OtherKey="IDEmployee" Type="TBEmployee" IsForeignKey="true" />
+      <Association Name="TBOrder_TBLog_Order" Member="TBOrder" ThisKey="IDOrder" OtherKey="IDOrder" Type="TBOrder" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBLog_Stock" Member="TBLog_Stocks">
+    <Type Name="TBLog_Stock">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDEmployee" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IDProduct_Combination" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="InsertDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="InitialQuantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LastQuantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="TBEmployee_TBLog_Stock" Member="TBEmployee" ThisKey="IDEmployee" OtherKey="IDEmployee" Type="TBEmployee" IsForeignKey="true" />
+      <Association Name="TBProduct_Combination_TBLog_Stock" Member="TBProduct_Combination" ThisKey="IDProduct_Combination" OtherKey="IDProduct_Combination" Type="TBProduct_Combination" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBManufacturer" Member="TBManufacturers">
+    <Type Name="TBManufacturer">
+      <Column Name="IDManufacturer" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Logo" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="ShortDescription" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TBManufacturer_TBProduct" Member="TBProducts" ThisKey="IDManufacturer" OtherKey="IDManufacturer" Type="TBProduct" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBMenu" Member="TBMenus">
+    <Type Name="TBMenu">
+      <Column Name="IDMenu" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDMenuParent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Link" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Icon" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TBMenu_TBMenu" Member="TBMenus" ThisKey="IDMenu" OtherKey="IDMenuParent" Type="TBMenu" />
+      <Association Name="TBMenu_TBRole_Menu" Member="TBRole_Menus" ThisKey="IDMenu" OtherKey="IDMenu" Type="TBRole_Menu" />
+      <Association Name="TBMenu_TBMenu" Member="TBMenu1" ThisKey="IDMenuParent" OtherKey="IDMenu" Type="TBMenu" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBNewsletter" Member="TBNewsletters">
+    <Type Name="TBNewsletter">
+      <Column Name="IDNewsletter" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBOrder_Detail" Member="TBOrder_Details">
+    <Type Name="TBOrder_Detail">
+      <Column Name="IDOrder_Detail" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDProduct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDProduct_Combination" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDCurrency" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Product_Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Weight" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Discount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="OriginalPrice" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="TBProduct_TBOrder_Detail" Member="TBProduct" ThisKey="IDProduct" OtherKey="IDProduct" Type="TBProduct" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="TBProduct_Combination_TBOrder_Detail" Member="TBProduct_Combination" ThisKey="IDProduct_Combination" OtherKey="IDProduct_Combination" Type="TBProduct_Combination" IsForeignKey="true" />
+      <Association Name="TBOrder_TBOrder_Detail" Member="TBOrder" ThisKey="IDOrder" OtherKey="IDOrder" Type="TBOrder" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBOrder_Status" Member="TBOrder_Status">
+    <Type Name="TBOrder_Status">
+      <Column Name="IDOrderStatus" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="SendEmail" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Color" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Logable" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Delivery" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Shipped" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Paid" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Restock" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="EmailTemplate" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TBOrder_Status_TBRole_OrderStatus" Member="TBRole_OrderStatus" ThisKey="IDOrderStatus" OtherKey="IDOrderStatus" Type="TBRole_OrderStatus" />
+      <Association Name="TBOrder_Status_TBOrder" Member="TBOrders" ThisKey="IDOrderStatus" OtherKey="IDOrderStatus" Type="TBOrder" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBOrder_temp" Member="TBOrder_temps">
+    <Type Name="TBOrder_temp">
+      <Column Name="AnonID" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="EncodedData" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Modified" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBPage" Member="TBPages">
+    <Type Name="TBPage">
+      <Column Name="IDPage" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Page_Title" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Page_ShortContent" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="Page_Content" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TBPage_TBPageCategory" Member="TBPageCategories" ThisKey="IDPage" OtherKey="IDPage" Type="TBPageCategory" />
+      <Association Name="TBPage_TBPageMedia" Member="TBPageMedias" ThisKey="IDPage" OtherKey="IDPage" Type="TBPageMedia" />
+      <Association Name="TBPage_TBPost" Member="TBPosts" ThisKey="IDPage" OtherKey="IDPage" Type="TBPost" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBPageCategory" Member="TBPageCategories">
+    <Type Name="TBPageCategory">
+      <Column Name="IDPageCategory" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDPage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TBPageCategory_TBPageCategory_Post" Member="TBPageCategory_Posts" ThisKey="IDPageCategory" OtherKey="IDPageCategory" Type="TBPageCategory_Post" />
+      <Association Name="TBPage_TBPageCategory" Member="TBPage" ThisKey="IDPage" OtherKey="IDPage" Type="TBPage" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBPageCategory_Post" Member="TBPageCategory_Posts">
+    <Type Name="TBPageCategory_Post">
+      <Column Name="IDPageCategory" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IDPost" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="TBPageCategory_TBPageCategory_Post" Member="TBPageCategory" ThisKey="IDPageCategory" OtherKey="IDPageCategory" Type="TBPageCategory" IsForeignKey="true" />
+      <Association Name="TBPost_TBPageCategory_Post" Member="TBPost" ThisKey="IDPost" OtherKey="IDPost" Type="TBPost" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBPageMedia" Member="TBPageMedias">
+    <Type Name="TBPageMedia">
+      <Column Name="IDPageMedia" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDPage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="MediaUrl" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Cover" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TBPage_TBPageMedia" Member="TBPage" ThisKey="IDPage" OtherKey="IDPage" Type="TBPage" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBPayment_Confirmation" Member="TBPayment_Confirmations">
+    <Type Name="TBPayment_Confirmation">
+      <Column Name="IDPaymentConfirmation" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ReferenceNumber" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Bank" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="PaymentDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Notes" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Image" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Association Name="TBOrder_TBPayment_Confirmation" Member="TBOrder" ThisKey="IDOrder" OtherKey="IDOrder" Type="TBOrder" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBPayment_Method" Member="TBPayment_Methods">
+    <Type Name="TBPayment_Method">
+      <Column Name="IDPaymentMethod" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Bank" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Owner" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="AccountNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Image" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Association Name="TBPayment_Method_TBOrder" Member="TBOrders" ThisKey="IDPaymentMethod" OtherKey="IDPaymentMethod" Type="TBOrder" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBPost" Member="TBPosts">
+    <Type Name="TBPost">
+      <Column Name="IDPost" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDPage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Post_Title" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Post_ShortContent" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="Post_Content" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TBPost_TBPageCategory_Post" Member="TBPageCategory_Posts" ThisKey="IDPost" OtherKey="IDPost" Type="TBPageCategory_Post" />
+      <Association Name="TBPost_TBPostMedia" Member="TBPostMedias" ThisKey="IDPost" OtherKey="IDPost" Type="TBPostMedia" />
+      <Association Name="TBPage_TBPost" Member="TBPage" ThisKey="IDPage" OtherKey="IDPage" Type="TBPage" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBPostMedia" Member="TBPostMedias">
+    <Type Name="TBPostMedia">
+      <Column Name="IDPostMedia" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDPost" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="MediaUrl" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TBPost_TBPostMedia" Member="TBPost" ThisKey="IDPost" OtherKey="IDPost" Type="TBPost" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBProduct" Member="TBProducts">
+    <Type Name="TBProduct">
+      <Column Name="IDProduct" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDManufacturer" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SequenceNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ReferenceCode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="PriceBeforeDiscount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="TypeDiscountPercent" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Discount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="TotalDiscount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Weight" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="ShortDescription" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Note" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Meta" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="MetaDescription" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="MetaKeyword" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="TBProduct_TBOrder_Detail" Member="TBOrder_Details" ThisKey="IDProduct" OtherKey="IDProduct" Type="TBOrder_Detail" />
+      <Association Name="TBProduct_TBProduct_Category" Member="TBProduct_Categories" ThisKey="IDProduct" OtherKey="IDProduct" Type="TBProduct_Category" />
+      <Association Name="TBProduct_TBProduct_Combination" Member="TBProduct_Combinations" ThisKey="IDProduct" OtherKey="IDProduct" Type="TBProduct_Combination" />
+      <Association Name="TBProduct_TBProduct_Currency" Member="TBProduct_Currencies" ThisKey="IDProduct" OtherKey="IDProduct" Type="TBProduct_Currency" />
+      <Association Name="TBProduct_TBProduct_Photo" Member="TBProduct_Photos" ThisKey="IDProduct" OtherKey="IDProduct" Type="TBProduct_Photo" />
+      <Association Name="TBProduct_TBCustomer_Product" Member="TBCustomer_Products" ThisKey="IDProduct" OtherKey="IDProduct" Type="TBCustomer_Product" />
+      <Association Name="TBManufacturer_TBProduct" Member="TBManufacturer" ThisKey="IDManufacturer" OtherKey="IDManufacturer" Type="TBManufacturer" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBProduct_Category" Member="TBProduct_Categories">
+    <Type Name="TBProduct_Category">
+      <Column Name="IDProduct_Category" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDProduct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDCategory" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsDefault" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TBCategory_TBProduct_Category" Member="TBCategory" ThisKey="IDCategory" OtherKey="IDCategory" Type="TBCategory" IsForeignKey="true" />
+      <Association Name="TBProduct_TBProduct_Category" Member="TBProduct" ThisKey="IDProduct" OtherKey="IDProduct" Type="TBProduct" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBProduct_Combination" Member="TBProduct_Combinations">
+    <Type Name="TBProduct_Combination">
+      <Column Name="IDProduct_Combination" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDProduct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SequenceNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ReferenceCode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="BasePrice" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="PriceBeforeImpact" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="ImpactPrice" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="PriceAfterImpact" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Discount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="TypeDiscountPercent" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="TotalDiscount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="WeightBeforeImpact" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="ImpactWeight" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Weight" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TBProduct_Combination_TBWishlist" Member="TBWishlists" ThisKey="IDProduct_Combination" OtherKey="IDProduct_Combination" Type="TBWishlist" />
+      <Association Name="TBProduct_Combination_TBLog_Stock" Member="TBLog_Stocks" ThisKey="IDProduct_Combination" OtherKey="IDProduct_Combination" Type="TBLog_Stock" />
+      <Association Name="TBProduct_Combination_TBOrder_Detail" Member="TBOrder_Details" ThisKey="IDProduct_Combination" OtherKey="IDProduct_Combination" Type="TBOrder_Detail" />
+      <Association Name="TBProduct_Combination_TBProduct_Combination_Detail" Member="TBProduct_Combination_Details" ThisKey="IDProduct_Combination" OtherKey="IDProduct_Combination" Type="TBProduct_Combination_Detail" />
+      <Association Name="TBProduct_Combination_TBProduct_Combination_Photo" Member="TBProduct_Combination_Photos" ThisKey="IDProduct_Combination" OtherKey="IDProduct_Combination" Type="TBProduct_Combination_Photo" />
+      <Association Name="TBProduct_TBProduct_Combination" Member="TBProduct" ThisKey="IDProduct" OtherKey="IDProduct" Type="TBProduct" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBProduct_Combination_Currency" Member="TBProduct_Combination_Currencies">
+    <Type Name="TBProduct_Combination_Currency">
+      <Column Name="IDProduct_Combination_Currency" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDProduct_Combination" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDCurrency" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PriceBeforeDiscount" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="TotalDiscount" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBProduct_Combination_Detail" Member="TBProduct_Combination_Details">
+    <Type Name="TBProduct_Combination_Detail">
+      <Column Name="IDProduct_Combination_Detail" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDProduct_Combination" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDValue" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NameAttribute" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="NameValue" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TBProduct_Combination_TBProduct_Combination_Detail" Member="TBProduct_Combination" ThisKey="IDProduct_Combination" OtherKey="IDProduct_Combination" Type="TBProduct_Combination" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="TBValue_TBProduct_Combination_Detail" Member="TBValue" ThisKey="IDValue" OtherKey="IDValue" Type="TBValue" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBProduct_Combination_Photo" Member="TBProduct_Combination_Photos">
+    <Type Name="TBProduct_Combination_Photo">
+      <Column Name="IDProduct_Combination_Photo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDProduct_Combination" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDProduct_Photo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TBProduct_Combination_TBProduct_Combination_Photo" Member="TBProduct_Combination" ThisKey="IDProduct_Combination" OtherKey="IDProduct_Combination" Type="TBProduct_Combination" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="TBProduct_Photo_TBProduct_Combination_Photo" Member="TBProduct_Photo" ThisKey="IDProduct_Photo" OtherKey="IDProduct_Photo" Type="TBProduct_Photo" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBProduct_Currency" Member="TBProduct_Currencies">
+    <Type Name="TBProduct_Currency">
+      <Column Name="IDProduct_Currency" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDProduct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDCurrency" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PriceBeforeDiscount" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="TotalDiscount" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Association Name="TBCurrency_TBProduct_Currency" Member="TBCurrency" ThisKey="IDCurrency" OtherKey="IDCurrency" Type="TBCurrency" IsForeignKey="true" />
+      <Association Name="TBProduct_TBProduct_Currency" Member="TBProduct" ThisKey="IDProduct" OtherKey="IDProduct" Type="TBProduct" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBProduct_Photo" Member="TBProduct_Photos">
+    <Type Name="TBProduct_Photo">
+      <Column Name="IDProduct_Photo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDProduct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Photo" Type="System.String" DbType="NVarChar(70)" CanBeNull="true" />
+      <Column Name="IsCover" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TBProduct_Photo_TBProduct_Combination_Photo" Member="TBProduct_Combination_Photos" ThisKey="IDProduct_Photo" OtherKey="IDProduct_Photo" Type="TBProduct_Combination_Photo" />
+      <Association Name="TBProduct_TBProduct_Photo" Member="TBProduct" ThisKey="IDProduct" OtherKey="IDProduct" Type="TBProduct" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBPromo" Member="TBPromos">
+    <Type Name="TBPromo">
+      <Column Name="IDPromo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="MinimumRules" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MinimumValue" Type="System.Decimal" DbType="Decimal(19,2) NOT NULL" CanBeNull="false" />
+      <Column Name="PromoQty" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DiscountType" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Discount" Type="System.Decimal" DbType="Decimal(19,2) NOT NULL" CanBeNull="false" />
+      <Column Name="PriceBundling" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TBPromo_TBCategory" Member="TBCategories" ThisKey="IDPromo" OtherKey="IDPromo" Type="TBCategory" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBProvince" Member="TBProvinces">
+    <Type Name="TBProvince">
+      <Column Name="IDProvince" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDCountry" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TBProvince_TBAddress" Member="TBAddresses" ThisKey="IDProvince" OtherKey="IDProvince" Type="TBAddress" />
+      <Association Name="TBProvince_TBCity" Member="TBCities" ThisKey="IDProvince" OtherKey="IDProvince" Type="TBCity" />
+      <Association Name="TBCountry_TBProvince" Member="TBCountry" ThisKey="IDCountry" OtherKey="IDCountry" Type="TBCountry" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBRole" Member="TBRoles">
+    <Type Name="TBRole">
+      <Column Name="IDRole" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TBRole_TBEmployee" Member="TBEmployees" ThisKey="IDRole" OtherKey="IDRole" Type="TBEmployee" />
+      <Association Name="TBRole_TBRole_Menu" Member="TBRole_Menus" ThisKey="IDRole" OtherKey="IDRole" Type="TBRole_Menu" />
+      <Association Name="TBRole_TBRole_OrderStatus" Member="TBRole_OrderStatus" ThisKey="IDRole" OtherKey="IDRole" Type="TBRole_OrderStatus" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBRole_Menu" Member="TBRole_Menus">
+    <Type Name="TBRole_Menu">
+      <Column Name="IDRole" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IDMenu" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TBMenu_TBRole_Menu" Member="TBMenu" ThisKey="IDMenu" OtherKey="IDMenu" Type="TBMenu" IsForeignKey="true" />
+      <Association Name="TBRole_TBRole_Menu" Member="TBRole" ThisKey="IDRole" OtherKey="IDRole" Type="TBRole" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBRole_OrderStatus" Member="TBRole_OrderStatus">
+    <Type Name="TBRole_OrderStatus">
+      <Column Name="IDRole" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IDOrderStatus" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IsNotif" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="TBOrder_Status_TBRole_OrderStatus" Member="TBOrder_Status" ThisKey="IDOrderStatus" OtherKey="IDOrderStatus" Type="TBOrder_Status" IsForeignKey="true" />
+      <Association Name="TBRole_TBRole_OrderStatus" Member="TBRole" ThisKey="IDRole" OtherKey="IDRole" Type="TBRole" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBShipping" Member="TBShippings">
+    <Type Name="TBShipping">
+      <Column Name="IDShipping" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDCarrier" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDDistrict" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TBShipping_TBOrder" Member="TBOrders" ThisKey="IDShipping" OtherKey="IDShipping" Type="TBOrder" />
+      <Association Name="TBCarrier_TBShipping" Member="TBCarrier" ThisKey="IDCarrier" OtherKey="IDCarrier" Type="TBCarrier" IsForeignKey="true" />
+      <Association Name="TBDistrict_TBShipping" Member="TBDistrict" ThisKey="IDDistrict" OtherKey="IDDistrict" Type="TBDistrict" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBValue" Member="TBValues">
+    <Type Name="TBValue">
+      <Column Name="IDValue" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDAttribute" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="RGBColor" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TBValue_TBProduct_Combination_Detail" Member="TBProduct_Combination_Details" ThisKey="IDValue" OtherKey="IDValue" Type="TBProduct_Combination_Detail" />
+      <Association Name="TBAttribute_TBValue" Member="TBAttribute" ThisKey="IDAttribute" OtherKey="IDAttribute" Type="TBAttribute" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBVoucher" Member="TBVouchers">
+    <Type Name="TBVoucher">
+      <Column Name="IDVoucher" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDCustomer" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="VoucherType" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Value" Type="System.Decimal" DbType="Decimal(19,2) NOT NULL" CanBeNull="false" />
+      <Column Name="TotalAvailable" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Used" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MinimumAmount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="TBVoucher_TBOrder" Member="TBOrders" ThisKey="IDVoucher" OtherKey="IDVoucher" Type="TBOrder" />
+      <Association Name="TBCustomer_TBVoucher" Member="TBCustomer" ThisKey="IDCustomer" OtherKey="IDCustomer" Type="TBCustomer" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBCustomer_Product" Member="TBCustomer_Products">
+    <Type Name="TBCustomer_Product">
+      <Column Name="IDCustomer_Product" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDCustomer" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IDProduct" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="TBCustomer_Product_TBOrder" Member="TBOrders" ThisKey="IDCustomer_Product" OtherKey="IDCustomer_Product" Type="TBOrder" />
+      <Association Name="TBCustomer_TBCustomer_Product" Member="TBCustomer" ThisKey="IDCustomer" OtherKey="IDCustomer" Type="TBCustomer" IsForeignKey="true" />
+      <Association Name="TBProduct_TBCustomer_Product" Member="TBProduct" ThisKey="IDProduct" OtherKey="IDProduct" Type="TBProduct" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TBOrder" Member="TBOrders">
+    <Type Name="TBOrder">
+      <Column Name="IDOrder" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDCustomer" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDPaymentMethod" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDOrderStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDShipping" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDDeliveryAddress" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDBillingAddress" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDVoucher" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IDCurrency" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="InvoiceNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Reference" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Payment" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ShippingNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ConversionRate" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="TotalWeight" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="TotalShipping" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="TotalDiscount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="TotalPrice" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="TotalPaid" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Notes" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="OrderType" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="IDCustomer_Product" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProcessStatus" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="TBOrder_TBLog_Order" Member="TBLog_Orders" ThisKey="IDOrder" OtherKey="IDOrder" Type="TBLog_Order" />
+      <Association Name="TBOrder_TBOrder_Detail" Member="TBOrder_Details" ThisKey="IDOrder" OtherKey="IDOrder" Type="TBOrder_Detail" />
+      <Association Name="TBOrder_TBPayment_Confirmation" Member="TBPayment_Confirmations" ThisKey="IDOrder" OtherKey="IDOrder" Type="TBPayment_Confirmation" />
+      <Association Name="TBCurrency_TBOrder" Member="TBCurrency" ThisKey="IDCurrency" OtherKey="IDCurrency" Type="TBCurrency" IsForeignKey="true" />
+      <Association Name="TBCustomer_TBOrder" Member="TBCustomer" ThisKey="IDCustomer" OtherKey="IDCustomer" Type="TBCustomer" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="TBAddress_TBOrder" Member="TBAddress" ThisKey="IDDeliveryAddress" OtherKey="IDAddress" Type="TBAddress" IsForeignKey="true" />
+      <Association Name="TBAddress_TBOrder1" Member="TBAddress1" ThisKey="IDBillingAddress" OtherKey="IDAddress" Type="TBAddress" IsForeignKey="true" />
+      <Association Name="TBCustomer_Product_TBOrder" Member="TBCustomer_Product" ThisKey="IDCustomer_Product" OtherKey="IDCustomer_Product" Type="TBCustomer_Product" IsForeignKey="true" />
+      <Association Name="TBOrder_Status_TBOrder" Member="TBOrder_Status" ThisKey="IDOrderStatus" OtherKey="IDOrderStatus" Type="TBOrder_Status" IsForeignKey="true" />
+      <Association Name="TBPayment_Method_TBOrder" Member="TBPayment_Method" ThisKey="IDPaymentMethod" OtherKey="IDPaymentMethod" Type="TBPayment_Method" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="TBShipping_TBOrder" Member="TBShipping" ThisKey="IDShipping" OtherKey="IDShipping" Type="TBShipping" IsForeignKey="true" />
+      <Association Name="TBVoucher_TBOrder" Member="TBVoucher" ThisKey="IDVoucher" OtherKey="IDVoucher" Type="TBVoucher" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.FUNC_Value_GetDetail" Method="FUNC_Value_GetDetail" IsComposable="true">
+    <Parameter Name="IDValue" Parameter="iDValue" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FUNC_Value_GetDetailResult">
+      <Column Name="IDValue" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDAttribute" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AttributeName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IsColor" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="RGBColor" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_GetSizeCombination_ByIDProduct" Method="SP_GetSizeCombination_ByIDProduct">
+    <Parameter Name="idproduct_param" Type="System.Int32" DbType="Int" />
+    <ElementType Name="SP_GetSizeCombination_ByIDProductResult">
+      <Column Name="IDProduct_Combination" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IDProduct_Combination_Detail" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IDProduct" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IDValue" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CombinationName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ReferenceCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Weight" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_GetSizeCombination_ByIDProductAndIDColor" Method="SP_GetSizeCombination_ByIDProductAndIDColor">
+    <Parameter Name="idproduct_param" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idcolor_param" Type="System.Int32" DbType="Int" />
+    <ElementType Name="SP_GetSizeCombination_ByIDProductAndIDColorResult">
+      <Column Name="IDProduct_Combination" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IDProduct_Combination_Detail" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IDProduct" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IDValue" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CombinationName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ReferenceCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Weight" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_Insert_Customer" Method="SP_Insert_Customer">
+    <Parameter Name="idCUstomer_group" Type="System.Int32" DbType="Int" />
+    <Parameter Name="firtsName" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="lastName" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="gender" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="email" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="password" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="phoneNumber" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="birthday" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="isSubscribe" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="dateInsert" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="dateLastUpdate" Type="System.DateTime" DbType="DateTime" />
+    <ElementType Name="SP_Insert_CustomerResult">
+      <Column Name="newID" Type="System.Decimal" DbType="Decimal(38,0)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_Insert_LogStock" Method="SP_Insert_LogStock">
+    <Parameter Name="desc" Type="System.String" DbType="Text" />
+    <Parameter Name="idEmployee" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idCombination" Type="System.Int32" DbType="Int" />
+    <Parameter Name="productName" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="username" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="type" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="qty" Type="System.Int32" DbType="Int" />
+    <Parameter Name="InsertDate" Parameter="insertDate" Type="System.DateTime" DbType="DateTime" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SP_RegisterGuestCustomer" Method="SP_RegisterGuestCustomer">
+    <Parameter Name="firstName" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="lastName" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="gender" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="email" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="password" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="phoneNumber" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="birthday" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="idCountry" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idProvince" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idCity" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idDistrict" Type="System.Int32" DbType="Int" />
+    <Parameter Name="address" Type="System.String" DbType="Text" />
+    <Parameter Name="postalCode" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="additionalInfo" Type="System.String" DbType="Text" />
+    <ElementType Name="SP_RegisterGuestCustomerResult">
+      <Column Name="IDCustomer" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IDAddress" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_Report_GetCategoryDistribution" Method="SP_Report_GetCategoryDistribution">
+    <Parameter Name="startDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="endDate" Type="System.DateTime" DbType="DateTime" />
+    <ElementType Name="SP_Report_GetCategoryDistributionResult">
+      <Column Name="IDCategory" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="TotalOrders" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TotalSales" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_Report_GetCityDistribution" Method="SP_Report_GetCityDistribution">
+    <Parameter Name="startDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="endDate" Type="System.DateTime" DbType="DateTime" />
+    <ElementType Name="SP_Report_GetCityDistributionResult">
+      <Column Name="IDCity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="TotalOrders" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TotalSales" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_Report_GetManufacturerDistribution" Method="SP_Report_GetManufacturerDistribution">
+    <Parameter Name="startDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="endDate" Type="System.DateTime" DbType="DateTime" />
+    <ElementType Name="SP_Report_GetManufacturerDistributionResult">
+      <Column Name="IDManufacturer" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="TotalOrders" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProductSales" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TotalSales" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_Report_GetProvinceDistribution" Method="SP_Report_GetProvinceDistribution">
+    <Parameter Name="startDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="endDate" Type="System.DateTime" DbType="DateTime" />
+    <ElementType Name="SP_Report_GetProvinceDistributionResult">
+      <Column Name="IDProvince" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="TotalOrders" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TotalSales" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_Stats_GetBestCategories" Method="SP_Stats_GetBestCategories">
+    <ElementType Name="SP_Stats_GetBestCategoriesResult">
+      <Column Name="IDCategory" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_Stats_GetBestCustomer" Method="SP_Stats_GetBestCustomer">
+    <ElementType Name="SP_Stats_GetBestCustomerResult">
+      <Column Name="IDCustomer" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_Stats_GetBestManufacturer" Method="SP_Stats_GetBestManufacturer">
+    <ElementType Name="SP_Stats_GetBestManufacturerResult">
+      <Column Name="IDManufacturer" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_Update_Qty" Method="SP_Update_Qty">
+    <Parameter Name="refCombination" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="qty" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.FUNC_Attribute_GetAll" Method="FUNC_Attribute_GetAll" IsComposable="true">
+    <ElementType Name="FUNC_Attribute_GetAllResult">
+      <Column Name="IDAttribute" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="IsColor" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="TotalValue" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Attribute_GetDetail" Method="FUNC_Attribute_GetDetail" IsComposable="true">
+    <Parameter Name="IDAttribute" Parameter="iDAttribute" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FUNC_Attribute_GetDetailResult">
+      <Column Name="IDAttribute" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="IsColor" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="TotalValue" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Category_GetAll" Method="FUNC_Category_GetAll" IsComposable="true">
+    <ElementType Name="FUNC_Category_GetAllResult">
+      <Column Name="IDCategory" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDCategoryParent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ParentName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Image" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Category_GetData_ByIDCategoryParent" Method="FUNC_Category_GetData_ByIDCategoryParent" IsComposable="true">
+    <Parameter Name="IDCategoryParent" Parameter="iDCategoryParent" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FUNC_Category_GetData_ByIDCategoryParentResult">
+      <Column Name="IDCategory" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDCategoryParent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ParentName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Image" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Category_GetData_ByIDCategoryParentNull" Method="FUNC_Category_GetData_ByIDCategoryParentNull" IsComposable="true">
+    <ElementType Name="FUNC_Category_GetData_ByIDCategoryParentNullResult">
+      <Column Name="IDCategory" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDCategoryParent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ParentName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Image" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Category_GetDetail" Method="FUNC_Category_GetDetail" IsComposable="true">
+    <Parameter Name="IDCategory" Parameter="iDCategory" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FUNC_Category_GetDetailResult">
+      <Column Name="IDCategory" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDCategoryParent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ParentName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Image" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IDPromo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_GetColor_ByIDProduct" Method="FUNC_GetColor_ByIDProduct" IsComposable="true">
+    <Parameter Name="idProduct" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FUNC_GetColor_ByIDProductResult">
+      <Column Name="IDValue" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="RGBColor" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="IDProduct_Combination" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_GetSize_ByIDProductAndIDColor" Method="FUNC_GetSize_ByIDProductAndIDColor" IsComposable="true">
+    <Parameter Name="idProduct" Type="System.Int32" DbType="Int" />
+    <Parameter Name="idColor" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FUNC_GetSize_ByIDProductAndIDColorResult">
+      <Column Name="IDValue" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NameValue" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Manufacturer_GetAll" Method="FUNC_Manufacturer_GetAll" IsComposable="true">
+    <ElementType Name="FUNC_Manufacturer_GetAllResult">
+      <Column Name="IDManufacturer" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Logo" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Manufacturer_GetData_ByActive" Method="FUNC_Manufacturer_GetData_ByActive" IsComposable="true">
+    <Parameter Name="Active" Parameter="active" Type="System.Boolean" DbType="Bit" />
+    <ElementType Name="FUNC_Manufacturer_GetData_ByActiveResult">
+      <Column Name="IDManufacturer" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Logo" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Manufacturer_GetDetail" Method="FUNC_Manufacturer_GetDetail" IsComposable="true">
+    <Parameter Name="IDManufacturer" Parameter="iDManufacturer" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FUNC_Manufacturer_GetDetailResult">
+      <Column Name="IDManufacturer" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Logo" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Page_GetDetail" Method="FUNC_Page_GetDetail" IsComposable="true">
+    <ElementType Name="FUNC_Page_GetDetailResult">
+      <Column Name="IDPage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Page_Title" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Page_ShortContent" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="Page_Content" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Page_GetDetail_Information" Method="FUNC_Page_GetDetail_Information" IsComposable="true">
+    <Parameter Name="IDPage" Parameter="iDPage" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FUNC_Page_GetDetail_InformationResult">
+      <Column Name="IDPage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Page_Title" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Page_ShortContent" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="Page_Content" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Page_Photo_GetData_ByIDPage" Method="FUNC_Page_Photo_GetData_ByIDPage" IsComposable="true">
+    <Parameter Name="IDPage" Parameter="iDPage" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FUNC_Page_Photo_GetData_ByIDPageResult">
+      <Column Name="IDPage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDPageMedia" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="MediaUrl" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Cover" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Page_Photo_GetDetail" Method="FUNC_Page_Photo_GetDetail" IsComposable="true">
+    <Parameter Name="IDPageMedia" Parameter="iDPageMedia" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FUNC_Page_Photo_GetDetailResult">
+      <Column Name="IDPageMedia" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDPage" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MediaUrl" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Cover" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Post_GetDetail_Information" Method="FUNC_Post_GetDetail_Information" IsComposable="true">
+    <Parameter Name="IDPost" Parameter="iDPost" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FUNC_Post_GetDetail_InformationResult">
+      <Column Name="IDPost" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Post_Title" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Post_ShortContent" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="Post_Content" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Post_Photo_GetData_ByIDPost" Method="FUNC_Post_Photo_GetData_ByIDPost" IsComposable="true">
+    <Parameter Name="IDPost" Parameter="iDPost" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FUNC_Post_Photo_GetData_ByIDPostResult">
+      <Column Name="IDPost" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDPostMedia" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="MediaUrl" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Post_Photo_GetDetail" Method="FUNC_Post_Photo_GetDetail" IsComposable="true">
+    <Parameter Name="IDPostMedia" Parameter="iDPostMedia" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FUNC_Post_Photo_GetDetailResult">
+      <Column Name="IDPostMedia" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDPost" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MediaUrl" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Product_Category_GetAll" Method="FUNC_Product_Category_GetAll" IsComposable="true">
+    <ElementType Name="FUNC_Product_Category_GetAllResult">
+      <Column Name="IDProduct_Category" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDProduct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDCategory" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IsDefault" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Product_Category_GetData_ByIDProduct" Method="FUNC_Product_Category_GetData_ByIDProduct" IsComposable="true">
+    <Parameter Name="IDProduct" Parameter="iDProduct" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FUNC_Product_Category_GetData_ByIDProductResult">
+      <Column Name="IDProduct_Category" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDProduct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDCategory" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IsDefault" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Product_Category_GetData_Default" Method="FUNC_Product_Category_GetData_Default" IsComposable="true">
+    <Parameter Name="IDProduct" Parameter="iDProduct" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FUNC_Product_Category_GetData_DefaultResult">
+      <Column Name="IDProduct_Category" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDProduct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDCategory" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IsDefault" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Product_Category_GetDetail" Method="FUNC_Product_Category_GetDetail" IsComposable="true">
+    <Parameter Name="IDProduct_Category" Parameter="iDProduct_Category" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FUNC_Product_Category_GetDetailResult">
+      <Column Name="IDProduct_Category" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDProduct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDCategory" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IsDefault" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Product_Combination_Getdata_ByIDProduct" Method="FUNC_Product_Combination_Getdata_ByIDProduct" IsComposable="true">
+    <Parameter Name="idProduct" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FUNC_Product_Combination_Getdata_ByIDProductResult">
+      <Column Name="IDProduct_Combination" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDProduct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SequenceNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ReferenceCode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="BasePrice" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="PriceBeforeImpact" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="ImpactPrice" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="PriceAfterImpact" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Discount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="TypeDiscountPercent" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="TotalDiscount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="WeightBeforeImpact" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="ImpactWeight" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Weight" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Product_Combination_GetDetail_ByIDCombination" Method="FUNC_Product_Combination_GetDetail_ByIDCombination" IsComposable="true">
+    <Parameter Name="idCombination" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FUNC_Product_Combination_GetDetail_ByIDCombinationResult">
+      <Column Name="IDProduct_Combination" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDProduct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SequenceNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ReferenceCode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="BasePrice" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="PriceBeforeImpact" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="ImpactPrice" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="PriceAfterImpact" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Discount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="TypeDiscountPercent" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="TotalDiscount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="WeightBeforeImpact" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="ImpactWeight" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Weight" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Deflag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateInsert" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastUpdate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Product_Combination_Photo_GetData_ByIDProduct_Combination" Method="FUNC_Product_Combination_Photo_GetData_ByIDProduct_Combination" IsComposable="true">
+    <Parameter Name="IDProduct_Combination" Parameter="iDProduct_Combination" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FUNC_Product_Combination_Photo_GetData_ByIDProduct_CombinationResult">
+      <Column Name="IDProduct_Combination_Photo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDProduct_Combination" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDProduct_Photo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Photo" Type="System.String" DbType="NVarChar(70)" CanBeNull="true" />
+      <Column Name="IsCover" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Product_GetAll" Method="FUNC_Product_GetAll" IsComposable="true">
+    <ElementType Name="FUNC_Product_GetAllResult">
+      <Column Name="IDProduct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ReferenceCode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="PriceBeforeDiscount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IDManufacturer" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SequenceNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TotalDiscount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="TypeDiscountPercent" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Discount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Weight" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="ShortDescription" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Note" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Meta" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="MetaDescription" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="MetaKeyword" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Photo" Type="System.String" DbType="NVarChar(70)" CanBeNull="true" />
+      <Column Name="Category" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Manufacturer" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Product_GetAll_ByIDCategory" Method="FUNC_Product_GetAll_ByIDCategory" IsComposable="true">
+    <Parameter Name="IDCategory" Parameter="iDCategory" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FUNC_Product_GetAll_ByIDCategoryResult">
+      <Column Name="IDProduct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ReferenceCode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="PriceBeforeDiscount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IDManufacturer" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SequenceNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TotalDiscount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="TypeDiscountPercent" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Discount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Weight" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="ShortDescription" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Note" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Meta" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="MetaDescription" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="MetaKeyword" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="IDCategory" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsDefault" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Photo" Type="System.String" DbType="NVarChar(70)" CanBeNull="true" />
+      <Column Name="Category" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Manufacturer" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Product_GetAll_ByIDCategory_And_PriceRange" Method="FUNC_Product_GetAll_ByIDCategory_And_PriceRange" IsComposable="true">
+    <Parameter Name="IDCategory" Parameter="iDCategory" Type="System.Int32" DbType="Int" />
+    <Parameter Name="MinPrice" Parameter="minPrice" Type="System.Decimal" DbType="Decimal(18,0)" />
+    <Parameter Name="MaxPrice" Parameter="maxPrice" Type="System.Decimal" DbType="Decimal(18,0)" />
+    <ElementType Name="FUNC_Product_GetAll_ByIDCategory_And_PriceRangeResult">
+      <Column Name="IDProduct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ReferenceCode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="PriceBeforeDiscount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IDManufacturer" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SequenceNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TotalDiscount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="TypeDiscountPercent" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Discount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Weight" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="ShortDescription" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Note" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Meta" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="MetaDescription" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="MetaKeyword" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="IDValue" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Photo" Type="System.String" DbType="NVarChar(70)" CanBeNull="true" />
+      <Column Name="Category" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Product_GetAll_ByIDValue" Method="FUNC_Product_GetAll_ByIDValue" IsComposable="true">
+    <Parameter Name="IDValue" Parameter="iDValue" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FUNC_Product_GetAll_ByIDValueResult">
+      <Column Name="IDProduct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ReferenceCode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="PriceBeforeDiscount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IDManufacturer" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SequenceNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TotalDiscount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="TypeDiscountPercent" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Discount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Weight" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="ShortDescription" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Note" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Meta" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="MetaDescription" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="MetaKeyword" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="IDValue" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Photo" Type="System.String" DbType="NVarChar(70)" CanBeNull="true" />
+      <Column Name="Category" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Product_GetAll_ByIDValue_And_IDCategory" Method="FUNC_Product_GetAll_ByIDValue_And_IDCategory" IsComposable="true">
+    <Parameter Name="IDValue" Parameter="iDValue" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IDCategory" Parameter="iDCategory" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FUNC_Product_GetAll_ByIDValue_And_IDCategoryResult">
+      <Column Name="IDProduct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ReferenceCode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="PriceBeforeDiscount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IDManufacturer" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SequenceNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TotalDiscount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="TypeDiscountPercent" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Discount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Weight" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="ShortDescription" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Note" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Meta" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="MetaDescription" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="MetaKeyword" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="IDValue" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Photo" Type="System.String" DbType="NVarChar(70)" CanBeNull="true" />
+      <Column Name="Category" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Product_GetAll_ByIDValue_And_IDCategory_And_PriceRange" Method="FUNC_Product_GetAll_ByIDValue_And_IDCategory_And_PriceRange" IsComposable="true">
+    <Parameter Name="IDValue" Parameter="iDValue" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IDCategory" Parameter="iDCategory" Type="System.Int32" DbType="Int" />
+    <Parameter Name="MinPrice" Parameter="minPrice" Type="System.Decimal" DbType="Decimal(18,0)" />
+    <Parameter Name="MaxPrice" Parameter="maxPrice" Type="System.Decimal" DbType="Decimal(18,0)" />
+    <ElementType Name="FUNC_Product_GetAll_ByIDValue_And_IDCategory_And_PriceRangeResult">
+      <Column Name="IDProduct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ReferenceCode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="PriceBeforeDiscount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IDManufacturer" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SequenceNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TotalDiscount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="TypeDiscountPercent" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Discount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Weight" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="ShortDescription" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Note" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Meta" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="MetaDescription" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="MetaKeyword" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="IDValue" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Photo" Type="System.String" DbType="NVarChar(70)" CanBeNull="true" />
+      <Column Name="Category" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Product_GetAll_Currency" Method="FUNC_Product_GetAll_Currency" IsComposable="true">
+    <Parameter Name="currencyID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FUNC_Product_GetAll_CurrencyResult">
+      <Column Name="IDProduct" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ReferenceCode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="PriceBeforeDiscount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IDManufacturer" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SequenceNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TotalDiscount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="TypeDiscountPercent" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Discount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Weight" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="ShortDescription" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Note" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Meta" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="MetaDescription" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="MetaKeyword" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Photo" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Category" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Manufacturer" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Product_GetAll_Information" Method="FUNC_Product_GetAll_Information" IsComposable="true">
+    <ElementType Name="FUNC_Product_GetAll_InformationResult">
+      <Column Name="IDProduct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ReferenceCode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="PriceBeforeDiscount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IDManufacturer" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SequenceNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TotalDiscount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="TypeDiscountPercent" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Discount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Weight" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="ShortDescription" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Note" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Meta" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="MetaDescription" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="MetaKeyword" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Manufacturer" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Product_GetDetail" Method="FUNC_Product_GetDetail" IsComposable="true">
+    <Parameter Name="IDProduct" Parameter="iDProduct" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FUNC_Product_GetDetailResult">
+      <Column Name="IDProduct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ReferenceCode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="PriceBeforeDiscount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IDManufacturer" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SequenceNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TotalDiscount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="TypeDiscountPercent" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Discount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Weight" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="ShortDescription" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Note" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Meta" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="MetaDescription" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="MetaKeyword" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Photo" Type="System.String" DbType="NVarChar(70)" CanBeNull="true" />
+      <Column Name="Manufacturer" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Product_GetDetail_Currency" Method="FUNC_Product_GetDetail_Currency" IsComposable="true">
+    <Parameter Name="productID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="currencyID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FUNC_Product_GetDetail_CurrencyResult">
+      <Column Name="IDProduct" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ReferenceCode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="PriceBeforeDiscount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IDManufacturer" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SequenceNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TotalDiscount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="TypeDiscountPercent" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Discount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Weight" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="ShortDescription" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Note" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Meta" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="MetaDescription" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="MetaKeyword" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Photo" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Category" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Manufacturer" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Product_GetDetail_Information" Method="FUNC_Product_GetDetail_Information" IsComposable="true">
+    <Parameter Name="IDProduct" Parameter="iDProduct" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FUNC_Product_GetDetail_InformationResult">
+      <Column Name="IDProduct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ReferenceCode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="PriceBeforeDiscount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IDManufacturer" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SequenceNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TotalDiscount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="TypeDiscountPercent" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Discount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Weight" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="ShortDescription" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Note" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Meta" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="MetaDescription" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="MetaKeyword" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Manufacturer" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Product_GetTable" Method="FUNC_Product_GetTable" IsComposable="true">
+    <ElementType Name="FUNC_Product_GetTableResult">
+      <Column Name="IDProduct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ReferenceCode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="PriceBeforeDiscount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="SequenceNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Photo" Type="System.String" DbType="NVarChar(70)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Product_Photo_GetAll" Method="FUNC_Product_Photo_GetAll" IsComposable="true">
+    <ElementType Name="FUNC_Product_Photo_GetAllResult">
+      <Column Name="IDProduct_Photo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDProduct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Photo" Type="System.String" DbType="NVarChar(70)" CanBeNull="true" />
+      <Column Name="IsCover" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Product_Photo_GetData_ByIDProduct" Method="FUNC_Product_Photo_GetData_ByIDProduct" IsComposable="true">
+    <Parameter Name="IDProduct" Parameter="iDProduct" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FUNC_Product_Photo_GetData_ByIDProductResult">
+      <Column Name="IDProduct_Photo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDProduct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Photo" Type="System.String" DbType="NVarChar(70)" CanBeNull="true" />
+      <Column Name="IsCover" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Product_Photo_GetDetail" Method="FUNC_Product_Photo_GetDetail" IsComposable="true">
+    <Parameter Name="IDProduct_Photo" Parameter="iDProduct_Photo" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FUNC_Product_Photo_GetDetailResult">
+      <Column Name="IDProduct_Photo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDProduct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Photo" Type="System.String" DbType="NVarChar(70)" CanBeNull="true" />
+      <Column Name="IsCover" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Role_Menu_GetData_ByIDRole" Method="FUNC_Role_Menu_GetData_ByIDRole" IsComposable="true">
+    <Parameter Name="IDRole" Parameter="iDRole" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FUNC_Role_Menu_GetData_ByIDRoleResult">
+      <Column Name="IDRole" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDMenu" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Link" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Role_OrderStatus_GetData_ByIDRole" Method="FUNC_Role_OrderStatus_GetData_ByIDRole" IsComposable="true">
+    <Parameter Name="IDRole" Parameter="iDRole" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FUNC_Role_OrderStatus_GetData_ByIDRoleResult">
+      <Column Name="IDRole" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDOrderStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsNotif" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Value_GetAll" Method="FUNC_Value_GetAll" IsComposable="true">
+    <ElementType Name="FUNC_Value_GetAllResult">
+      <Column Name="IDValue" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDAttribute" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AttributeName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IsColor" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="RGBColor" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FUNC_Value_GetData_ByIDAttribute" Method="FUNC_Value_GetData_ByIDAttribute" IsComposable="true">
+    <Parameter Name="IDAttribute" Parameter="iDAttribute" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FUNC_Value_GetData_ByIDAttributeResult">
+      <Column Name="IDValue" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IDAttribute" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AttributeName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IsColor" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="RGBColor" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>
