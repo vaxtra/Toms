@@ -99,25 +99,50 @@ public class Class_SAAS
             if (productCombination == null)
                 return ReturnData.MessageFailed("Data not found", null);
 
-            _product.Add("IDProduct", dataOrder.IDProduct);
-            _product.Add("IDCombination", dataOrder.TBProduct_Combinations.FirstOrDefault().IDProduct_Combination);
-            _product.Add("Price", Math.Ceiling(dataOrder.Price * totalRemainingMonth / totalRemainingYear));
-            _product.Add("CombinationName", dataOrder.TBProduct_Combinations.FirstOrDefault().Name);
-            _product.Add("Quantity", 1);
-            _product.Add("ProductName", dataOrder.Name);
-            _product.Add("PricePerUnit", Math.Ceiling(dataOrder.Price * totalRemainingMonth / totalRemainingYear));
-            _product.Add("Weight", productCombination.Weight);
-            _product.Add("WeightPerUnit", productCombination.Weight);
+            if (dataOrder.Price <= customerProduct.TBProduct.Price)
+            {
+                _product.Add("IDProduct", dataOrder.IDProduct);
+                _product.Add("IDCombination", dataOrder.TBProduct_Combinations.FirstOrDefault().IDProduct_Combination);
+                _product.Add("Price", 0);
+                _product.Add("CombinationName", dataOrder.TBProduct_Combinations.FirstOrDefault().Name);
+                _product.Add("Quantity", 1);
+                _product.Add("ProductName", dataOrder.Name);
+                _product.Add("PricePerUnit", 0);
+                _product.Add("Weight", productCombination.Weight);
+                _product.Add("WeightPerUnit", productCombination.Weight);
 
-            _listProduct.Add(_product);
-            _tokenData.Add("Product", _listProduct);
-            _tokenData.Add("TotalPrice", Math.Ceiling(dataOrder.Price * totalRemainingMonth / totalRemainingYear));
-            _tokenData.Add("TotalQuantity", 1);
-            _tokenData.Add("TotalWeight", productCombination.Weight);
-            _tokenData.Add("Subtotal", Math.Ceiling(dataOrder.Price * totalRemainingMonth / totalRemainingYear));
-            _tokenData.Add("IDCurrency", Class_Currency.GetActiveCurrencyID());
-            _tokenData.Add("OrderType", "upgrade");
-            _tokenData.Add("IDCustomerProduct", idCustomerProduct);
+                _listProduct.Add(_product);
+                _tokenData.Add("Product", _listProduct);
+                _tokenData.Add("TotalPrice", 0);
+                _tokenData.Add("TotalQuantity", 1);
+                _tokenData.Add("TotalWeight", productCombination.Weight);
+                _tokenData.Add("Subtotal", 0);
+                _tokenData.Add("IDCurrency", Class_Currency.GetActiveCurrencyID());
+                _tokenData.Add("OrderType", "upgrade");
+                _tokenData.Add("IDCustomerProduct", idCustomerProduct);
+            }
+            else
+            {
+                _product.Add("IDProduct", dataOrder.IDProduct);
+                _product.Add("IDCombination", dataOrder.TBProduct_Combinations.FirstOrDefault().IDProduct_Combination);
+                _product.Add("Price", Math.Ceiling(dataOrder.Price * totalRemainingMonth / totalRemainingYear));
+                _product.Add("CombinationName", dataOrder.TBProduct_Combinations.FirstOrDefault().Name);
+                _product.Add("Quantity", 1);
+                _product.Add("ProductName", dataOrder.Name);
+                _product.Add("PricePerUnit", Math.Ceiling(dataOrder.Price * totalRemainingMonth / totalRemainingYear));
+                _product.Add("Weight", productCombination.Weight);
+                _product.Add("WeightPerUnit", productCombination.Weight);
+
+                _listProduct.Add(_product);
+                _tokenData.Add("Product", _listProduct);
+                _tokenData.Add("TotalPrice", Math.Ceiling(dataOrder.Price * totalRemainingMonth / totalRemainingYear));
+                _tokenData.Add("TotalQuantity", 1);
+                _tokenData.Add("TotalWeight", productCombination.Weight);
+                _tokenData.Add("Subtotal", Math.Ceiling(dataOrder.Price * totalRemainingMonth / totalRemainingYear));
+                _tokenData.Add("IDCurrency", Class_Currency.GetActiveCurrencyID());
+                _tokenData.Add("OrderType", "upgrade");
+                _tokenData.Add("IDCustomerProduct", idCustomerProduct);
+            }
             _token = OurClass.EncryptToken(_tokenData);
             //HttpContext.Current.Response.Cookies.Add(new HttpCookie(System.Configuration.ConfigurationManager.AppSettings["cookieCart"].ToString(), _token));
             _Order.SaveEncodeDataOrder(HttpContext.Current.Request.AnonymousID, _token);

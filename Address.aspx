@@ -5,6 +5,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <input type="hidden" id="IDDeliveryAddress" />
     <input type="hidden" id="IDBillingAddress" />
+    <input type="hidden" id="HiddenOrderType" />
+    <input type="hidden" id="HiddenIDCustomerProduct" />
     <div class="product_list_area section_padding checkoutpage">
         <section class="product-list wow fadeInUp">
             <div class="container">
@@ -165,7 +167,7 @@
                             <div class="col-md-4 mt-30">
                                 <a class="btn btn-block btn-black btn-renew hidden" href="#">RENEW</a>
                                 <a class="btn btn-block btn-black placeorderdet" href="#">CONFIRM ORDER</a>
-                                <a class="btn btn-block btn-black btn-upgrade hidden" href="#">UPGRADE</a>
+                                <a class="btn btn-block btn-black btn-upgrade hidden" href="#">CHANGE PLAN</a>
                             </div>
                             <div class="col-md-4">
                             </div>

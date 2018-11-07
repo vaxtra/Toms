@@ -54,6 +54,13 @@ $(document).ready(function () {
         SubmitAddressToCart(+$("#IDDeliveryAddress").val(), +$("#IDBillingAddress").val(), $("#Notes").val());
     });
 
+    $(".btn-renew").click(function () {
+        RenewPackage(+$("#HiddenIDProduct").val(), +$("#HiddenIDCustomerProduct").val());
+    });
+    $(".btn-upgrade").click(function () {
+        UpgradePackage(+$("#HiddenIDProduct").val(), +$("#HiddenIDCustomerProduct").val());
+    });
+
 });
 
 function PreloadMaster() {
@@ -182,6 +189,7 @@ function PreloadMaster() {
                 var listCartSummary = result.d.data.CartSummary.Product;
                 var TotalPrice = result.d.data.CartSummary.TotalPrice;
                 LoadListCartSummary(listCartSummary, TotalPrice);
+                $("#HiddenOrderType").val(result.d.data.CartSummary.OrderType);
                 $("#HiddenIDProduct").val(listCartSummary[0].IDProduct);
 
 
@@ -200,33 +208,13 @@ function PreloadMaster() {
                     region: "id-ID"
                 })
             }
-
+            CheckPackage(+$("#HiddenIDProduct").val(), +$("#HiddenIDCustomer").val());
             if (result.d.data.CartSummary != null || result.d.data.CartSummary != undefined) {
                 //LoadCart(result.d.data.CartSummary.Product);
                 LoadCartList(result.d.data.CartSummary);
             }
 
-            var CustomerProduct = result.d.data.CustomerProduct;
-            if (CustomerProduct && listCartSummary.OrderType == "new") {
-                for (var i = 0; i < CustomerProduct.length; i++)
-                {
-                    if (CustomerProduct[i].IDCustomer == +$("#HiddenIDCustomer").val() && CustomerProduct[i].IDProduct == +$("#HiddenIDProduct").val()) {
-                        $(".placeorderdet").addClass("hidden");
-                        $(".btn-renew").removeClass("hidden");
-                        $(".btn-upgrade").addClass("hidden");
-                    }
-                    else if (CustomerProduct[i].IDCustomer == +$("#HiddenIDCustomer").val() && CustomerProduct[i].IDProduct != +$("#HiddenIDProduct").val()) {
-                        $(".placeorderdet").addClass("hidden");
-                        $(".btn-renew").addClass("hidden");
-                        $(".btn-upgrade").removeClass("hidden");
-                    }
-                    else {
-                        $(".placeorderdet").removeClass("hidden");
-                        $(".btn-renew").addClass("hidden");
-                        $(".btn-upgrade").addClass("hidden");
-                    }
-                }
-            }
+            
 
             $(".format-money").formatCurrency({
                 region: "id-ID"
@@ -244,7 +232,44 @@ function PreloadMaster() {
         'c': 'femaster',
         'm': 'preload',
         'data': {
-            'RequestData': ['Customer', 'Addresses', 'CartSummary', 'Payment', 'CustomerProduct']
+            'RequestData': ['Customer', 'Addresses', 'CartSummary', 'Payment']
+        }
+    });
+}
+
+function CheckPackage(idProduct, idCustomer)
+{
+    REST.onSuccess = function (result) {
+        if (result.d.success) {
+            var CustomerProduct = result.d.data.CustomerProduct;
+            if (CustomerProduct && $("#HiddenOrderType").val() == "new") {
+                for (var i = 0; i < CustomerProduct.length; i++) {
+                    if (CustomerProduct[i].IDCustomer == idCustomer && CustomerProduct[i].IDProduct == idProduct) {
+                        $(".placeorderdet").addClass("hidden");
+                        $(".btn-renew").removeClass("hidden");
+                        $(".btn-upgrade").addClass("hidden");
+                        $("#HiddenIDCustomerProduct").val(CustomerProduct[i].IDCustomer_Product);
+                    }
+                    else if (CustomerProduct[i].IDCustomer == idCustomer && CustomerProduct[i].IDProduct != idProduct) {
+                        $(".placeorderdet").addClass("hidden");
+                        $(".btn-renew").addClass("hidden");
+                        $(".btn-upgrade").removeClass("hidden");
+                        $("#HiddenIDCustomerProduct").val(CustomerProduct[i].IDCustomer_Product);
+                    }
+                    else {
+                        $(".placeorderdet").removeClass("hidden");
+                        $(".btn-renew").addClass("hidden");
+                        $(".btn-upgrade").addClass("hidden");
+                    }
+                }
+            }
+        }
+    };
+    REST.sendRequest({
+        'c': 'femaster',
+        'm': 'preload',
+        'data': {
+            'RequestData': ['CustomerProduct']
         }
     });
 }
@@ -702,3 +727,89 @@ function RefreshCart()
 //        });
 //    }
 //}
+
+//MODUL SAAS
+
+function UpgradePackage(idProduct, idCustomerProduct) {
+    $.ajax({
+        url: "/modules/saas/Handler.ashx",
+        contentType: "application/json; charset=utf-8",
+        type: 'POST',
+        dataType: "json",
+        data: JSON.stringify({
+            c: "saas",
+            m: "upgrade",
+            data: {
+                IDProduct: idProduct,
+                IDCustomer: +$("#HiddenIDCustomer").val(),
+                IDCustomerProduct: +idCustomerProduct
+            }
+        }),
+        beforeSend: function () {
+            //Metronic.blockUI({
+            //    boxed: true
+            //});
+        },
+        success: function (result) {
+            if (result.success) {
+                window.location = "/Address"
+            }
+            else {
+                //bootbox.alert(result.d.message);
+                bootbox.alert(result.data.message, function () {
+                    location.reload();
+                });
+            }
+        },
+        complete: function () {
+            Metronic.unblockUI();
+        },
+        error: function (result) {
+            bootbox.alert(result.d.message, function () {
+                location.reload();
+            });
+        }
+    });
+}
+
+function RenewPackage(idProduct, idCustomerProduct) {
+    $.ajax({
+        url: "/modules/saas/Handler.ashx",
+        contentType: "application/json; charset=utf-8",
+        type: 'POST',
+        dataType: "json",
+        data: JSON.stringify({
+            c: "saas",
+            m: "renew",
+            data: {
+                IDProduct: idProduct,
+                IDCustomer: +$("#HiddenIDCustomer").val(),
+                IDCustomerProduct: +idCustomerProduct
+            }
+        }),
+        beforeSend: function () {
+            //Metronic.blockUI({
+            //    boxed: true
+            //});
+        },
+        success: function (result) {
+            if (result.success) {
+                window.location = "/Address"
+            }
+            else {
+                //bootbox.alert(result.d.message);
+                bootbox.alert(result.data.message, function () {
+                    location.reload();
+                });
+            }
+        },
+        complete: function () {
+            Metronic.unblockUI();
+        },
+        error: function (result) {
+            bootbox.alert(result.d.message, function () {
+                location.reload();
+            });
+        }
+    });
+}
