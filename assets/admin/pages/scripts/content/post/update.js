@@ -493,7 +493,6 @@ function InfoMedia_Validation() {
             Name: {
                 required: true,
                 minlength: 3,
-                maxlength: 25,
             }
         },
         errorPlacement: function (e, t) {

@@ -12,7 +12,7 @@ using WITLibrary;
 /// </summary>
 public class Class_SAAS
 {
-    public dynamic DYNAMIC_AddToCart_Renew(int idProduct, int idCustomer, int idCustomerProduct)
+    public dynamic DYNAMIC_AddToCart_Renew(int idProduct, int idCustomer, int idCustomerProduct, int idCombination)
     {
         try
         {
@@ -32,21 +32,21 @@ public class Class_SAAS
                 return ReturnData.MessageFailed("Data not found", null);
 
             _product.Add("IDProduct", dataOrder.IDProduct);
-            _product.Add("IDCombination", dataOrder.TBProduct_Combinations.FirstOrDefault().IDProduct_Combination);
-            _product.Add("Price", dataOrder.Price * 1);
+            _product.Add("IDCombination", idCombination);
+            _product.Add("Price", dataOrder.TBProduct_Combinations.Where(x => x.IDProduct_Combination == idCombination).FirstOrDefault().Price);
             _product.Add("CombinationName", dataOrder.TBProduct_Combinations.FirstOrDefault().Name);
             _product.Add("Quantity", 1);
             _product.Add("ProductName", dataOrder.Name);
-            _product.Add("PricePerUnit", dataOrder.Price);
+            _product.Add("PricePerUnit", dataOrder.TBProduct_Combinations.Where(x => x.IDProduct_Combination == idCombination).FirstOrDefault().Price);
             _product.Add("Weight", productCombination.Weight);
             _product.Add("WeightPerUnit", productCombination.Weight);
 
             _listProduct.Add(_product);
             _tokenData.Add("Product", _listProduct);
-            _tokenData.Add("TotalPrice", dataOrder.Price);
+            _tokenData.Add("TotalPrice", dataOrder.TBProduct_Combinations.Where(x => x.IDProduct_Combination == idCombination).FirstOrDefault().Price);
             _tokenData.Add("TotalQuantity", 1);
             _tokenData.Add("TotalWeight", productCombination.Weight);
-            _tokenData.Add("Subtotal", dataOrder.Price);
+            _tokenData.Add("Subtotal", dataOrder.TBProduct_Combinations.Where(x => x.IDProduct_Combination == idCombination).FirstOrDefault().Price);
             _tokenData.Add("IDCurrency", Class_Currency.GetActiveCurrencyID());
             _tokenData.Add("OrderType", "renew");
             _tokenData.Add("IDCustomerProduct", idCustomerProduct);
@@ -169,22 +169,37 @@ public class Class_SAAS
         try
         {
             DataClassesDataContext db = new DataClassesDataContext();
-            var package = db.TBCustomer_Products.Where(x => x.IDCustomer == idCustomer && !x.TBCustomer.Deflag && x.EndDate.Value.Month - DateTime.Now.Month <= 2).Select(x => new
+            var package = db.TBCustomer_Products.Where(x => x.IDCustomer == idCustomer && !x.TBCustomer.Deflag).Select(x => new
             {
                 x.IDCustomer_Product,
                 x.IDCustomer,
                 x.IDProduct,
                 x.StartDate,
                 x.EndDate,
-                ProductName = x.TBProduct.Name
+                ProductName = x.TBProduct.Name,
+                EndDateDay = x.EndDate.Value.Day,
+                EndDateMonth = x.EndDate.Value.Month,
+                EndDateYear = x.EndDate.Value.Year,
+                EndDateHour = x.EndDate.Value.Hour,
+                EndDateMinute = x.EndDate.Value.Minute,
+                EndDateSecond = x.EndDate.Value.Second,
+                EndDateMiliSecond = x.EndDate.Value.Millisecond
             });
-            if (package != null)
+            if (package == null)
             {
-                return ReturnData.MessageSuccess("all well, You don't have any package notification", null);
+                return null;
             }
             else
             {
-                return ReturnData.MessageSuccess("Reminder, you have " + package.Count() + " will expire", package);
+                List<dynamic> listNotif = new List<dynamic>();
+                foreach (var item in package)
+                {
+                    if ((item.EndDate.Value - DateTime.Now).TotalDays <= 30)
+                    {
+                        listNotif.Add(item);
+                    }
+                }
+                return listNotif;
             }
         }
         catch (Exception ex)
@@ -201,6 +216,7 @@ public class Class_SAAS
         try
         {
             DataClassesDataContext db = new DataClassesDataContext();
+            Class_Product _pro = new Class_Product();
             return db.TBCustomer_Products.Where(x => x.IDCustomer == idCustomer && !x.TBCustomer.Deflag).Select(x => new
             {
                 x.IDCustomer_Product,
@@ -208,7 +224,8 @@ public class Class_SAAS
                 x.IDProduct,
                 x.StartDate,
                 x.EndDate,
-                ProductName = x.TBProduct.Name
+                ProductName = x.TBProduct.Name,
+                ProductCombination = _pro.GetData_Combination_ByIDProduct(db, x.TBProduct.IDProduct)
             });
         }
         catch (Exception ex)

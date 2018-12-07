@@ -155,7 +155,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="row">
-                                            <div class="col-md-6 col-xs-6 col-sm-6">
+                                            <div class="col-md-6 col-xs-6 col-sm-6 hidden">
                                                 <div class="form-group">
                                                     <label class="control-label">Package Duration (Days)</label>
                                                     <input type="text" id="Weight" name="Weight" class="form-control int cmb input" maxlength="6" value="0" />
@@ -539,9 +539,9 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="control-label">Impact on Weight</label>
+                                            <label class="control-label">Package Duration (Days)</label>
                                             <div class="input-group">
-                                                <input type="text" id="ImpactWeight" name="ImpactWeight" class="form-control weight cmb" maxlength="6" value="0" />
+                                                <input type="text" id="ImpactWeight" name="ImpactWeight" class="form-control int cmb" maxlength="6" value="0" />
                                             </div>
                                         </div>
                                     </div>

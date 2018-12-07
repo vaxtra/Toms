@@ -86,27 +86,7 @@
 					============================================= -->
 					<div class="sidebar col_last nobottommargin">
 
-						<address>
-										<strong>Headquarters:</strong><br>
-										Jakdiva, LT 6 Menara Multimedia<br>
-										JL Kebon Sirih, Jakarta Pusat<br>
-									</address>
-									<abbr title="Phone Number"><strong>Phone:</strong></abbr> (91) 8547 632521<br>
-									<abbr title="Fax"><strong>Fax:</strong></abbr> (91) 11 4752 1433<br>
-									<abbr title="Email Address"><strong>Email:</strong></abbr> hello@tomps.id
-
-						<div class="widget noborder notoppadding">
-
-							<div class="fslider customjs testimonial twitter-scroll twitter-feed" data-username="envato" data-count="3" data-animation="slide" data-arrows="false">
-								<i class="i-plain i-small color icon-twitter nobottommargin" style="margin-right: 15px;"></i>
-								<div class="flexslider" style="width: auto;">
-									<div class="slider-wrap">
-										<div class="slide"></div>
-									</div>
-								</div>
-							</div>
-
-						</div>
+                        <asp:Literal ID="ltrContactInformation" runat="server"></asp:Literal>
 
 						<div class="widget noborder notoppadding">
 

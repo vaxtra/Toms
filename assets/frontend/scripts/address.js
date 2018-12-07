@@ -19,8 +19,12 @@ $(document).ready(function () {
         e.preventDefault();
         if ($("#IDDeliveryAddress").val() && $("#IDBillingAddress").val() && $("[name=payment]:checked").data("idpayment_method") != null || $("[name=payment]:checked").data("idpayment_method") != undefined) {
             if ($("[name=payment]:checked").data("idpayment_method") != null || $("[name=payment]:checked").data("idpayment_method") != undefined) {
-
-                SubmitOrder();
+                if ($("[name=payment]:checked").data("type") == "Finnet") {
+                    SubmitOrderFinnet();
+                }
+                else {
+                    SubmitOrder();
+                }
                 //testSubmit();
             }
             else
@@ -87,7 +91,7 @@ function PreloadMaster() {
                     $(".btn-logout").hide();
                     $(".btn-newAddress").hide();
                 }
-                
+
             }
             else {
                 $(".loginbut").text("LOGIN");
@@ -99,14 +103,13 @@ function PreloadMaster() {
             //    LoadDeliveryAddress(result.d.data.CartSummary.DeliveryAddress);
             //else
 
-           
+
             //if (result.d.data.CartSummary.BillingAddress)
             //    LoadBillingAddress(result.d.data.CartSummary.BillingAddress);
             //else
-            
 
-            if (result.d.data.Addresses.length > 0)
-            {
+
+            if (result.d.data.Addresses.length > 0) {
                 LoadAddress(result.d.data.Addresses);
                 LoadDeliveryAddress(result.d.data.Addresses[0]);
                 LoadBillingAddress(result.d.data.Addresses[0]);
@@ -131,25 +134,72 @@ function PreloadMaster() {
             if (payment) {
                 var item = '';
                 for (var i = 0; i < payment.length; i++) {
-                    //if (payment[i].IDPaymentMethod !=5) {
-                    item += '<tr>';
-                    item += '<td>';
-                    item += '<input type="radio" name="payment" id="radio' + payment[i].IDPaymentMethod + '" class="css-checkbox" data-idpayment_method="' + payment[i].IDPaymentMethod + '" data-type="' + payment[i].Type + '" /><label for="radio' + payment[i].IDPaymentMethod + '" class="css-rlabel radGroup1"><img style="width:80px;" src="assets/images/payment_method/' + payment[i].Image + '" /></label>';
-                    item += '</td>';
-                    item += '<td>';
-                    item += '<label>' + payment[i].Owner + '</label>';
-                    item += '</td>';
-                    item += '<td>';
-                    item += '<label>' + payment[i].AccountNumber + '</label>';
-                    item += '</td>';
-                    item += '</tr>';
-                    //}
+                    if (payment[i].IDPaymentMethod != 2) {
+                        item += '<tr>';
+                        item += '<td>';
+                        item += '<input type="radio" name="payment" id="radio' + payment[i].IDPaymentMethod + '" class="css-checkbox" data-idpayment_method="' + payment[i].IDPaymentMethod + '" data-type="' + payment[i].Type + '" /><label for="radio' + payment[i].IDPaymentMethod + '" class="css-rlabel radGroup1"><img style="width:80px;" src="assets/images/payment_method/' + payment[i].Image + '" /></label>';
+                        item += '</td>';
+                        item += '<td>';
+                        item += '<label>' + payment[i].Owner + '</label>';
+                        item += '</td>';
+                        item += '<td>';
+                        item += '<label>' + payment[i].AccountNumber + '</label>';
+                        item += '</td>';
+                        item += '</tr>';
+                    }
+                    else {
+                        item += '<tr>';
+                        item += '<td>';
+                        item += '<input type="radio" name="payment" id="radio' + payment[i].IDPaymentMethod + '" class="css-checkbox" data-idpayment_method="' + payment[i].IDPaymentMethod + '" data-type="' + payment[i].Type + '" /><label for="radio' + payment[i].IDPaymentMethod + '" class="css-rlabel radGroup1"><img style="width:80px;" src="assets/images/payment_method/' + payment[i].Image + '" /></label>';
+                        item += '</td>';
+                        item += '<td>';
+                        item += '<label>' + payment[i].Owner + '</label>';
+                        item += '</td>';
+                        item += '<td>';
+                        item += '<label>' + payment[i].AccountNumber + '</label>';
+                        item += '</td>';
+                        item += '<td>';
+                        item += '<select class="finnet-option">';
+                        item += '<option value="cc">Credit Card</option>';
+                        item += '<option value="gopay">Go-Pay</option>';
+                        item += '<option value="mc">Mobile Cash</option>';
+                        item += '<option value="klikdanamon">Danamon Klikpay</option>';
+                        item += '<option value="sakuku">SAKUKU</option>';
+                        item += '<option value="klikpay">BCA Klikpay</option>';
+                        item += '<option value="permatanet">Felisa Permatanet Closed</option>';
+                        item += '<option value="tcash">T-Cash</option>';
+                        item += '<option value="mandiriclickpay">Mandiri Clickpay</option>';
+                        item += '<option value="ovo">OVO</option>';
+                        item += '<option value="briva">Felisa BRI Closed</option>';
+                        item += '<option value="brivast">Felisa BRI Open</option>';
+                        item += '<option value="finpay021">Felisa 021 Closed</option>';
+                        item += '<option value="finpay126">Felisa Garuda</option>';
+                        item += '<option value="finpay195">Felisa 195 Closed</option>';
+                        item += '<option value="finpayst021">Felisa 021 Open</option>';
+                        item += '<option value="finpayst195">Felisa 195 Open</option>';
+                        item += '<option value="finpaytsel">Felisa Tsel</option>';
+                        item += '<option value="vabni">Felisa BNI Closed</option>';
+                        item += '<option value="vapermata">Felisa Permata Closed</option>';
+                        item += '<option value="vastbni">Felisa BNI Open</option>';
+                        item += '<option value="vastpermata">Felisa Permata Open</option>';
+                        item += '<option value="vamandiri">Felisa Mandiri Closed</option>';
+                        item += '<option value="vastmandiri">Felisa Mandiri Open</option>';
+                        item += '</select>';
+                        item += '</td>';
+                        item += '</tr>';
+                    }
 
                 }
 
                 $(".payment-list").html(item);
 
                 //SubmitPayment(parseInt($("[name=payment]:checked").data("idpayment_method")));
+
+                $("#HiddenFinnetOption").val($(".finnet-option option:selected").val());
+
+                $(".finnet-option").on("change", function () {
+                    $("#HiddenFinnetOption").val($(".finnet-option option:selected").val());
+                });
 
                 $('input[type=radio][name=payment]').change(function (e) {
                     e.preventDefault();
@@ -191,7 +241,7 @@ function PreloadMaster() {
                 LoadListCartSummary(listCartSummary, TotalPrice);
                 $("#HiddenOrderType").val(result.d.data.CartSummary.OrderType);
                 $("#HiddenIDProduct").val(listCartSummary[0].IDProduct);
-
+                $("#HiddenIDProduct_Combination").val(listCartSummary[0].IDCombination);
 
                 $(".TotalPrice").text(result.d.data.CartSummary.TotalPrice);
                 $(".Subtotal").text(result.d.data.CartSummary.Subtotal);
@@ -214,7 +264,10 @@ function PreloadMaster() {
                 LoadCartList(result.d.data.CartSummary);
             }
 
-            
+            var ExpiredNotification = result.d.data.ExpiredNotification;
+            if (ExpiredNotification) {
+                LoadNotification(ExpiredNotification);
+            }
 
             $(".format-money").formatCurrency({
                 region: "id-ID"
@@ -232,17 +285,16 @@ function PreloadMaster() {
         'c': 'femaster',
         'm': 'preload',
         'data': {
-            'RequestData': ['Customer', 'Addresses', 'CartSummary', 'Payment']
+            'RequestData': ['Customer', 'Addresses', 'CartSummary', 'Payment', 'ExpiredNotification']
         }
     });
 }
 
-function CheckPackage(idProduct, idCustomer)
-{
+function CheckPackage(idProduct, idCustomer) {
     REST.onSuccess = function (result) {
         if (result.d.success) {
             var CustomerProduct = result.d.data.CustomerProduct;
-            if (CustomerProduct && $("#HiddenOrderType").val() == "new") {
+            if (CustomerProduct && $("#HiddenOrderType").val() == "new" && idProduct != 4) {
                 for (var i = 0; i < CustomerProduct.length; i++) {
                     if (CustomerProduct[i].IDCustomer == idCustomer && CustomerProduct[i].IDProduct == idProduct) {
                         $(".placeorderdet").addClass("hidden");
@@ -274,8 +326,7 @@ function CheckPackage(idProduct, idCustomer)
     });
 }
 
-function PreloadShipping()
-{
+function PreloadShipping() {
     REST.onSuccess = function (result) {
         if (result.d.success) {
             if (result.d.data.Shipping) {
@@ -344,7 +395,7 @@ function LoadAddress(data) {
         var item = '';
         var count = 1;
         for (var i = 0; i < data.length; i++) {
-            
+
             option += '<option value="' + data[i].IDAddress + '">Address ' + count + '</option>';
             count++;
         }
@@ -449,7 +500,7 @@ function SubmitAddressToCart(idBilling, idDelivery, notes) {
             else {
                 Subtotal = result.d.data.TotalPrice + result.d.data.Shipping.TotalPrice
             }
-            
+
             $(".Subtotal").text(Subtotal);
             $(".format-money").formatCurrency({
                 region: "id-ID"
@@ -484,7 +535,7 @@ function SubmitPayment(id) {
         }
     };
     REST.onComplete = function (result) {
-        
+
     }
     REST.sendRequest({
         'c': 'fepay',
@@ -588,8 +639,7 @@ function SubmitOrder() {
     });
 }
 
-function testSubmit()
-{
+function testSubmit() {
     ga('ecommerce:addTransaction', {
         'id': 01,                     // Transaction ID. Required.
         'affiliation': 'NIION Indonesia',          // Affiliation or store name.
@@ -654,8 +704,7 @@ function SubmitShipping(id) {
     });
 }
 
-function RefreshCart()
-{
+function RefreshCart() {
     REST.onSuccess = function (result) {
         if (result.d.success) {
             if (result.d.data) {
@@ -784,7 +833,8 @@ function RenewPackage(idProduct, idCustomerProduct) {
             data: {
                 IDProduct: idProduct,
                 IDCustomer: +$("#HiddenIDCustomer").val(),
-                IDCustomerProduct: +idCustomerProduct
+                IDCustomerProduct: +idCustomerProduct,
+                IDProductCombination: $("#HiddenIDProduct_Combination").val()
             }
         }),
         beforeSend: function () {
@@ -795,6 +845,86 @@ function RenewPackage(idProduct, idCustomerProduct) {
         success: function (result) {
             if (result.success) {
                 window.location = "/Address"
+            }
+            else {
+                //bootbox.alert(result.d.message);
+                bootbox.alert(result.data.message, function () {
+                    location.reload();
+                });
+            }
+        },
+        complete: function () {
+            Metronic.unblockUI();
+        },
+        error: function (result) {
+            bootbox.alert(result.d.message, function () {
+                location.reload();
+            });
+        }
+    });
+}
+function LoadNotification(data) {
+    var item = '';
+    var endDate;
+    var currentDate = new Date();
+    console.log(datediff(currentDate, endDate));
+    if (data.length > 0) {
+        for (var i = 0; i < data.length; i++) {
+            endDate = new Date(data[i].EndDateYear, data[i].EndDateMonth, data[i].EndDateDay, data[i].EndDateHour, data[i].EndDateMinute, data[i].EndDateSecond, data[i].EndDateMiliSecond);
+            item += '<div class="top-cart-items">';
+            item += '<div class="top-cart-item clearfix">';
+            item += '<div class="top-cart-item-desc">';
+            if (datediff(currentDate, endDate) <= 0) {
+                item += '<p>Your ' + data[i].ProductName + ' is expired</p>';
+            }
+            if (datediff(currentDate, endDate) <= 60) {
+                item += '<p>Your ' + data[i].ProductName + ' will expire in ' + datediff(currentDate, endDate) + ' day(s)</p>';
+            }
+            item += '</div>';
+            item += '</div>';
+            item += '</div>';
+        }
+    }
+    else {
+        item += '<div class="top-cart-items">';
+        item += '<p>You have no notification about your package</p>';
+        item += '</div>';
+    }
+
+    $(".notif-list").html(item);
+
+    $("#top-cart-trigger span").text(data.length);
+}
+
+function datediff(first, second) {
+    // Take the difference between the dates and divide by milliseconds per day.
+    // Round to nearest whole number to deal with DST.
+    return Math.round((second - first) / (1000 * 60 * 60 * 24));
+}
+
+function SubmitOrderFinnet() {
+    $.ajax({
+        url: "/modules/Finnet/FinnetHandler.ashx",
+        contentType: "application/json; charset=utf-8",
+        type: 'POST',
+        dataType: "json",
+        data: JSON.stringify({
+            c: "finnet",
+            m: "transaction",
+            data: {
+                IDPaymentMethod: $("[name=payment]:checked").data("idpayment_method"),
+                sof_id: $("#HiddenFinnetOption").val(),
+                sof_type: "pay"
+            }
+        }),
+        beforeSend: function () {
+            //Metronic.blockUI({
+            //    boxed: true
+            //});
+        },
+        success: function (result) {
+            if (result.success) {
+                window.location = "/thank-you.aspx"
             }
             else {
                 //bootbox.alert(result.d.message);

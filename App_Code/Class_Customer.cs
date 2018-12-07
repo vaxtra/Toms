@@ -151,6 +151,38 @@ public class Class_Customer
             throw;
         }
     }
+    //ganjar edit ajax
+    public Datatable AJAX_GetTable_PackageActive(int iDisplayLength, int iDisplayStart, int sEcho, int iSortingCols, int iSortCol, string sSortDir, string search)
+    {
+        try
+        {
+            IEnumerable<dynamic> data = Dynamic_GetAll_PackageCustomerActive();
+            int count = data.Count();
+            if (!string.IsNullOrEmpty(search))
+                data = data.Where(x =>
+                    x.CustomerFName.ToLower().Contains(search.ToLower()) ||
+            x.CustomerLName.ToLower().Contains(search.ToLower()) ||
+                    x.Paket.ToLower().Contains(search.ToLower())
+                    ).ToArray();
+            List<Dictionary<string, dynamic>> resultList = new List<Dictionary<string, dynamic>>();
+            foreach (dynamic currData in data)
+            {
+                Dictionary<string, dynamic> newData = new Dictionary<string, dynamic>();
+                newData.Add("IDCustomer", currData.IDCustomer);
+                newData.Add("Name", currData.CustomerFName + ' ' + currData.CustomerLName);
+                newData.Add("Package", currData.Paket);
+                newData.Add("StartDate", currData.StartDate.ToString("dd-MM-yyyy"));
+                newData.Add("EndDate", currData.EndDate.ToString("dd-MM-yyyy"));
+                //newData.Add("EndDate", currData.DateInsert.ToString("dd-MM-yyyy") + " " + currData.DateInsert.ToLongTimeString());
+                resultList.Add(newData);
+            }
+            return OurClass.ParseTable(resultList, count, iDisplayLength, iDisplayStart, sEcho, iSortingCols, iSortCol, sSortDir);
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
+    }
 
     private bool IsExistsEmail(string email)
     {
@@ -315,6 +347,30 @@ public class Class_Customer
                 x.Gender,
                 x.PhoneNumber,
                 x.DateInsert
+            });
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+
+    //ganjareditcustomerbuatREPORT
+    public dynamic Dynamic_GetAll_PackageCustomerActive()
+    {
+        try
+        {
+            DataClassesDataContext db = new DataClassesDataContext();
+            return db.TBCustomer_Products.Select(x => new
+            {
+                CustomerFName=x.TBCustomer.FirstName,
+                CustomerLName = x.TBCustomer.LastName,
+                x.StartDate,
+                x.EndDate,
+                Paket=x.TBProduct.Name,
+                IDCustomer=x.TBCustomer.IDCustomer
+               
             });
         }
         catch (Exception)

@@ -99,7 +99,7 @@ public class Handler : IHttpHandler
                         case "renew":
                             {
                                 Class_SAAS _saas = new Class_SAAS();
-                                dynamic addCartData = _saas.DYNAMIC_AddToCart_Renew(int.Parse(data["IDProduct"].ToString()), int.Parse(data["IDCustomer"].ToString()), int.Parse(data["IDCustomerProduct"].ToString()));
+                                dynamic addCartData = _saas.DYNAMIC_AddToCart_Renew(int.Parse(data["IDProduct"].ToString()), int.Parse(data["IDCustomer"].ToString()), int.Parse(data["IDCustomerProduct"].ToString()), int.Parse(data["IDProductCombination"].ToString()));
                                 if (addCartData.success)
                                 {
                                     result.Success(addCartData.message, addCartData.data);

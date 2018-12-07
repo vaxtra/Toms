@@ -95,14 +95,23 @@ function LoadCustomerProduct(data) {
         item += '<td>' + moment(data[i].StartDate).format("DD MMMM YYYY") + '</td>';
         item += '<td>' + moment(data[i].EndDate).format("DD MMMM YYYY") + '</td>';
         item += '<td><a class="btn btn-block btn-black btn-upgrade" href="#" data-id="' + data[i].IDCustomer_Product + '" data-idproduct="' + data[i].IDProduct + '" data-idcustomerproduct="' + data[i].IDCustomer_Product + '" class="btn-detail">Upgrade</a>';
-        item += '<a class="btn btn-block btn-black btn-renew" href="#" data-id="' + data[i].IDCustomer_Product + '" data-idproduct="' + data[i].IDProduct + '" data-idcustomerproduct="' + data[i].IDCustomer_Product + '" class="btn-detail">Renew</a></td>';
+        item += '<a class="btn btn-block btn-black btn-renew" href="#" data-id="' + data[i].IDCustomer_Product + '" data-idproduct="' + data[i].IDProduct + '" data-idcustomerproduct="' + data[i].IDCustomer_Product + '" class="btn-detail">Renew</a>';
+        if (data[i].ProductCombination.length > 0) {
+            item += '<select class="ddlPackage">'
+            for (var y = 0; y < data[i].ProductCombination.length; y++)
+            {
+                item += '<option value="' + data[i].ProductCombination[y].IDProduct_Combination + '">' + data[i].ProductCombination[y].Name.replace("Package : ", "") + '</option>'
+            }
+            item += '</select>'
+        }
+        item += '</td>';
         item += '</tr>';
     }
     $(".order-history tbody").html(item);
 
     $(".btn-renew").click(function () {
         ClearCart();
-        RenewPackage(+$(this).data("idproduct"), $(this).data("idcustomerproduct"));
+        RenewPackage(+$(this).data("idproduct"), $(this).data("idcustomerproduct"), $(".ddlPackage option:selected").val());
     });
 
     $(".btn-upgrade").click(function () {
@@ -259,7 +268,7 @@ function ChangeCurrency(id) {
     });
 }
 
-function RenewPackage(idProduct, idCustomerProduct) {
+function RenewPackage(idProduct, idCustomerProduct, idCombination) {
     $.ajax({
         url: "/modules/saas/Handler.ashx",
         contentType: "application/json; charset=utf-8",
@@ -271,7 +280,8 @@ function RenewPackage(idProduct, idCustomerProduct) {
             data: {
                 IDProduct: idProduct,
                 IDCustomer: +$("#HiddenIDCustomer").val(),
-                IDCustomerProduct: +idCustomerProduct
+                IDCustomerProduct: +idCustomerProduct,
+                IDProductCombination: +idCombination
             }
         }),
         beforeSend: function () {
@@ -317,10 +327,10 @@ function ClearCart() {
 function LoadSimillarProduct(idProduct, idCustomerProduct)
 {
     REST.onSuccess = function (result) {
-        var item = '';
+        var item = '<div class="col-md-12 col-sm-12 col-xs-12"><h5 style="text-align:center;">Choose Your Upgrade Plan</h5></div>';
         var data = result.d.data.SimiliarProduct
         for (var i = 0; i < data.length; i++) {
-            item += '<div class="col-md-4 col-sm-6 col-xs-6">';
+            item += '<div class="col-md-6 col-sm-6 col-xs-6">';
             item += '<div class="single_feature text-center">';
             item += '<div class="feature-img">';
             item += '<a href="#" class="btn-toupgrade" data-idproduct="' + data[i].IDProduct + '" data-idcustomerproduct="' + idCustomerProduct + '">';

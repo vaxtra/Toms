@@ -7,34 +7,41 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <input type="hidden" id="HiddenImage" />
     <input type="hidden" id="HiddenIDOrderGuest" />
-    <div class="product_list_area section_padding checkoutpage">
-        <section class="product-list wow fadeInUp">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 padtopbot10">
-                        <div class="breadcumb_list">
-                            <ul class="breadcumb">
-                                <li><a href="#">
-                                    <h2>CONFIRM PAYMENT</h2>
-                                </a></li>
-                            </ul>
-                        </div>
-                        <div class="col-md-3">
-                            <ul class="myaccount">
-                                <li><a href="/MyAccount"><span class="glyphicon glyphicon-user margright"></span>My Profile</a></li>
-                                <li><a href="/ChangePassword"><span class="glyphicon glyphicon-wrench margright"></span>Change Password</a></li>
+
+    <section id="page-title">
+
+        <div class="container clearfix" style="text-align: center">
+            <h1 class="FullName">CONFIRM ORDER</h1>
+            <h5>Confirm Your Order</h5>
+        </div>
+
+    </section>
+     <section id="content">
+				<div class="container clearfix">
+
+					<div id="side-navigation" class="tabs customjs">
+
+						<div class="col_one_third nobottommargin">
+
+							<ul class="sidenav">
+								 <li><a href="/MyAccount"><span class="glyphicon glyphicon-user margright"></span>My Profile</a></li>
+								 <li><a href="/ChangePassword"><span class="glyphicon glyphicon-wrench margright"></span>Change Password</a></li>
                                 <li><a href="/Myaddress"><span class="glyphicon glyphicon-home margright"></span>My Address</a></li>
                                 <li><a href="/ConfirmPayment"><span class="glyphicon glyphicon-credit-card margright"></span>Confirm Payment</a></li>
                                 <li><a href="/OrderHistory"><span class="glyphicon glyphicon-shopping-cart margright"></span>Order History</a></li>
                                 <li><a href="/Voucher"><span class="glyphicon glyphicon-certificate margright"></span>Voucher</a></li>
-                                <li><a href="/Wishlist"><span class="glyphicon glyphicon-bookmark margright"></span>Wishlist</a></li>
+                                 <li><a href="/Package"><span class="glyphicon glyphicon-bookmark margright"></span>Package</a></li>
                                 <li>
                                     <a id="btnLogout" href="#"><span class="glyphicon glyphicon-new-window margright"></span>Logout</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-md-9 sidebar border-left">
-                            <div class="box-dnd detailmyaccount">
-                                <h4 style="margin-top:10px;">CONFIRM PAYMENT</h4>
+							</ul>
+
+						</div>
+
+						<div class="col_two_third col_last nobottommargin">
+
+							<div id="snav-content1">
+							  <div class="box-dnd detailmyaccount">
+                                <h4 style="margin-top: 10px;">CONFIRM PAYMENT</h4>
                                 <div id="bootstrap_alert"></div>
                                 <form id="form_submit">
                                     <div class="container-fluid form-horizontal">
@@ -136,17 +143,24 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label style="color: red; width: 100%;">* Jika mengalami kesulitan dalam melakukan Konfirmasi pembayaran silahkan hubungi LINE OFFICIAL Kami @niion </label>
+                                            <label style="color: red; width: 100%;">* Jika mengalami kesulitan dalam melakukan Konfirmasi pembayaran silahkan hubungi Kami  </label>
                                         </div>
                                     </div>
                                 </form>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
+                            </div>
+
+							
+
+						</div>
+
+					</div>
+
+				</div>
+
+
+		</section><!-- #content end -->
+   
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolderJS" runat="Server">
     <script src="assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>

@@ -654,6 +654,18 @@ public class services : System.Web.Services.WebService
         HttpContext.Current.Response.Write(ser.Serialize(_customer.AJAX_GetTable_IsSubscribe(Convert.ToInt32(HttpContext.Current.Request["iDisplayLength"]), Convert.ToInt32(HttpContext.Current.Request["iDisplayStart"]), Convert.ToInt32(HttpContext.Current.Request["sEcho"]), Convert.ToInt32(HttpContext.Current.Request["iSortingCols"]), Convert.ToInt32(HttpContext.Current.Request["iSortCol_0"]), HttpContext.Current.Request["sSortDir_0"], HttpContext.Current.Request["sSearch"])));
         HttpContext.Current.Response.End();
     }
+    //cek ganjar
+    [WebMethod]
+    public void dtCustomerPackage()
+    {
+        Class_Customer _customerPackage = new Class_Customer();
+        System.Web.Script.Serialization.JavaScriptSerializer ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+        HttpContext.Current.Response.Clear();
+        HttpContext.Current.Response.ContentType = ("text/html");
+        HttpContext.Current.Response.BufferOutput = true;
+        HttpContext.Current.Response.Write(ser.Serialize(_customerPackage.AJAX_GetTable_PackageActive(Convert.ToInt32(HttpContext.Current.Request["iDisplayLength"]), Convert.ToInt32(HttpContext.Current.Request["iDisplayStart"]), Convert.ToInt32(HttpContext.Current.Request["sEcho"]), Convert.ToInt32(HttpContext.Current.Request["iSortingCols"]), Convert.ToInt32(HttpContext.Current.Request["iSortCol_0"]), HttpContext.Current.Request["sSortDir_0"], HttpContext.Current.Request["sSearch"])));
+        HttpContext.Current.Response.End();
+    }
 
     [WebMethod]
     public void admin_dtLog_Stock()

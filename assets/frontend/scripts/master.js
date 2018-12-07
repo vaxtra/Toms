@@ -113,7 +113,7 @@ function PreloadMaster() {
         'c': 'femaster',
         'm': 'preload',
         'data': {
-            'RequestData': ['Customer', 'Cart', 'CartSummary', 'Currency']
+            'RequestData': ['Customer', 'CartSummary', 'Currency', 'ExpiredNotification']
         }
     });
 }

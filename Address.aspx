@@ -7,6 +7,7 @@
     <input type="hidden" id="IDBillingAddress" />
     <input type="hidden" id="HiddenOrderType" />
     <input type="hidden" id="HiddenIDCustomerProduct" />
+    <input type="hidden" id="HiddenFinnetOption" />
     <div class="product_list_area section_padding checkoutpage">
         <section class="product-list wow fadeInUp">
             <div class="container">
@@ -16,94 +17,87 @@
                             <div class="col-md-12 form-group margtop2 peraddressan">
                             </div>
                             <div class="clearfix"></div>
-                            <%-- <div class="col-md-4">
-                    <div class="form-group margtop3">
-                        <label>
-                            <select id="ddlAddress2"></select>
-                        </label>
-                    </div>
-                    <hr class="shadowline2" />
-                    <h5>Your Billing Address</h5>
-                    <div class="address-list billing-address">
-                    </div>
-                </div>--%>
-                            <div class="col-md-6">
-                                <h4 class="addressDetail">Address Detail <span class="panahAccor">></span></h4>
-                                <div class="addressAccordion bungaddress">
-                                    <input id="cbSame" checked="checked" type="checkbox" style="margin-right: 5px; margin-bottom: 16px;" /><label>Use the same address for billing.</label>
-                                    <div class="clearfix"></div>
-                                    <div class="col-md-6 col-sm-6">
-                                        <div class="form-group margtop3">
-                                            <label>
-                                                <select id="ddlAddress" style="width: 100%;"></select>
-                                            </label>
-                                        </div>
-                                        <hr style="margin-top: 5px;" class="shadowline2" />
-                                        <h5>Your Delivery Address</h5>
-                                        <div class="address-list delivery-address">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h4 class="addressDetail">Address Detail <span class="panahAccor">></span></h4>
+                                    <div class="addressAccordion bungaddress">
+                                        <input id="cbSame" checked="checked" type="checkbox" style="margin-right: 5px; margin-bottom: 16px;" /><label>Use the same address for billing.</label>
+                                        <div class="clearfix"></div>
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6">
+                                                <div class="form-group margtop3">
+                                                    <label>
+                                                        <select id="ddlAddress" style="width: 100%;"></select>
+                                                    </label>
+                                                </div>
+                                                <hr style="margin-top: 5px;" class="shadowline2" />
+                                                <h5>Your Delivery Address</h5>
+                                                <div class="address-list delivery-address">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6">
 
-                                        <div class="form-group margtop3">
-                                            <label>
-                                                <select id="ddlAddress2" style="width: 100%;"></select>
+                                                <div class="form-group margtop3">
+                                                    <label>
+                                                        <select id="ddlAddress2" style="width: 100%;"></select>
 
-                                            </label>
+                                                    </label>
+                                                </div>
+                                                <hr class="shadowline2" />
+                                                <h5>Your Billing Address</h5>
+                                                <div class="address-list billing-address">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="col-md-12 hidden">
+                                            <a class="btn btn-block btn-black btn-newAddress" href="NewAddress.aspx?back=Address.aspx">New Address</a>
                                         </div>
                                         <hr class="shadowline2" />
-                                        <h5>Your Billing Address</h5>
-                                        <div class="address-list billing-address">
-                                        </div>
-                                    </div>
-                                    <br />
-                                    <div class="col-md-12">
-                                        <a class="btn btn-block btn-black btn-newAddress" href="NewAddress.aspx?back=Address.aspx">New Address</a>
-                                    </div>
-                                    <hr class="shadowline2" />
 
-                                    <div class="col-md-12" style="margin-top: 15px;">
-                                        <div class="form-group">
-                                            <textarea id="Notes" class="form-control" placeholder="Your Notes" cols="20" rows="4"></textarea>
+                                        <div class="col-md-12 hidden" style="margin-top: 15px;">
+                                            <div class="form-group">
+                                                <textarea id="Notes" class="form-control" placeholder="Your Notes" cols="20" rows="4"></textarea>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <h4 class="shippingDetail hidden">Shipping <span class="panahAccor">></span></h4>
-                                <div class="bungshipping shippingAccordion hidden">
-                                    <div class="table-responsive">
-                                        <table id="table_shipping" class="table table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th></th>
-                                                    <th class="text-center">Image</th>
-                                                    <th>Carrier</th>
-                                                    <th>Shipment</th>
-                                                    <th>Price</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
+                                        <div class="clearfix"></div>
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <h4 class="shippingDetail hidden">Shipping <span class="panahAccor">></span></h4>
+                                    <div class="bungshipping shippingAccordion hidden">
+                                        <div class="table-responsive">
+                                            <table id="table_shipping" class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th class="text-center">Image</th>
+                                                        <th>Carrier</th>
+                                                        <th>Shipment</th>
+                                                        <th>Price</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
 
-                                <h4 class="paymentDetail">Payment <span class="panahAccor">></span></h4>
-                                <div class="bungaddress paymentAccordion">
-                                    <div class="table-responsive">
-                                        <table class="table table-payment table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>Bank</th>
-                                                    <th>Account Owner</th>
-                                                    <th>Account Number</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="payment-list">
-                                            </tbody>
-                                        </table>
+                                    <h4 class="paymentDetail">Payment <span class="panahAccor">></span></h4>
+                                    <div class="bungaddress paymentAccordion">
+                                        <div class="table-responsive">
+                                            <table class="table table-payment table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Bank</th>
+                                                        <th>Account Owner</th>
+                                                        <th>Account Number</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="payment-list">
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -162,15 +156,13 @@
                         </div>
 
                         <div class="col-md-12">
-                            <div class="col-md-4">
+                          
+                            <div class="col-md-4 offset-4">
+                                <a class="button button-3d nomargin button-black placeorderdet" style="width:100%;text-align:center" href="#">CONFIRM ORDER</a>
+                                 <a class="button button-3d nomargin button-black btn-renew hidden" href="#">RENEW</a>
+                                 <a class="button button-3d nomargin button-black btn-upgrade hidden" href="#">UPGRADE</a>
                             </div>
-                            <div class="col-md-4 mt-30">
-                                <a class="btn btn-block btn-black btn-renew hidden" href="#">RENEW</a>
-                                <a class="btn btn-block btn-black placeorderdet" href="#">CONFIRM ORDER</a>
-                                <a class="btn btn-block btn-black btn-upgrade hidden" href="#">CHANGE PLAN</a>
-                            </div>
-                            <div class="col-md-4">
-                            </div>
+                           
                         </div>
                     </div>
                 </div>
@@ -179,7 +171,7 @@
     </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolderJS" runat="Server">
-    <script src="assets/frontend/scripts/address.js?v=2.1.8"></script>
+    <script src="assets/frontend/scripts/address.js?v=2.1.9"></script>
     <script>
         if ($(window).width() < 768) {
 

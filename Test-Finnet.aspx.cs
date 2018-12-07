@@ -32,13 +32,9 @@ public partial class Test_Finnet : System.Web.UI.Page
             string AddInfo4 = finnet.add_info4 == null ? "" : finnet.add_info4 + "%";
             string AddInfo5 = finnet.add_info5 == null ? "" : finnet.add_info5 + "%";
 
-            string stringItems = "";
-            foreach (var item in items)
-            {
-                stringItems += item.id_product + "%" + item.name + "%" + item.price + "%" + item.price_per_unit + "%" + item.quantity + "%" + item.varian.Replace(" ", "") + "%";
-            }
+            string stringRecData = "ARRAY";
 
-            string stringRecData = finnet.recurring_data.recAmount + "%" + finnet.recurring_data.recDue + "%" + finnet.recurring_data.recNumber + "%" + finnet.recurring_data.rectInterval + "%" + finnet.recurring_data.recType + "%";
+            string stringItems = "ARRAY";
 
             string signature =
                 (
@@ -74,12 +70,8 @@ public partial class Test_Finnet : System.Web.UI.Page
                 byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(signature));
 
                 // Convert byte array to a string   
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
-                {
-                    builder.Append(bytes[i].ToString("x2"));
-                }
-                finnet.mer_signature = builder.ToString();
+                string builder = BitConverter.ToString(bytes).Replace("-", "");
+                finnet.mer_signature = builder;
             }
 
             Response.Write("<span style='color:#0000ff;font-size:18px;'>Signature algorhytm SHA256 :</span><br/>" + finnet.mer_signature + "<br/><br/>");
@@ -103,12 +95,12 @@ public partial class Test_Finnet : System.Web.UI.Page
 
     public class Finnet
     {
-        public add_info add_info1 { get; set; }
-        public add_info add_info2 { get; set; }
-        public add_info add_info3 { get; set; }
-        public add_info add_info4 { get; set; }
-        public add_info add_info5 { get; set; }
-        public decimal amount { get; set; }
+        public string add_info1 { get; set; }
+        public string add_info2 { get; set; }
+        public string add_info3 { get; set; }
+        public string add_info4 { get; set; }
+        public string add_info5 { get; set; }
+        public int amount { get; set; }
         public string cust_email { get; set; }
         public string cust_id { get; set; }
         public int cust_msisdn { get; set; }
@@ -127,7 +119,7 @@ public partial class Test_Finnet : System.Web.UI.Page
         public int timeout { get; set; }
         public int trans_date { get; set; }
 
-        public Finnet(add_info _add_info1, add_info _add_info2, add_info _add_info3, add_info _add_info4, add_info _add_info5, decimal _amount, string _cust_email, string _cust_id, int _cust_msisdn, string _cust_name, string _failed_url, string _invoice, List<Items> _items, string _mer_signature, string _merchant_id, recurring_data _recurring_data, string _return_url, int _rule_id, string _sof_id, string _sof_type, string _success_url, int _timeout, int _trans_date)
+        public Finnet(string _add_info1, string _add_info2, string _add_info3, string _add_info4, string _add_info5, int _amount, string _cust_email, string _cust_id, int _cust_msisdn, string _cust_name, string _failed_url, string _invoice, List<Items> _items, string _mer_signature, string _merchant_id, recurring_data _recurring_data, string _return_url, int _rule_id, string _sof_id, string _sof_type, string _success_url, int _timeout, int _trans_date)
         {
             this.add_info1 = _add_info1;
             this.add_info2 = _add_info2;
@@ -160,11 +152,11 @@ public partial class Test_Finnet : System.Web.UI.Page
         public int id_product { get; set; }
         public string name { get; set; }
         public string varian { get; set; }
-        public decimal price_per_unit { get; set; }
+        public int price_per_unit { get; set; }
         public int quantity { get; set; }
-        public decimal price { get; set; }
+        public int price { get; set; }
 
-        public Items(int _id_product, string _name, string _varian, decimal _price_per_unit, int _quantity, decimal _price)
+        public Items(int _id_product, string _name, string _varian, int _price_per_unit, int _quantity, int _price)
         {
             this.id_product = _id_product;
             this.name = _name;
@@ -178,12 +170,12 @@ public partial class Test_Finnet : System.Web.UI.Page
     public class recurring_data
     {
         public int recType { get; set; }
-        public decimal recAmount { get; set; }
+        public int recAmount { get; set; }
         public int rectInterval { get; set; }
         public int recDue { get; set; }
         public string recNumber { get; set; }
 
-        public recurring_data(int _recType, decimal _recAmount, int _rectInterval, int _recDue, string _recNumber)
+        public recurring_data(int _recType, int _recAmount, int _rectInterval, int _recDue, string _recNumber)
         {
             this.recType =_recType;
             this.recAmount = _recAmount;

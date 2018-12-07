@@ -13,50 +13,59 @@ public partial class _Default : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            //LoadData();
-            ////LoadBLog();
-            //LoadLookbook();
+            LoadData();
         }
     }
 
     protected void LoadData()
     {
-        //var slide = Post.FE_SinglePost_MultiplePhoto_SingleCategory(1012, 1005);
+        var slide = Post.FE_SinglePost_MultiplePhoto_SingleCategory(1, 1);
 
-        //lvSlideshow.DataSource = slide.OrderByDescending(x => x.IDPostMedia);
-        //lvSlideshow.DataBind();
+        lvSlideshow.DataSource = slide.OrderByDescending(x => x.IDPostMedia);
+        lvSlideshow.DataBind();
 
-        //var homeblock = Post.FE_SinglePostOnly_SingleCategory(1013, 1005);
+        var homeblock = Post.FE_SinglePostOnly_SingleCategory(11, 1);
 
-        //lblTitleHomeBlock.Text = homeblock.Post_Title;
-        //lblShortDescHomeBlock.Text = homeblock.Post_ShortContent;
-        //lblDescHomeBlock.Text = homeblock.Post_Content;
-        //imgHomeBlock.ImageUrl = "/assets/images/post/" + homeblock.TBPostMedias.FirstOrDefault().MediaUrl;
+        lblHomeBlockTitle.Text = homeblock.Post_Title;
+        lblHomeBlockDescription.Text = homeblock.Post_Content;
+        HomeBlockLink.Attributes.Add("href", homeblock.Post_ShortContent);
+        imgHomeBlock.ImageUrl = "/assets/images/post/" + homeblock.TBPostMedias.FirstOrDefault().MediaUrl;
 
-        //var videoblock = Post.FE_MultiplePost_SinglePhoto_SingleCategory(1014, 1005);
+        var services = Post.FE_SinglePost_MultiplePhoto_SingleCategory(12, 1);
 
-        //lvVideoBlock.DataSource = videoblock;
-        //lvVideoBlock.DataBind();
+        lvServices.DataSource = services;
+        lvServices.DataBind();
 
-        //lvCategoryVideo.DataSource = videoblock;
-        //lvCategoryVideo.DataBind();
-    }
+        var feature = Post.FE_SinglePost_MultiplePhoto_SingleCategory(13, 1);
 
-    //protected void LoadBLog()
-    //{
-    //    var blog = Post.FE_MultiplePost_SinglePhoto_MultipleCategory(1006);
+        lvFeatureLeft.DataSource = feature.Skip(1).Take(4);
+        lvFeatureLeft.DataBind();
 
-    //    lvBlog.DataSource = blog.Take(4);
-    //    lvBlog.DataBind();
-    //}
-    protected void LoadLookbook()
-    {
-        //DataClassesDataContext db = new DataClassesDataContext();
-        //var lookbook = db.TBPageCategory_Posts.Where(x => !x.TBPost.Deflag && x.TBPost.IDPage == 1007).OrderByDescending(x => x.TBPost.IDPost).FirstOrDefault();
+        imgFeature.ImageUrl = "/assets/images/post/" + feature.Take(1).FirstOrDefault().MediaUrl;
 
-        //lblLookbook.Text = lookbook.TBPost.Post_Title;
-        //imgLookbook.ImageUrl = "/assets/images/post/" + lookbook.TBPost.TBPostMedias.FirstOrDefault().MediaUrl;
-        //linkLookbook.Attributes.Add("href", "/LookbookDetail/" + lookbook.TBPost.Post_Title.ToString().Trim().Replace(" ", "-").Replace("\"", "").Replace(".", "").ToLower());
-        //linkLookbook2.Attributes.Add("href", "/LookbookDetail/" + lookbook.TBPost.Post_Title.ToString().Trim().Replace(" ", "-").Replace("\"", "").Replace(".", "").ToLower());
+        lvFeatureRight.DataSource = feature.Skip(5).Take(4);
+        lvFeatureRight.DataBind();
+
+        var testimonial = Post.FE_SinglePost_MultiplePhoto_SingleCategory(14, 1);
+
+        lvTestimonial.DataSource = testimonial;
+        lvTestimonial.DataBind();
+
+        var tour = Post.FE_SinglePostOnly_SingleCategory(15, 1);
+        imgTour.ImageUrl = "/assets/images/post/" + tour.TBPostMedias.FirstOrDefault().MediaUrl;
+        lblTourTitle.Text = tour.Post_Title;
+        lblTourDescription.Text = tour.Post_Content;
+        TourLink.Attributes.Add("href", tour.Post_ShortContent);
+
+        var client = Post.FE_SinglePost_MultiplePhoto_SingleCategory(16, 1);
+        lvClient.DataSource = client;
+        lvClient.DataBind();
+
+        var support = Post.FE_SinglePostOnly_SingleCategory(17, 1);
+        lblSupportTitle.Text = support.Post_Title;
+        lblSupportDescription.Text = support.Post_Content;
+        lblSupportContactInfo.Text = support.Post_ShortContent;
+        imgSupportRight.ImageUrl = "/assets/images/post/" + support.TBPostMedias.FirstOrDefault().MediaUrl;
+
     }
 }

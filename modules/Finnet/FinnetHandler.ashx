@@ -102,11 +102,11 @@ public class FinnetHanlder : IHttpHandler
 
                                 Class_Order order = new Class_Order();
                                 Class_Configuration _config = new Class_Configuration();
-                                //ReturnData resultSaveOrder = order.AJAX_SubmitOrder() as ReturnData;
-                                //if (!resultSaveOrder.success)
-                                //    result.Error(resultSaveOrder.message, resultSaveOrder.data);
+                                ReturnData resultSaveOrder = order.Object_SubmitOrder_veritrans(int.Parse(data["IDPaymentMethod"].ToString())) as ReturnData;
+                                if (!resultSaveOrder.success)
+                                    result.Error(resultSaveOrder.message, resultSaveOrder.data);
 
-                                TBOrder detailOrder = order.GetDetail_ByIDOrder(8);
+                                TBOrder detailOrder = order.GetDetail_ByIDOrder((resultSaveOrder.data as TBOrder).IDOrder);
 
                                 var httpWebRequest = (HttpWebRequest)WebRequest.Create(@"https://sandbox.finpay.co.id/servicescode/api/apiFinpay.php");
                                 httpWebRequest.ContentType = "application/json";
@@ -116,7 +116,7 @@ public class FinnetHanlder : IHttpHandler
                                 List<Items> items = new List<Items>();
                                 foreach (var item in detailOrder.TBOrder_Details)
                                 {
-                                    items.Add(new Items(item.IDProduct, item.TBProduct.Name, item.Product_Name, item.Price, item.Quantity, item.Quantity * item.Price));
+                                    items.Add(new Items(item.IDProduct, item.TBProduct.Name, item.Product_Name, (int)item.Price, item.Quantity, (int)(item.Quantity * item.Price)));
                                 }
 
                                 recurring_data recData = new recurring_data(3, (int)detailOrder.TotalPaid, 1, 10, detailOrder.TBCustomer.PhoneNumber);
@@ -155,7 +155,7 @@ public class FinnetHanlder : IHttpHandler
                                 string stringItems = "ARRAY";
 
 
-                                string stringRecData = JsonConvert.SerializeObject(recData);
+                                string stringRecData = "ARRAY";
 
                                 string signature =
                                     (
@@ -207,7 +207,15 @@ public class FinnetHanlder : IHttpHandler
                                     var responseText = streamReader.ReadToEnd();
                                     Status resultData = JsonConvert.DeserializeObject<Status>(responseText);
 
-                                    result.Success(resultData.status_code + " - " + resultData.status_desc, jsonPost);
+                                    if (resultData.status_code == "00")
+                                    {
+                                        result.Success(resultData.status_code + " - " + resultData.status_desc, jsonPost);
+                                    }
+                                    else
+                                    {
+                                        result.Error(resultData.status_code + " - " + resultData.status_desc, jsonPost);
+                                    }
+
                                 }
                             }
                             break;
@@ -285,11 +293,11 @@ public class FinnetHanlder : IHttpHandler
         public int id_product { get; set; }
         public string name { get; set; }
         public string varian { get; set; }
-        public decimal price_per_unit { get; set; }
+        public int price_per_unit { get; set; }
         public int quantity { get; set; }
-        public decimal price { get; set; }
+        public int price { get; set; }
 
-        public Items(int _id_product, string _name, string _varian, decimal _price_per_unit, int _quantity, decimal _price)
+        public Items(int _id_product, string _name, string _varian, int _price_per_unit, int _quantity, int _price)
         {
             this.id_product = _id_product;
             this.name = _name;

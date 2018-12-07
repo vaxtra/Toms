@@ -2998,23 +2998,23 @@ public class Class_Order
                     return ReturnData.MessageFailed("Voucher is running out", null);
             }
 
-            if (Product.Count > 0 && Product != null)
-            {
-                List<TBProduct_Combination> CombinationProducts = new List<TBProduct_Combination>();
-                foreach (dynamic item in Product)
-                {
-                    int idCombination = item["IDCombination"];
-                    TBProduct_Combination CheckCom = db.TBProduct_Combinations.Where(x => !x.Deflag && x.IDProduct_Combination == idCombination).FirstOrDefault();
+            //if (Product.Count > 0 && Product != null)
+            //{
+            //    List<TBProduct_Combination> CombinationProducts = new List<TBProduct_Combination>();
+            //    foreach (dynamic item in Product)
+            //    {
+            //        int idCombination = item["IDCombination"];
+            //        TBProduct_Combination CheckCom = db.TBProduct_Combinations.Where(x => !x.Deflag && x.IDProduct_Combination == idCombination).FirstOrDefault();
 
-                    if (item["Quantity"] > CheckCom.Quantity || CheckCom.Quantity < 1)
-                    {
-                        AJAX_DeleteCart(idCombination);
-                        return ReturnData.MessageFailed("We're Sorry, one product in your shopping cart, " + CheckCom.TBProduct.Name + " (" + CheckCom.Name + ") is out of stock", null);
-                    }
+            //        if (item["Quantity"] > CheckCom.Quantity || CheckCom.Quantity < 1)
+            //        {
+            //            AJAX_DeleteCart(idCombination);
+            //            return ReturnData.MessageFailed("We're Sorry, one product in your shopping cart, " + CheckCom.TBProduct.Name + " (" + CheckCom.Name + ") is out of stock", null);
+            //        }
 
-                    //CombinationProducts.Add(db.TBProduct_Combinations.Where(x => !x.Deflag && x.IDProduct == idCombination).FirstOrDefault());
-                }
-            }
+            //        //CombinationProducts.Add(db.TBProduct_Combinations.Where(x => !x.Deflag && x.IDProduct == idCombination).FirstOrDefault());
+            //    }
+            //}
 
             TBOrder order = new TBOrder();
 
@@ -3022,7 +3022,7 @@ public class Class_Order
             order.DateLastUpdate = DateTime.Now;
             order.IDCustomer = user.IDCustomer;
             order.IDPaymentMethod = PaymentMethod["IDPaymentMethod"];
-            order.IDOrderStatus = 14;
+            order.IDOrderStatus = 1;
             order.IDShipping = Shipping["IDShipping"];
             order.IDDeliveryAddress = DeliveryAddress["IDAddress"];
             order.IDBillingAddress = BillingAddress["IDAddress"];

@@ -102,13 +102,18 @@ function Preload(take, currentPage) {
             if (result.d.data.TotalProduct) {
                 $(".totalproductnya").text(result.d.data.TotalProduct.data);
             }
+
+            var ExpiredNotification = result.d.data.ExpiredNotification;
+            if (ExpiredNotification) {
+                LoadNotification(ExpiredNotification);
+            }
         }
     };
     REST.sendRequest({
         'c': 'femaster',
         'm': 'preload',
         'data': {
-            'RequestData': ['ListProductPaging', 'CartSummary', 'Customer', 'Category', 'Value', 'Currency'],
+            'RequestData': ['ListProductPaging', 'CartSummary', 'Customer', 'Category', 'Value', 'Currency', 'ExpiredNotification'],
             'IDManufacturer': 0,
             '_param_take': 0,
             'IDCategory': +$("#HiddenIDCategory").val(),
@@ -116,8 +121,8 @@ function Preload(take, currentPage) {
             'IDValue': null,
             'PriceRange': null,
             '_page': currentPage,
-            'FilterCategory':false,
-			'IDParent':0
+            'FilterCategory': false,
+            'IDParent': 0
         }
     });
 }
@@ -195,6 +200,7 @@ function LoadCategoryProduct(Category) {
 }
 function LoadProduct(data) {
     var item = '';
+    var item2 = '';
     if (data.length > 0) {
         var _totalPage = data[0].TotalPage;
         var _currentPage = data[0].CurrentPage;
@@ -202,17 +208,16 @@ function LoadProduct(data) {
         var _endPage = data[0].EndPage;
 
         var paging = '';
-		if (_currentPage == _startPage)
-			paging += '<a href="#" class="right paging-number" data-page="' + parseInt(_currentPage + 1) + '"> Next <i class="fa fa-arrow-right"></i></a>';
-		else if(_currentPage == _endPage)
+        if (_currentPage == _startPage)
+            paging += '<a href="#" class="right paging-number" data-page="' + parseInt(_currentPage + 1) + '"> Next <i class="fa fa-arrow-right"></i></a>';
+        else if (_currentPage == _endPage)
             paging += '<a href="#" class="floatleft paging-number" data-page="' + parseInt(_currentPage - 1) + '"><i class="fa fa-arrow-left">  </i>Previous</a>';
-        else
-		{
+        else {
             paging += '<a href="#" class="floatleft paging-number" data-page="' + parseInt(_currentPage - 1) + '"><i class="fa fa-arrow-left">  </i>Previous</a>';
-			paging += '<a href="#" class="right paging-number" data-page="' + parseInt(_currentPage + 1) + '"> Next <i class="fa fa-arrow-right"></i></a>';
-		}
-        
-		
+            paging += '<a href="#" class="right paging-number" data-page="' + parseInt(_currentPage + 1) + '"> Next <i class="fa fa-arrow-right"></i></a>';
+        }
+
+
 
         //for (var i = _startPage; i <= _endPage; i++) {
         //    if (i == _currentPage)
@@ -220,7 +225,7 @@ function LoadProduct(data) {
         //    else
         //        paging += '<li><a class="paging-number" data-page="' + i + '" href="#">' + i + '</a></li>';
         //}
-        
+
 
         $(".paging-prod").html(paging);
 
@@ -299,22 +304,46 @@ function LoadProduct(data) {
             }
         });
         for (var i = 0; i < data.length; i++) {
-            item += '<div class="pricing--item">';
-            item += '<h3 class="pricing--title">' + data[i].Name + '</h3>';
-            item += '<div class="pricing--price format-money">' + data[i].Price + '</div>';
-            item += '<div class="description">' + data[i].Description + '</div>';
-            item += '<button class="pricing--action" data-idproduct="' + data[i].IDProduct + '" data-idcombination="' + data[i].IDCombination + '" data-qty="1" data-combinationname="' + data[i].CombinationName + '" data-price="' + data[i].CombinationPrice + '">Choose plan</button>';
-            item += '</div>';
-
+            if (data[i].Category.toLowerCase() == "software") {
+                item += '<div class="pricing--item">';
+                item += '<h3 class="pricing--title">' + data[i].Name + '</h3>';
+                item += '<div class="pricing--price format-money">' + data[i].Price + '</div>';
+                item += '<div class="description">' + data[i].Description + '</div>';
+                item += '<select class="ddlCombination' + data[i].IDProduct + '">'
+                for (var y = 0; y < data[i].Combination.length; y++) {
+                    item += '<option data-combinationname="' + data[i].Combination[y].Name + '" data-price="' + data[i].Combination[y].Price + '" value="' + data[i].Combination[y].IDProduct_Combination + '">' + data[i].Combination[y].Name.replace("Package : ", "") + '</option>'
+                }
+                item += '</select>'
+                item += '<button class="pricing--action" data-idproduct="' + data[i].IDProduct + '" data-qty="1">Choose plan</button>';
+                item += '</div>';
+            }
+            else if (data[i].Category.toLowerCase() == "add-ons") {
+                item2 += '<div class="pricing--item">';
+                item2 += '<div class="fancy-title title-dotted-border title-center">';
+                item2 += '<h3>' + data[i].Name + '</h3>';
+                item2 += '</div>';
+                item2 += '<div class="pricing--price format-money">' + data[i].Price + '</div>';
+                item2 += '<div class="description">' + data[i].Description + '</div>';
+                item2 += 'QTY : <input type="text" name="qty-add-on" class="qty-add-on" value="1" />';
+                item2 += '<button class="pricing--action--addon" data-idproduct="' + data[i].IDProduct + '" data-idcombination="' + data[i].IDCombination + '" data-combinationname="' + data[i].CombinationName + '" data-price="' + data[i].CombinationPrice + '">Buy</button>';
+                item2 += '</div>';
+            }
         }
     }
     else {
         item += '<h5 style="text-align:center;">No Product in this Category</h5>';
     }
+
     $("#ProductList").html(item);
 
+    $(".addon-product").html(item2);
+
     $(".pricing--action").click(function () {
-        AddToCart(+$(this).data("idproduct"), +$(this).data("idcombination"), +$(this).data("qty"), $(this).data("price"), $(this).data("combinationname"));
+        AddToCart(+$(this).data("idproduct"), +$(".ddlCombination" + $(this).data("idproduct") + " option:selected").val(), +$(this).data("qty"), $(".ddlCombination" + $(this).data("idproduct") + " option:selected").data("price"), $(".ddlCombination" + $(this).data("idproduct") + " option:selected").data("combinationname"));
+    });
+
+    $(".pricing--action--addon").click(function () {
+        AddToCart(+$(this).data("idproduct"), +$(this).data("idcombination"), +$(".qty-add-on").val(), $(this).data("price"), $(this).data("combinationname"));
     });
 
     console.log(format);
@@ -552,4 +581,42 @@ function AddToCart(idProduct, idCombination, qty, price, combinationName) {
             'OrderType': 'new'
         }
     });
+}
+function LoadNotification(data) {
+    var item = '';
+    var endDate;
+    var currentDate = new Date();
+    console.log(datediff(currentDate, endDate));
+    if (data.length > 0) {
+        for (var i = 0; i < data.length; i++) {
+            endDate = new Date(data[i].EndDateYear, data[i].EndDateMonth, data[i].EndDateDay, data[i].EndDateHour, data[i].EndDateMinute, data[i].EndDateSecond, data[i].EndDateMiliSecond);
+            item += '<div class="top-cart-items">';
+            item += '<div class="top-cart-item clearfix">';
+            item += '<div class="top-cart-item-desc">';
+            if (datediff(currentDate, endDate) <= 0) {
+                item += '<p>Your ' + data[i].ProductName + ' is expired</p>';
+            }
+            if (datediff(currentDate, endDate) <= 60) {
+                item += '<p>Your ' + data[i].ProductName + ' will expire in ' + datediff(currentDate, endDate) + ' day(s)</p>';
+            }
+            item += '</div>';
+            item += '</div>';
+            item += '</div>';
+        }
+    }
+    else {
+        item += '<div class="top-cart-items">';
+        item += '<p>You have no notification about your package</p>';
+        item += '</div>';
+    }
+
+    $(".notif-list").html(item);
+
+    $("#top-cart-trigger span").text(data.length);
+}
+
+function datediff(first, second) {
+    // Take the difference between the dates and divide by milliseconds per day.
+    // Round to nearest whole number to deal with DST.
+    return Math.round((second - first) / (1000 * 60 * 60 * 24));
 }

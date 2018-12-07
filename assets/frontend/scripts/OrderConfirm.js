@@ -143,6 +143,11 @@ function PreloadMaster() {
                 $("#DetailPayment").html(payment.AccountNumber + ' - a.n ' + payment.Owner);
             }
 
+            var ExpiredNotification = result.d.data.ExpiredNotification;
+            if (ExpiredNotification) {
+                LoadNotification(ExpiredNotification);
+            }
+
             $(".format-money").formatCurrency({
                 region: format
             })
@@ -196,7 +201,7 @@ function PreloadMaster() {
         'c': 'femaster',
         'm': 'preload',
         'data': {
-            'RequestData': ['CartSummary', 'Customer', 'Currency']
+            'RequestData': ['CartSummary', 'Customer', 'Currency', 'ExpiredNotification']
         }
     });
 }
@@ -509,4 +514,42 @@ function SubmitOrderMember(typeTrans, member, point) {
             });
         }
     });
+}
+function LoadNotification(data) {
+    var item = '';
+    var endDate;
+    var currentDate = new Date();
+    console.log(datediff(currentDate, endDate));
+    if (data.length > 0) {
+        for (var i = 0; i < data.length; i++) {
+            endDate = new Date(data[i].EndDateYear, data[i].EndDateMonth, data[i].EndDateDay, data[i].EndDateHour, data[i].EndDateMinute, data[i].EndDateSecond, data[i].EndDateMiliSecond);
+            item += '<div class="top-cart-items">';
+            item += '<div class="top-cart-item clearfix">';
+            item += '<div class="top-cart-item-desc">';
+            if (datediff(currentDate, endDate) <= 0) {
+                item += '<p>Your ' + data[i].ProductName + ' is expired</p>';
+            }
+            if (datediff(currentDate, endDate) <= 60) {
+                item += '<p>Your ' + data[i].ProductName + ' will expire in ' + datediff(currentDate, endDate) + ' day(s)</p>';
+            }
+            item += '</div>';
+            item += '</div>';
+            item += '</div>';
+        }
+    }
+    else {
+        item += '<div class="top-cart-items">';
+        item += '<p>You have no notification about your package</p>';
+        item += '</div>';
+    }
+
+    $(".notif-list").html(item);
+
+    $("#top-cart-trigger span").text(data.length);
+}
+
+function datediff(first, second) {
+    // Take the difference between the dates and divide by milliseconds per day.
+    // Round to nearest whole number to deal with DST.
+    return Math.round((second - first) / (1000 * 60 * 60 * 24));
 }

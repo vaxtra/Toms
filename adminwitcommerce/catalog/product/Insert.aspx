@@ -130,7 +130,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="row">
-                                            <div class="col-md-6 col-xs-6 col-sm-6">
+                                            <div class="col-md-6 col-xs-6 col-sm-6 hidden">
                                                 <div class="form-group">
                                                     <label class="control-label">Package Duration (Days)</label>
                                                     <input type="text" id="Weight" name="Weight" class="form-control int cmb input" maxlength="6" value="0" />
